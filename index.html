@@ -14,8 +14,19 @@
     <main class="main">
         <h1>Generador de Códigos QR</h1>
         
-        <input type="text" id="text" class="qr-text" placeholder="Escribe un link o texto">
-        <button onclick="generateQR()" class="button-gen">Generar QR</button>
+        <div class="container">
+            <div class="qr-select">
+                <label>
+                    <input type="radio" name="qr-type" value="standarQR" checked> QR estandar
+                </label>
+
+                <label>
+                    <input type="radio" name="qr-type" value="wifiQR"> QR red Wi-Fi
+                </label>
+            </div>
+
+            <button onclick="generateQR()" class="button-gen">Generar QR</button>
+        </div>
 
         <div class="qr-container">
             <div id="qrcode"></div>
@@ -50,8 +61,6 @@
                     </div>
                 </fieldset>
             </div>
-
-            <button onclick="configQR()" class="button-config">Aceptar</button>
         </div>
     </main>
 

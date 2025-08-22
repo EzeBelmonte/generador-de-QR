@@ -17,9 +17,11 @@
         <input type="text" id="text" class="qr-text" placeholder="Escribe un link o texto">
         <button onclick="generateQR()" class="button-gen">Generar QR</button>
 
-        <div id="qrcode"></div>
-        <button onclick="downloadQR()" class="button-download">Descargar QR</button>
-    
+        <div class="qr-container">
+            <div id="qrcode"></div>
+            <button onclick="downloadQR()" class="button-download">Descargar QR</button>
+        </div>
+
         <div class="config-container">
             <h2>Configuración</h2>
 

@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    background-color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 40px;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1, h2 {
+    color: rgb(58, 59, 59);
+    font-weight: 500;
+}
+h1 {
+    font-size: 2.2rem;
+}
+h2 {
+        font-size: 1.8rem;
+}
+
+#qrcode {
+    margin-top: 50px;
+}
+
+.qr-text {
+    width: 50%;
+    margin: 20px 0;
+    padding: 7px;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+.button-gen,
+.button-download,
+.button-config {
+    color: rgb(44, 44, 44);
+    background-color: aliceblue;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 4px 8px;
+}
+.button-gen:hover,
+.button-download:hover,
+.button-config:hover {
+    color: rgb(20, 20, 20);
+    background-color: rgb(190, 212, 233);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.button-download {
+    display: none;
+    margin-top: 10px;
+}
+
+.button-config {
+    width: 100px;
+    margin-top: 10px;
+}
+
+/* ======= CONFIGURACIÓN ======= */
+.config-container {
+    background-color: rgb(223, 233, 241);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    margin-top: 45px;
+    padding: 25px;
+}
+
+.config-content {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.config-dimensions,
+.config-colors {
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.dimensions,
+.colors {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.config-content legend {
+    font-size: 1.5rem;
+}
+
+/* ======= Dimensiones */
+#size {
+    width: 100px;
+    margin-top: 10px;
+    padding: 3px;
+}
+
+/* ======= Colores */
+.colors label {
+    display: flex;
+}
+
+.colors-text {
+    margin-right: 15px;
+}
+
+.colors-color {
+    margin-left: auto;
+}

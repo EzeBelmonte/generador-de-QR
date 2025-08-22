@@ -20,7 +20,8 @@ function generateQR() {
     qr = new QRCode(container, {
         text: text,
         width: 200,
-        height: 200
+        height: 200,
+        correctLevel: QRCode.CorrectLevel.H
     });
 
 
@@ -42,7 +43,7 @@ function configQR() {
         size = imgOrCanvas ? imgOrCanvas.width : 200;
     } else {
         size = Number(sizeValue)
-        if (!isFinite(size) || size <= 0) {
+        if (!isFinite(size) || size <= 130) {
             alert("Escribe un número válido y mayor que 0.")
             sizeInput.value = ""
             return
@@ -59,7 +60,8 @@ function configQR() {
         width: parseInt(size),
         height: parseInt(size),
         colorDark: colorDark,
-        colorLight: colorLight
+        colorLight: colorLight,
+        correctLevel: QRCode.CorrectLevel.H
     })
 }
 

@@ -156,18 +156,20 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
     const totalSize = size + margin * 2
 
     // canvas final
-    const canvas = document.createElement("canvas")
-    canvas.width = totalSize
+    const canvas = document.createElement("canvas") // crear el lienzo
+    // asignar medidas del lienzo
+    canvas.width = totalSize 
     canvas.height = totalSize
-    const ctx = canvas.getContext("2d")
+    const ctx = canvas.getContext("2d") // indicar el contexto del canvas, en este caso 2D
 
     // fondo blanco (quiet zone)
     ctx.fillStyle = "#ffffff"
-    ctx.fillRect(0, 0, totalSize, totalSize)
+    ctx.fillRect(0, 0, totalSize, totalSize) // dimensión del canvas, desde (0, 0) hasta (medida1, medida2)
 
     // canvas temporal para generar el QR sin margin
     const tempDiv = document.createElement("div")
-    const tempQR = new QRCode(tempDiv, {
+    // creación del qr
+    new QRCode(tempDiv, {
         text: text,
         width: size,
         height: size,
@@ -176,14 +178,14 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
         correctLevel: QRCode.CorrectLevel.H
     })
 
-    // tomar el canvas generado por la librería
-    const qrCanvas = tempDiv.querySelector("canvas")
-    ctx.drawImage(qrCanvas, margin, margin)
-    qrContainer.appendChild(canvas)
+    const qrCanvas = tempDiv.querySelector("canvas") // tomar el canvas generado por la librería
+    ctx.drawImage(qrCanvas, margin, margin) // dibujar el QR en el canvas con el margen
+    qrContainer.appendChild(canvas) // agregarlo al HTML
 
     // agregar logo
-    const logoFile = document.getElementById("logo-file").files[0] // obtenemos la imagen
+    const logoFile = document.getElementById("logo-file").files[0] // obtener la imagen
     if (logoFile) {
+        document.getElementById("clear-logo").style.visibility = "visible"
         const reader = new FileReader()
         reader.onload = function(e) {
             const logo = new Image()
@@ -192,7 +194,7 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
                 const logoSize = size * 0.2 // 20% del tamaño del QR
                 const x = (totalSize - logoSize) / 2
                 const y = (totalSize - logoSize) / 2
-                ctx.drawImage(logo, x, y, logoSize, logoSize)
+                ctx.drawImage(logo, x, y, logoSize, logoSize) // agregar sobre el QR ya generado (ctx) el logo
             }
         }
 
@@ -228,7 +230,7 @@ function configQR() {
     } else {
         size = Number(sizeValue)
         if (!isFinite(size) || size <= 130) {
-            alert("Escribe un número válido y mayor que 0.")
+            alert("Escribe un número válido y mayor que 130.")
             sizeInput.value = ""
             return
         }
@@ -269,9 +271,12 @@ document.getElementById("colorDark").addEventListener("input", updateQR)
 document.getElementById("colorLight").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)
 
+// borrar el logo
 document.getElementById("clear-logo").addEventListener("click", () => {
     const logoInput = document.getElementById("logo-file")
     logoInput.value = ""      // limpia la selección
     updateQR()                // regenera el QR sin logo
+
+     document.getElementById("clear-logo").style.visibility = "hidden" // oculat el boton
 })
 

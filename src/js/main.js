@@ -178,15 +178,25 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
 
     // tomar el canvas generado por la librería
     const qrCanvas = tempDiv.querySelector("canvas")
-    qrCanvas.onload = () => {
-        ctx.drawImage(qrCanvas, margin, margin)
-        qrContainer.appendChild(canvas)
-    }
+    ctx.drawImage(qrCanvas, margin, margin)
+    qrContainer.appendChild(canvas)
 
-    // si ya se generó, agregar inmediatamente (para la mayoría de navegadores)
-    if (qrCanvas) {
-        ctx.drawImage(qrCanvas, margin, margin)
-        qrContainer.appendChild(canvas)
+    // agregar logo
+    const logoFile = document.getElementById("logo-file").files[0] // obtenemos la imagen
+    if (logoFile) {
+        const reader = new FileReader()
+        reader.onload = function(e) {
+            const logo = new Image()
+            logo.src = e.target.result
+            logo.onload =  function() {
+                const logoSize = size * 0.2 // 20% del tamaño del QR
+                const x = (totalSize - logoSize) / 2
+                const y = (totalSize - logoSize) / 2
+                ctx.drawImage(logo, x, y, logoSize, logoSize)
+            }
+        }
+
+        reader.readAsDataURL(logoFile)
     }
 
     // guardar referencia para descarga
@@ -199,9 +209,11 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
 
 // CONFIGURACIÓN
 function configQR() {
+    // medida seleccionada por el usuario
     const sizeInput = document.getElementById("size") // input del tamaño
     const sizeValue = sizeInput.value.trim()
     
+    // colores seleccionados por el usuario
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
     
@@ -244,30 +256,22 @@ function downloadQR() {
 
 
 // ACTUALIZACION EN TIEMPO REAL
-
-// tamaño
-document.getElementById("size").addEventListener("input", () => {
+const updateQR = () => {
     const text = document.getElementById("qrcode").dataset.qrText
     const size = Number(document.getElementById("size").value) || 200
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
     createQR(text, size, colorDark, colorLight, 20)
+}
+
+document.getElementById("size").addEventListener("input", updateQR)
+document.getElementById("colorDark").addEventListener("input", updateQR)
+document.getElementById("colorLight").addEventListener("input", updateQR)
+document.getElementById("logo-file").addEventListener("change", updateQR)
+
+document.getElementById("clear-logo").addEventListener("click", () => {
+    const logoInput = document.getElementById("logo-file")
+    logoInput.value = ""      // limpia la selección
+    updateQR()                // regenera el QR sin logo
 })
 
-// color oscuro
-document.getElementById("colorDark").addEventListener("input", () => {
-    const text = document.getElementById("qrcode").dataset.qrText
-    const size = Number(document.getElementById("size").value) || 200
-    const colorDark = document.getElementById("colorDark").value
-    const colorLight = document.getElementById("colorLight").value
-    createQR(text, size, colorDark, colorLight, 20)
-})
-
-// color claro
-document.getElementById("colorLight").addEventListener("input", () => {
-    const text = document.getElementById("qrcode").dataset.qrText
-    const size = Number(document.getElementById("size").value) || 200
-    const colorDark = document.getElementById("colorDark").value
-    const colorLight = document.getElementById("colorLight").value
-    createQR(text, size, colorDark, colorLight, 20)
-})

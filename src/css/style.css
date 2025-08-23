@@ -139,7 +139,8 @@ h2 {
 }
 
 .config-dimensions,
-.config-colors {
+.config-colors,
+.config-logo {
     background-color: aliceblue;
     border: 1px solid black;
     border-radius: 4px;
@@ -147,7 +148,8 @@ h2 {
 }
 
 .dimensions,
-.colors {
+.colors,
+.logo-add {
     display: flex;
     gap: 5px;
 }
@@ -216,7 +218,6 @@ h2 {
     visibility: visible;
 }
 
-
 /* ======= Colores */
 .colors label {
     display: flex;
@@ -228,4 +229,57 @@ h2 {
 
 .colors-color {
     margin-left: auto;
+}
+
+/* ======= Agregar logo */
+.logo-add {
+    align-items: center;
+    flex-direction: column;
+    line-height: 1;
+    
+}
+
+#qr-logo {
+    margin-left: 5px;
+}
+
+.logo-upload {
+    display: none;
+}
+
+/* subir archivo personalizado  */
+.file-wrapper {
+    display: flex;
+    flex-direction: column; /* pone el span debajo */
+    align-items: center; /* opcional, alinea a la izquierda */
+    gap: 5px;
+}
+
+.custom-file-button,
+.custom-delete-button {
+    color: white;
+    padding: 2px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.custom-file-button {
+    background-color: rgb(0, 123, 255);
+    margin-top: 14px;
+}
+.custom-file-button:hover {
+    background-color: rgb(16, 101, 192);
+}
+
+.custom-delete-button {
+    background-color: rgb(211, 5, 5);
+}
+.custom-delete-button:hover {
+    background-color: rgb(168, 18, 18);
+}
+
+.custom-file-button input[type="file"] {
+    display: none; /* ocultamos el input original */
 }

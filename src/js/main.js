@@ -27,7 +27,9 @@ function showInputs() {
         input.classList.add("qr-text")
         input.placeholder = "Escribe un link o texto"
         div.appendChild(input)
-    } else {
+    } 
+
+    if (qrSelectValue === "wifiQR") {
         div.innerHTML = `
             <input type="text" id="ssid" class="qr-wifi" placeholder="SSID">
             <input type="text" id="wifiPass" class="qr-wifi" placeholder="Contraseña">
@@ -36,21 +38,30 @@ function showInputs() {
                 <legend class="mt-3">Tipo de seguridad</legend>
                 
                 <label>
-                    <input type="radio" name="security" value="WPA" checked>
-                    WPA/WPA2
+                    <input type="radio" name="security" value="WPA" checked> WPA/WPA2
                 </label>
                 
                 <label>
-                    <input type="radio" name="security" value="WEP">
-                    WEP
+                    <input type="radio" name="security" value="WEP"> WEP
                 </label>
                 
                 <label>
-                    <input type="radio" name="security" value="nopass">
-                    Sin contraseña
+                    <input type="radio" name="security" value="nopass"> Sin contraseña
                 </label>
             </fieldset>
         `
+    }
+
+    if (qrSelectValue === "vcardQR") {
+        div.innerHTML = `
+            <div class="qr-vcard">
+                <div class="qr-vcard-fullname">
+                    <input type="text" id="vcard-name" placeholder="Nombre">
+                    <input type="text" id="vcard-lastname" placeholder="Apellido">
+                </div>
+                <input type="text" id="vcard-phone" placeholder="Teléfono">
+            </div>
+            `
     }
 
     qrSelect.appendChild(div)
@@ -85,11 +96,17 @@ function generateQR() {
             alert("Escribe un texto o link primero.")
             return
         }
-    } else {
+    }
+
+    if (qrSelectValue === "wifiQR") {
         // obtener valores
         let ssid = document.getElementById("ssid").value.trim()
         let password = document.getElementById("wifiPass").value.trim()
         let security = document.querySelector('input[name="security"]:checked').value
+
+        const passInput = document.getElementById("wifiPass")
+        passInput.disabled = security === "nopass"
+        if(security === "nopass") passInput.value = ""
 
         if (ssid === "") {
             alert("Escribe el nombre de la red (SSID).")
@@ -105,6 +122,20 @@ function generateQR() {
             }
             content = `WIFI:T:${security};S:${ssid};P:${password};H:false;;`
         }
+    }
+
+    if (qrSelectValue === "vcardQR") {
+        const name = document.getElementById("vcard-name").value.trim()
+        const lastname = document.getElementById("vcard-lastname").value.trim()
+        const phone = document.getElementById("vcard-phone").value.trim()
+
+        content = 
+            "BEGIN:VCARD\n" +
+            "VERSION:3.0\n" +
+            "N:" + lastname + ";" + name + ";;;\n" +
+            "FN:" + name + " " + lastname + "\n" +
+            "TEL;TYPE=CELL:" + phone + "\n" +
+            "END:VCARD"
     }
     
     createQR(content)

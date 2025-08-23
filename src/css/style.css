@@ -76,11 +76,13 @@ h2 {
     margin-bottom: 2px;
 }
 
+/* ======= QR STANDAR */
 .qr-text {
     width: 100%;
-    padding: 7px;
+    padding: 5px;
     font-size: 1rem;
-    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 /* ======= QR WIFI */
@@ -90,6 +92,31 @@ h2 {
     box-sizing: border-box;
 }
 
+/* ======= QR VCARD */
+.qr-vcard {
+    display: flex;
+    flex-direction: column;
+}
+
+.qr-vcard input {
+    padding: 4px;
+}
+
+.qr-vcard-fullname {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+#vcard-name,
+#vcard-lastname {
+    width: 50%;
+}
+
+#vcard-phone {
+    width: 50%;
+}
 
 /* ======= CONFIGURACIÓN ======= */
 .config-container,

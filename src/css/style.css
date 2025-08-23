@@ -134,22 +134,34 @@ h2 {
 
 .config-content {
     display: flex;
+    justify-content: center;
     gap: 20px;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .config-dimensions,
 .config-colors,
-.config-logo {
+.config-logo,
+.config-module {
+    width: 30%;
     background-color: aliceblue;
     border: 1px solid black;
     border-radius: 4px;
     padding: 15px;
 }
 
+.config-dimensions,
+.config-module {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .dimensions,
 .colors,
-.logo-add {
+.logo-add,
+.modules {
     display: flex;
     gap: 5px;
 }
@@ -158,7 +170,8 @@ h2 {
     align-items: center;
 }
 
-.colors {
+.colors,
+.modules {
     flex-direction: column;
 }
 
@@ -219,15 +232,18 @@ h2 {
 }
 
 /* ======= Colores */
-.colors label {
+.colors label,
+.modules label {
     display: flex;
 }
 
-.colors-text {
+.colors-text,
+.module-text {
     margin-right: 15px;
 }
 
-.colors-color {
+.colors-color,
+.module-type {
     margin-left: auto;
 }
 

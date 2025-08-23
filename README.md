@@ -10,11 +10,13 @@
 - JavaScript
 - [Bootstrap](https://getbootstrap.com/)
 - [QRCode.js](https://github.com/davidshimjs/qrcodejs)
+- [QRCodeStyling](https://github.com/kozakdenys/qr-code-styling) 
 
 
 ## Acknowledgements
 - Gracias a [Bootstrap](https://getbootstrap.com/) por facilitar el diseño responsivo.
 - Gracias a [QRCode.js](https://github.com/davidshimjs/qrcodejs) por la generación de códigos QR.
+- [QRCodeStyling](https://github.com/kozakdenys/qr-code-styling) – Librería utilizada para la generación y personalización de códigos QR.
 
 
 ## Authors

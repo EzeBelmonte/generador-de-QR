@@ -146,66 +146,87 @@ function generateQR() {
 }
 
 
-// instancia global
-let qrCode
-
-// Crear QR
-function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff") {
+// Crear QR con margen
+let qr
+function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff", margin = 20) {
     const qrContainer = document.getElementById("qrcode")
     qrContainer.innerHTML = ""
 
-    // logo seleccionado (si existe)
-    const logoFile = document.getElementById("logo-file").files[0]
-    let logoSrc = null
+    // tamaño total del canvas incluyendo margen
+    const totalSize = size + margin * 2
 
-    if (logoFile) {
-        document.getElementById("clear-logo").style.visibility = "visible"
-        logoSrc = URL.createObjectURL(logoFile)
-    } else {
-        document.getElementById("clear-logo").style.visibility = "hidden"
-    }
+    // canvas final
+    const canvas = document.createElement("canvas") // crear el lienzo
+    // asignar medidas del lienzo
+    canvas.width = totalSize 
+    canvas.height = totalSize
+    const ctx = canvas.getContext("2d") // indicar el contexto del canvas, en este caso 2D
 
-    // crear instancia de QRCodeStyling
-    qrCode = new QRCodeStyling({
+    // fondo blanco (quiet zone)
+    ctx.fillStyle = "#ffffff"
+    ctx.fillRect(0, 0, totalSize, totalSize) // dimensión del canvas, desde (0, 0) hasta (medida1, medida2)
+
+    // canvas temporal para generar el QR sin margin
+    const tempDiv = document.createElement("div")
+    // creación del qr
+    new QRCode(tempDiv, {
+        text: text,
         width: size,
         height: size,
-        data: text,
-        margin: 10, // margen alrededor
-        dotsOptions: {
-            color: colorDark,
-            type: "square"
-        },
-        backgroundOptions: {
-            color: colorLight
-        },
-        image: logoSrc, // logo opcional
-        imageOptions: {
-            crossOrigin: "anonymous",
-            margin: 4,
-            imageSize: 0.25 // 20% del QR
-        }
+        colorDark: colorDark,
+        colorLight: colorLight,
+        correctLevel: QRCode.CorrectLevel.H
     })
 
-    qrCode.append(qrContainer)
+    const qrCanvas = tempDiv.querySelector("canvas") // tomar el canvas generado por la librería
+    ctx.drawImage(qrCanvas, margin, margin) // dibujar el QR en el canvas con el margen
+    qrContainer.appendChild(canvas) // agregarlo al HTML
 
-    // guardar texto para futuras actualizaciones
+    // agregar logo
+    const logoFile = document.getElementById("logo-file").files[0] // obtener la imagen
+    if (logoFile) {
+        document.getElementById("clear-logo").style.visibility = "visible"
+        const reader = new FileReader()
+        reader.onload = function(e) {
+            const logo = new Image()
+            logo.src = e.target.result
+            logo.onload =  function() {
+                const logoSize = size * 0.2 // 20% del tamaño del QR
+                const x = (totalSize - logoSize) / 2
+                const y = (totalSize - logoSize) / 2
+                ctx.drawImage(logo, x, y, logoSize, logoSize) // agregar sobre el QR ya generado (ctx) el logo
+            }
+        }
+
+        reader.readAsDataURL(logoFile)
+    }
+
+    // guardar referencia para descarga
+    qr = canvas
+
+    // guardar texto en dataset para futuras configuraciones
     qrContainer.dataset.qrText = text
 }
 
+
 // CONFIGURACIÓN
 function configQR() {
-    const sizeInput = document.getElementById("size")
+    // medida seleccionada por el usuario
+    const sizeInput = document.getElementById("size") // input del tamaño
     const sizeValue = sizeInput.value.trim()
+    
+    // colores seleccionados por el usuario
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
+    
+    // obtener el texto del QR actual
     const qrContainer = document.getElementById("qrcode")
-    const text = qrContainer.dataset.qrText || "Texto de prueba"
-    const dot = document.querySelector('input[name="module-type"]:checked').value
+    const text = qrContainer.dataset.qrText || document.getElementById("text").value
 
-    // cambio de tamaño
+    // definir tamaño
     let size
     if (sizeValue === "") {
-        size = 200
+        size = qr ? qr.width - 40 : 200 // 40 = 2 * margin por defecto
     } else {
         size = Number(sizeValue)
         if (!isFinite(size) || size <= 130) {
@@ -215,35 +236,26 @@ function configQR() {
         }
     }
 
-    // cambio de dot
-    let dots, bigDots
-    if (dot === "square") {
-        dots = "square"
-        bigDots = "square"
-    } else {
-        dots = "dots"
-        bigDots = "extra-rounded"
-    }
-
-    qrCode.update({
-        data: text,
-        width: size,
-        height: size,
-        dotsOptions: { color: colorDark, type: dots },
-        cornersSquareOptions: { color: colorDark, type: bigDots }, // redondea los cuadrados grandes
-        cornersDotOptions: { color: colorDark, type: dots }, // el puntito central del patrón de esquina
-        backgroundOptions: { color: colorLight },
-    })
+    // generar QR con el mismo texto y nuevo tamaño / colores
+    createQR(text, size, colorDark, colorLight, 20)
 }
+
 
 // DESCARGAR QR
 function downloadQR() {
-    if (!qrCode) {
+    if (!qr) {
         alert("Primero genera un QR.")
         return
     }
-    qrCode.download({ name: "qr", extension: "png" })
+
+    const url = qr.toDataURL("image/png")
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "qr.png"
+    a.click()
 }
+
 
 // ACTUALIZACION EN TIEMPO REAL
 const updateQR = () => {
@@ -251,32 +263,7 @@ const updateQR = () => {
     const size = Number(document.getElementById("size").value) || 200
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
-    const dot = document.querySelector('input[name="module-type"]:checked').value
-
-    const logoFile = document.getElementById("logo-file").files[0]
-    let logoSrc = null
-    if (logoFile) logoSrc = URL.createObjectURL(logoFile)
-
-    // cambio de dot
-    let dots, bigDots
-    if (dot === "square") {
-        dots = "square"
-        bigDots = "square"
-    } else {
-        dots = "dots"
-        bigDots = "extra-rounded"
-    }
-
-    qrCode.update({
-        data: text,
-        width: size,
-        height: size,
-        dotsOptions: { color: colorDark, type: dots },
-        cornersSquareOptions: { color: colorDark, type: bigDots },
-        cornersDotOptions: { color: colorDark, type: dots },
-        backgroundOptions: { color: colorLight },
-        image: logoSrc,
-    })
+    createQR(text, size, colorDark, colorLight, 20)
 }
 
 document.getElementById("size").addEventListener("input", updateQR)
@@ -284,16 +271,12 @@ document.getElementById("colorDark").addEventListener("input", updateQR)
 document.getElementById("colorLight").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)
 
-// borrar logo
+// borrar el logo
 document.getElementById("clear-logo").addEventListener("click", () => {
     const logoInput = document.getElementById("logo-file")
-    logoInput.value = ""      
-    updateQR()                
-    document.getElementById("clear-logo").style.visibility = "hidden"
-})
+    logoInput.value = ""      // limpia la selección
+    updateQR()                // regenera el QR sin logo
 
-// actualizacion de los dots
-document.querySelectorAll('input[name="module-type"]').forEach(radio => {
-    radio.addEventListener("change", updateQR)
+     document.getElementById("clear-logo").style.visibility = "hidden" // oculat el boton
 })
 

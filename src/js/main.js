@@ -4,7 +4,7 @@ let logoSrc = null // logo
 let size = 200 // tamaño por defecto del QR
 
 let qrContentBackgroundColor = "#759ecc"
-let qrContentTextColor
+let qrContentTextColor = "#000000"
 
 // Mostrar inputs al cambiar el tipo de QR
 document.querySelectorAll('input[name="qr-type"]').forEach(radio => {
@@ -149,44 +149,83 @@ function generateQR() {
 
         <input type="text" id="qr-text" placeholder="Texto (Opcional)">
 
-        
-            <button id="button-download" class="button-download">Descargar QR</button>
-            <button id="button-print" class="button-print">Imprimir QR</button>
-        
+        <button id="button-download" class="button-download">Descargar QR</button>
+        <button id="button-print" class="button-print">Imprimir QR</button>
     `
     // botón de descarga
     const downloadButton = document.getElementById("button-download")
-        downloadButton.addEventListener("click", downloadQR)
+    downloadButton.addEventListener("click", downloadQR)
 
     // botón de impresión
-    const printButton = document.getElementById("button-print");
-    printButton.addEventListener("click", () => {
-        const printWindow = window.open('', '', 'width=400,height=400');
-const doc = printWindow.document;
-doc.head.innerHTML = `
-    <title>Imprimir QR</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+    const printButton = document.getElementById("button-print")
+    printButton.addEventListener("click", printQR)
+    // IMPRIMIR QR
+    function printQR() {
+        if (!qrCode) {
+            alert("Primero genera un QR.");
+            return;
         }
-        .qr-content {
-            border: none;
-            margin: 0;
-            padding: 0;
-        }
-        img { display: block; }
-    </style>
-`;
-doc.body.appendChild(document.querySelector(".qr-content").cloneNode(true));
-printWindow.focus();
-printWindow.print();
-printWindow.close();
 
-    });
+        const text = document.getElementById("qr-text").value
+        if (text !== "") {
+            // Crear imagen a partir del QR
+            qrCode.getRawData("png").then(blob => {
+                const img = new Image()
+                img.onload = () => {
+                    // Crear canvas
+                    const canvas = document.createElement("canvas")
+                    const margin = 26
+                    canvas.width = img.width + margin
+                    canvas.height = img.height + 70
+                    const ctx = canvas.getContext("2d")
+
+                    // fondo
+                    ctx.fillStyle = qrContentBackgroundColor
+                    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+                    // QR
+                    ctx.drawImage(img, margin/2, margin/2)
+
+                    // texto
+                    ctx.font = "20px Arial"
+                    ctx.fillStyle = qrContentTextColor
+                    ctx.textAlign = "center"
+                    ctx.fillText(text, canvas.width / 2, img.height + 47)
+
+                    // abrir nueva pestaña y mandar a imprimir
+                    const dataUrl = canvas.toDataURL("image/png")
+                    const printWindow = window.open("", "_blank")
+                    printWindow.document.write(`
+                        <html>
+                            <head><title>Imprimir QR</title></head>
+                            <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;">
+                                <img src="${dataUrl}" onload="window.print();window.close()" />
+                            </body>
+                        </html>
+                    `)
+                    printWindow.document.close()
+                }
+                img.src = URL.createObjectURL(blob)
+            })
+        } else {
+            // caso sin texto, más simple
+            qrCode.getRawData("png").then(blob => {
+                const url = URL.createObjectURL(blob)
+                const printWindow = window.open("", "_blank")
+                printWindow.document.write(`
+                    <html>
+                        <head><title>Imprimir QR</title></head>
+                        <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;">
+                            <img src="${url}" onload="window.print();window.close()" />
+                        </body>
+                    </html>
+                `)
+                printWindow.document.close()
+            })
+        }
+    }
+
+
 
     // Crear p para mostrar el texto en tiempo real
     const qrContent = document.querySelector(".qr-content")

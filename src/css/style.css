@@ -162,6 +162,7 @@ h2 {
 #qr-text {
     width: 240px;
     padding: 4px;
+    margin-top: 25px;
     margin-bottom: 30px;
 }
 
@@ -200,6 +201,7 @@ h2 {
     top: 10px;
     left: 10px;
     padding: 4px 8px;
+    z-index: 999;
 }
 .fullscreen-close:hover {
     background-color: rgb(180, 18, 18);

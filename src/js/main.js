@@ -211,6 +211,8 @@ function configQR() {
     const qrContainer = document.getElementById("qrcode")
     const text = qrContainer.dataset.qrText || "Texto de prueba"
     const dot = document.querySelector('input[name="module-type"]:checked').value
+    const pattern = document.querySelector('input[name="pattern-type"]:checked').value
+    const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
 
     // cambio de tamaño
     let size = 200
@@ -224,14 +226,11 @@ function configQR() {
     }
 
     // cambio de dot
-    let dots, bigDots
-    if (dot === "square") {
-        dots = "square"
-        bigDots = "square"
-    } else {
-        dots = "dots"
-        bigDots = "extra-rounded"
-    }
+    let dots, patterns, dotPatterns
+
+    dots = (dot === "square") ? "square" : "dots"
+    patterns = (pattern === "square") ? "square" : "extra-rounded"
+    dotPatterns = (dotPattern === "square") ? "square" : "dots"
 
     const logoFile = document.getElementById("logo-file").files[0]
     let logoSrc = null
@@ -242,8 +241,8 @@ function configQR() {
         width: size,
         height: size,
         dotsOptions: { color: colorDark, type: dots },
-        cornersSquareOptions: { color: colorDark, type: bigDots }, // redondea los cuadrados grandes
-        cornersDotOptions: { color: colorDark, type: dots }, // el puntito central del patrón de esquina
+        cornersSquareOptions: { color: colorDark, type: patterns }, // redondea los cuadrados grandes
+        cornersDotOptions: { color: colorDark, type: dotPatterns }, // el puntito central del patrón de esquina
         backgroundOptions: { color: colorLight },
         image: logoSrc,
     })
@@ -268,16 +267,14 @@ const updateQR = () => {
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
     const dot = document.querySelector('input[name="module-type"]:checked').value
+    const pattern = document.querySelector('input[name="pattern-type"]:checked').value
+    const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
 
     // cambio de dot
-    let dots, bigDots
-    if (dot === "square") {
-        dots = "square"
-        bigDots = "square"
-    } else {
-        dots = "dots"
-        bigDots = "extra-rounded"
-    }
+    let dots, patterns, dotPatterns
+    dots = (dot === "square") ? "square" : "dots"
+    patterns = (pattern === "square") ? "square" : "extra-rounded"
+    dotPatterns = (dotPattern === "square") ? "square" : "dots"
 
     const logoFile = document.getElementById("logo-file").files[0]
     let logoSrc = null
@@ -288,8 +285,8 @@ const updateQR = () => {
         width: size,
         height: size,
         dotsOptions: { color: colorDark, type: dots },
-        cornersSquareOptions: { color: colorDark, type: bigDots },
-        cornersDotOptions: { color: colorDark, type: dots },
+        cornersSquareOptions: { color: colorDark, type: patterns },
+        cornersDotOptions: { color: colorDark, type: dotPatterns },
         backgroundOptions: { color: colorLight },
         image: logoSrc
     })
@@ -311,8 +308,18 @@ document.getElementById("clear-logo").addEventListener("click", () => {
     document.getElementById("clear-logo").style.visibility = "hidden"
 })
 
-// actualizacion de los dots
+// actualización de los dots
 document.querySelectorAll('input[name="module-type"]').forEach(radio => {
+    radio.addEventListener("change", updateQR)
+})
+
+// actualización de los patterns
+document.querySelectorAll('input[name="pattern-type"]').forEach(radio => {
+    radio.addEventListener("change", updateQR)
+})
+
+// actualización de los dots internos de los patterns
+document.querySelectorAll('input[name="dot-pattern-type"]').forEach(radio => {
     radio.addEventListener("change", updateQR)
 })
 

@@ -121,7 +121,10 @@ h2 {
 /* ======= QR */
 #qrcode {
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: 
+        opacity 0.5s ease-in-out, /* para mostrar/ocultar */
+        transform 0.3s ease,      /* para hover */
+        filter 0.3s ease;         /* para hover */
 }
 
 #qrcode.visible {
@@ -131,8 +134,8 @@ h2 {
 #qrcode:hover {
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
     transform: scale(1.05);
-    transition: transform 0.3s, filter 0.3s;
 }
+
 
 
 /* ======= CONFIGURACIÓN ======= */
@@ -152,7 +155,7 @@ h2 {
 .config-content {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     margin-top: 10px;
     flex-wrap: wrap;
 }
@@ -165,7 +168,7 @@ h2 {
     background-color: aliceblue;
     border: 1px solid black;
     border-radius: 4px;
-    padding: 15px;
+    padding: 10px 5px;
 }
 
 .config-dimensions,
@@ -193,7 +196,7 @@ h2 {
 }
 
 .config-content legend {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 /* ======= Dimensiones */

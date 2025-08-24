@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", showInputs)
 
 // muestra los inputs cuando se selecciona un tipo de QR
 function showInputs() {
-    const qrSelect = document.querySelector(".qr-select")
+    const qrSelect = document.querySelector(".qr-type-content")
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
 
     // limpiar inputs previos si ya existen

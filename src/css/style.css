@@ -22,6 +22,7 @@ h1, h2 {
 
 h1 {
     font-size: 2.2rem;
+    text-align: center;
 }
 
 h2 {
@@ -56,10 +57,10 @@ h2 {
 
 
 /* ======= INTRODUCCIÓN DE INPUT ======= */
-.container {
+.qr-type-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 45%;
     background-color: rgb(223, 233, 241);
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
@@ -67,11 +68,11 @@ h2 {
     padding: 25px;
 }
 
-.qr-select {
+.qr-type-content {
     margin: 20px 0 10px 0;
 }
 
-.qr-select label {
+.qr-type-content label {
     margin-right: 15px;
     margin-bottom: 2px;
 }
@@ -110,12 +111,13 @@ h2 {
 }
 
 #vcard-name,
-#vcard-lastname {
+#vcard-lastname,
+#vcard-phone {
     width: 50%;
 }
 
 #vcard-phone {
-    width: 50%;
+    width: 100%;
 }
 
 /* ======= SOCIAL QR */
@@ -164,70 +166,71 @@ h2 {
 /* ======= CONFIGURACIÓN ======= */
 .config-container,
 .qr-container {
-    width: 50%;
+    width: 45%;
     background-color: rgb(223, 233, 241);
     display: none;
     flex-direction: column;
     align-items: center;
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
+    padding: 30px 15px;
     margin-top: 45px;
-}
-
-.config-container{
-    padding: 25px;
-}
-
-.qr-container {
-    padding: 35px 25px;
 }
 
 .config-content {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 50px;
     margin-top: 10px;
-    flex-wrap: wrap;
 }
 
-.config-dimensions,
-.config-colors,
-.config-logo,
-.config-module {
-    width: 30%;
-    background-color: aliceblue;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 10px 5px;
-}
-
-.config-dimensions,
-.config-module {
+.config-group-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.dimensions,
-.colors,
-.logo-add,
-.modules {
+.config-group-container h3 {
+    font-size: 1.4rem;
+    color: rgb(98, 163, 238);
+}
+
+.config-group-content {
+    width: 100%;
     display: flex;
-    gap: 5px;
+    justify-content: center;
+    gap: 20px;
 }
 
-.dimensions {
-    align-items: center;
-}
-
-.colors,
-.modules {
+.config-custom-container {
+    display: flex;
     flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 10px;
 }
 
-.config-content legend {
+.config-custom-container legend {
     font-size: 1.1rem;
+    font-weight: 500;
 }
+
+.config-custom-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.config-custom-content label {
+    width: 100%;
+    display: flex;
+}
+.config-custom-text {
+    margin-right: auto;
+}
+
 
 /* ======= Dimensiones */
 #size {
@@ -281,30 +284,7 @@ h2 {
     visibility: visible;
 }
 
-/* ======= Colores */
-.colors label,
-.modules label {
-    display: flex;
-}
-
-.colors-text,
-.module-text {
-    margin-right: 15px;
-}
-
-.colors-color,
-.module-type {
-    margin-left: auto;
-}
-
 /* ======= Agregar logo */
-.logo-add {
-    align-items: center;
-    flex-direction: column;
-    line-height: 1;
-    
-}
-
 #qr-logo {
     margin-left: 5px;
 }
@@ -318,6 +298,7 @@ h2 {
     display: flex;
     flex-direction: column; /* pone el span debajo */
     align-items: center; /* opcional, alinea a la izquierda */
+    margin-top: 21px;
     gap: 5px;
 }
 

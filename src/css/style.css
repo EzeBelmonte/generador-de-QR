@@ -158,7 +158,7 @@ h2 {
 #qrcode:hover,
 .qr-content:hover {
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 #qr-text {
@@ -202,18 +202,19 @@ h2 {
 }
 
 .fullscreen-close {
-    background-color: rgb(204, 49, 49);
+    background-color: transparent;
+    border: none;
+    font-size: 1.7rem;
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 5px;
+    font-weight: 500;
     position: absolute;
     top: 10px;
     left: 10px;
-    padding: 4px 8px;
+    line-height: .5;
     z-index: 999;
 }
 .fullscreen-close:hover {
-    background-color: rgb(180, 18, 18);
+    color: rgb(190, 212, 233);
 }
 
 
@@ -279,9 +280,9 @@ h2 {
     padding: 10px;
 }
 
-.config-custom-container legend {
-    font-size: 1.1rem;
-    font-weight: 500;
+.config-custom-disabled {
+    opacity: 0.5;
+    transition: opacity 0.5s;
 }
 
 .config-custom-content {
@@ -290,12 +291,25 @@ h2 {
     flex-direction: column;
 }
 
+.config-custom-container legend {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 .config-custom-content label {
     width: 100%;
     display: flex;
 }
 .config-custom-text {
     margin-right: auto;
+}
+
+.config-custom-content input {
+    cursor: pointer;
+}
+
+.config-custom-content input:disabled {
+    cursor: default;
 }
 
 

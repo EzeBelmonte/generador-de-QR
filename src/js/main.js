@@ -533,9 +533,17 @@ function animateQR() {
 
 // actualizar el contenedor de QR + texto
 function updateQrContentStyle(hasText = false) {
+    // div que contiene el QR
     const qrContent = document.querySelector(".qr-content")
     if (!qrContent) return
 
+    // div que modifica los colores del fondo y texto
+    const configDisable = document.querySelector(".config-custom-disabled")
+    // inputs de los colores de fondo y texto
+    const colorBackgroundInput = document.getElementById("colorBackground")
+    const colorTextInput = document.getElementById("colorText");
+
+    // si hay texto, se actualiza los estilos
     if (hasText) {
         qrContent.style.backgroundColor = qrContentBackgroundColor
         qrContent.style.display = "flex"
@@ -544,10 +552,19 @@ function updateQrContentStyle(hasText = false) {
         qrContent.style.height = (size + 70) + "px"
         qrContent.style.padding = "13px 13px 0 13px"
 
+        configDisable.style.opacity = "1"
+        colorBackgroundInput.disabled = false
+        colorTextInput.disabled = false
+
         // aplicar color de texto al <p>
         const p = qrContent.querySelector("p")
         if (p) { p.style.color = qrContentTextColor }
     } else {
+        // sino, se resetea
+        configDisable.style.opacity = ".5"
+        colorBackgroundInput.disabled = true
+        colorTextInput.disabled = true
+
         qrContent.style.backgroundColor = "transparent"
         qrContent.style.width = size + "px"
         qrContent.style.height = size + "px"

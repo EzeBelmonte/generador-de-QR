@@ -39,7 +39,7 @@
 
         <div id="fullscreen-container" class="fullscreen-container">
             <!-- Cerrar el fullscreen-container -->
-            <button id="fullscreen-close" class="fullscreen-close">Cerrar</button>
+            <button id="fullscreen-close" class="fullscreen-close" title="Cerrar ventana">&times;</button>
 
             <!-- Contenedor donde se va a crear el QR -->
             <div class="qr-container"></div>
@@ -99,11 +99,11 @@
                                 </div>
                             </fieldset>
 
-                            <fieldset class="config-custom-container">
+                            <fieldset class="config-custom-container config-custom-disabled">
                                 <legend>Color fondo y texto</legend>
                                 <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Fondo:</span> <span><input type="color" id="colorBackground" value="#759ecc"></span></label>
-                                    <label><span class="config-custom-text">Texto:</span> <span><input type="color" id="colorText" value="#000000"></span></label>
+                                    <label><span class="config-custom-text">Fondo:</span> <span><input type="color" id="colorBackground" value="#759ecc" disabled></span></label>
+                                    <label><span class="config-custom-text">Texto:</span> <span><input type="color" id="colorText" value="#000000" disabled></span></label>
                                 </div>
                             </fieldset>
                         </div>

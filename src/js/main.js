@@ -342,60 +342,6 @@ document.getElementById("fullscreen-close").addEventListener("click", () => {
     qrContainer.innerHTML = ""
 })
 
-// CONFIGURACIÓN
-function configQR() {
-    const sizeInput = document.getElementById("size")
-    const sizeValue = sizeInput.value.trim()
-    const colorDark = document.getElementById("colorDark").value
-    const colorLight = document.getElementById("colorLight").value
-    const colorBackground = document.getElementById("colorBackground").value
-    const colorText = document.getElementById("colorText").value
-    const qrContent = document.getElementById("qrcode")
-    const text = qrContent.dataset.qrText || "Texto de prueba"
-    const dot = document.querySelector('input[name="module-type"]:checked').value
-    const pattern = document.querySelector('input[name="pattern-type"]:checked').value
-    const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
-
-    // cambio de tamaño
-    if (sizeValue) {
-        size = Number(sizeValue)
-        if (!isFinite(size) || size <= 130) {
-            alert("Escribe un número válido y mayor que 130.")
-            sizeInput.value = ""
-            return
-        }
-    }
-
-    // cambio de dot
-    let dots, patterns, dotPatterns
-
-    dots = (dot === "square") ? "square" : "dots"
-    patterns = (pattern === "square") ? "square" : "extra-rounded"
-    dotPatterns = (dotPattern === "square") ? "square" : "dots"
-
-    const logoFile = document.getElementById("logo-file").files[0]
-    logoSrc = null
-    if (logoFile) logoSrc = URL.createObjectURL(logoFile)
-
-    qrCode.update({
-        data: text,
-        width: size,
-        height: size,
-        dotsOptions: { color: colorDark, type: dots },
-        cornersSquareOptions: { color: colorDark, type: patterns }, // redondea los cuadrados grandes
-        cornersDotOptions: { color: colorDark, type: dotPatterns }, // el puntito central del patrón de esquina
-        backgroundOptions: { color: colorLight },
-        image: logoSrc,
-    })
-
-    // actializar el estilo del contenedor del QR + texto
-    qrContentBackgroundColor = colorBackground
-    qrContentTextColor = colorText
-    updateQrContentStyle(!!document.querySelector(".qr-content p"))
-
-    // animación de transición
-    animateQR()
-}
 
 // DESCARGAR QR
 function downloadPrint(event) {
@@ -422,7 +368,7 @@ function downloadPrint(event) {
 
                 // cambiar color de fondo
                 ctx.fillStyle = qrContentBackgroundColor // el color del canvas
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
 
                 // dibujar QR
                 ctx.drawImage(img, margin/2, margin/2)
@@ -484,6 +430,8 @@ function downloadPrint(event) {
 const updateQR = () => {
     const text = document.getElementById("qrcode").dataset.qrText
     size = Number(document.getElementById("size").value) || 200
+    //const sizeInput = document.getElementById("size")
+
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
     const colorBackground = document.getElementById("colorBackground").value
@@ -491,6 +439,28 @@ const updateQR = () => {
     const dot = document.querySelector('input[name="module-type"]:checked').value
     const pattern = document.querySelector('input[name="pattern-type"]:checked').value
     const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
+
+
+    // cambio de tamaño
+    let typingTimer;
+    const typingDelay = 700; // milisegundos después de dejar de tipear
+
+    // saber cuando el usuario esta escribiendo o no
+    /*sizeInput.addEventListener("input", () => {
+        // reinicio del timer cada vez que hay un input
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(() => {
+            size = Number(sizeInput.value) || 200
+
+            if (!isFinite(size) || size < 130) {
+                alert("Escribe un número válido y mayor o igual que 130.")
+                sizeInput.value = ""
+                return
+            }
+
+            updateQR()
+        }, typingDelay)
+    })*/
 
     // cambio de dot
     let dots, patterns, dotPatterns

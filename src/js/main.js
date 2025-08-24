@@ -329,6 +329,9 @@ document.getElementById("fullscreen-close").addEventListener("click", () => {
     document.getElementById("colorLight").value = "#ffffff"
     document.getElementById("colorDark").value = "#000000"
 
+    document.getElementById("patternColorExt").value = "#000000"
+    document.getElementById("patternColorInt").value = "#000000"
+
     document.getElementById("colorBackground").value = "#759ecc"
     document.getElementById("colorText").value = "#000000"
 
@@ -434,33 +437,13 @@ const updateQR = () => {
 
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
+    const colorPatternExt = document.getElementById("patternColorExt").value
+    const colorPatternInt = document.getElementById("patternColorInt").value
     const colorBackground = document.getElementById("colorBackground").value
     const colorText = document.getElementById("colorText").value
     const dot = document.querySelector('input[name="module-type"]:checked').value
     const pattern = document.querySelector('input[name="pattern-type"]:checked').value
     const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
-
-
-    // cambio de tamaño
-    let typingTimer;
-    const typingDelay = 700; // milisegundos después de dejar de tipear
-
-    // saber cuando el usuario esta escribiendo o no
-    /*sizeInput.addEventListener("input", () => {
-        // reinicio del timer cada vez que hay un input
-        clearTimeout(typingTimer)
-        typingTimer = setTimeout(() => {
-            size = Number(sizeInput.value) || 200
-
-            if (!isFinite(size) || size < 130) {
-                alert("Escribe un número válido y mayor o igual que 130.")
-                sizeInput.value = ""
-                return
-            }
-
-            updateQR()
-        }, typingDelay)
-    })*/
 
     // cambio de dot
     let dots, patterns, dotPatterns
@@ -477,8 +460,8 @@ const updateQR = () => {
         width: size,
         height: size,
         dotsOptions: { color: colorDark, type: dots },
-        cornersSquareOptions: { color: colorDark, type: patterns },
-        cornersDotOptions: { color: colorDark, type: dotPatterns },
+        cornersSquareOptions: { color: colorPatternExt, type: patterns },
+        cornersDotOptions: { color: colorPatternInt, type: dotPatterns },
         backgroundOptions: { color: colorLight },
         image: logoSrc
     })
@@ -495,6 +478,8 @@ const updateQR = () => {
 document.getElementById("size").addEventListener("input", updateQR)
 document.getElementById("colorDark").addEventListener("input", updateQR)
 document.getElementById("colorLight").addEventListener("input", updateQR)
+document.getElementById("patternColorExt").addEventListener("input", updateQR)
+document.getElementById("patternColorInt").addEventListener("input", updateQR)
 document.getElementById("colorBackground").addEventListener("input", updateQR)
 document.getElementById("colorText").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)

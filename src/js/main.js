@@ -1,3 +1,9 @@
+// VARIABLES GLOBALES
+let qrCode // instancia global
+let size = 200 // tamaño por defecto del QR
+
+let qrContentBackgroundColor, qrContentTextColor
+
 // Mostrar inputs al cambiar el tipo de QR
 document.querySelectorAll('input[name="qr-type"]').forEach(radio => {
     radio.addEventListener("change", showInputs)
@@ -90,9 +96,46 @@ function generateQR() {
     // creacion del div que va a contener el QR junto al botón para descargar
     const qrContainer = document.querySelector(".qr-container")
     qrContainer.innerHTML = `
-        <div id="qrcode"></div>
+        <div class="qr-content">
+            <div id="qrcode"></div>
+        </div>
+
+        <input type="text" id="qr-text" placeholder="Texto (Opcional)">
+
         <button onclick="downloadQR()" class="button-download">Descargar QR</button>
     `
+
+
+    // Crear p para mostrar el texto en tiempo real
+    const qrContent = document.querySelector(".qr-content")
+    const qrTextInput = document.getElementById("qr-text")
+
+    let qrParagraph = null
+
+    qrTextInput.addEventListener("input", () => {
+        const text = qrTextInput.value.trim()
+
+        if (text === "") {
+            // eliminar <p> si existe
+            if (qrParagraph) {
+                qrParagraph.remove()
+                qrParagraph = null
+                // actializar el estilo del contenedor del QR + texto
+                updateQrContentStyle(false)
+            }
+        } else {
+            // crear etiqueta <p> si es que no existe y hay texto
+            if(!qrParagraph) {
+                qrParagraph = document.createElement("p")
+                qrContent.appendChild(qrParagraph)
+            }
+
+            // actualizar contenido del <p>
+            qrParagraph.textContent = text;
+            // actializar el estilo del contenedor del QR + texto
+            updateQrContentStyle(true)
+        }
+    })
 
     let content
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
@@ -152,10 +195,6 @@ function generateQR() {
     document.querySelector(".config-container").style.display = "flex"
 }
 
-
-// instancia global
-let qrCode
-
 // Crear QR
 function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff") {
     const qrContainer = document.getElementById("qrcode")
@@ -208,14 +247,15 @@ function configQR() {
     const sizeValue = sizeInput.value.trim()
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
-    const qrContainer = document.getElementById("qrcode")
-    const text = qrContainer.dataset.qrText || "Texto de prueba"
+    const colorBackground = document.getElementById("colorBackground").value
+    const colorText = document.getElementById("colorText").value
+    const qrContent = document.getElementById("qrcode")
+    const text = qrContent.dataset.qrText || "Texto de prueba"
     const dot = document.querySelector('input[name="module-type"]:checked').value
     const pattern = document.querySelector('input[name="pattern-type"]:checked').value
     const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
 
     // cambio de tamaño
-    let size = 200
     if (sizeValue) {
         size = Number(sizeValue)
         if (!isFinite(size) || size <= 130) {
@@ -247,6 +287,11 @@ function configQR() {
         image: logoSrc,
     })
 
+    // actializar el estilo del contenedor del QR + texto
+    qrContentBackgroundColor = colorBackground
+    qrContentTextColor = colorText
+    updateQrContentStyle(!!document.querySelector(".qr-content p"))
+
     // animación de transición
     animateQR()
 }
@@ -254,18 +299,59 @@ function configQR() {
 // DESCARGAR QR
 function downloadQR() {
     if (!qrCode) {
-        alert("Primero genera un QR.")
-        return
+        alert("Primero genera un QR.");
+        return;
     }
-    qrCode.download({ name: "qr", extension: "png" })
+
+    const text = document.getElementById("qr-text").value
+    if (text !== "") {
+        // Crear imagen a partir del QR
+        qrCode.getRawData("png").then(blob => {
+            const img = new Image()
+            img.onload = () => {
+                // Crear canvas
+                const canvas = document.createElement("canvas")
+                const margin = 26
+                canvas.width = img.width + margin
+                canvas.height = img.height + 70 // espacio para el texto
+                const ctx = canvas.getContext("2d")
+
+                // cambiar color de fondo
+                ctx.fillStyle = qrContentBackgroundColor // el color del canvas
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // dibujar QR
+                ctx.drawImage(img, margin/2, margin/2)
+
+                // dibujar texto debajo
+                ctx.font = "20px Arial"
+                ctx.fillStyle = qrContentTextColor
+                ctx.textAlign = "center"
+                ctx.fillText(text, canvas.width / 2, img.height + 47)
+
+                // descargar
+                const link = document.createElement("a")
+                link.download = "qr-con-text.png"
+                link.href = canvas.toDataURL("image/png")
+                link.click()
+            }
+            img.src = URL.createObjectURL(blob)
+        })
+    } else {
+        qrCode.download({ name: "qr", extension: "png" })
+    }
+
 }
+
 
 // ACTUALIZACION EN TIEMPO REAL
 const updateQR = () => {
     const text = document.getElementById("qrcode").dataset.qrText
-    const size = Number(document.getElementById("size").value) || 200
+    size = Number(document.getElementById("size").value) || 200
     const colorDark = document.getElementById("colorDark").value
     const colorLight = document.getElementById("colorLight").value
+    const colorBackground = document.getElementById("colorBackground").value
+    const colorText = document.getElementById("colorText").value
     const dot = document.querySelector('input[name="module-type"]:checked').value
     const pattern = document.querySelector('input[name="pattern-type"]:checked').value
     const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
@@ -291,6 +377,11 @@ const updateQR = () => {
         image: logoSrc
     })
 
+    // actualización del fondo + texto
+    qrContentBackgroundColor = colorBackground
+    qrContentTextColor = colorText
+    updateQrContentStyle(!!document.querySelector(".qr-content p"))
+
     // animación de transición
     animateQR()
 }
@@ -298,6 +389,8 @@ const updateQR = () => {
 document.getElementById("size").addEventListener("input", updateQR)
 document.getElementById("colorDark").addEventListener("input", updateQR)
 document.getElementById("colorLight").addEventListener("input", updateQR)
+document.getElementById("colorBackground").addEventListener("input", updateQR)
+document.getElementById("colorText").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)
 
 // borrar logo
@@ -324,9 +417,34 @@ document.querySelectorAll('input[name="dot-pattern-type"]').forEach(radio => {
 })
 
 
+// =================== FUNCIONES =====================
 // animación de transición
 function animateQR() {
     setTimeout(() => {
         document.getElementById("qrcode").style.opacity = 1
     }, 50); // 50ms
+}
+
+// actualizar el contenedor de QR + texto
+function updateQrContentStyle(hasText = false) {
+    const qrContent = document.querySelector(".qr-content")
+    if (!qrContent) return
+
+    if (hasText) {
+        qrContent.style.backgroundColor = qrContentBackgroundColor
+        qrContent.style.display = "flex"
+        qrContent.style.flexDirection = "column"
+        qrContent.style.width = (size + 26) + "px"
+        qrContent.style.height = (size + 70) + "px"
+        qrContent.style.padding = "13px 13px 0 13px"
+
+        // aplicar color de texto al <p>
+        const p = qrContent.querySelector("p")
+        if (p) { p.style.color = qrContentTextColor }
+    } else {
+        qrContent.style.backgroundColor = "transparent"
+        qrContent.style.width = size + "px"
+        qrContent.style.height = size + "px"
+        qrContent.style.padding = "0"
+    }
 }

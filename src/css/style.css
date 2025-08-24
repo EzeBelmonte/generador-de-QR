@@ -119,23 +119,41 @@ h2 {
 }
 
 /* ======= QR */
-#qrcode {
-    opacity: 0;
+.qr-content p {
+    font-size: 20px;
+    font-family: Arial;
+    text-align: center;
+    margin-top: 7px;
+}
+
+#qrcode,
+.qr-content {
     transition: 
         opacity 0.5s ease-in-out, /* para mostrar/ocultar */
         transform 0.3s ease,      /* para hover */
         filter 0.3s ease;         /* para hover */
 }
 
+#qrcode {
+    opacity: 0;
+}
+
 #qrcode.visible {
     opacity: 1;
 }
 
-#qrcode:hover {
+#qrcode:hover,
+.qr-content:hover {
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
     transform: scale(1.05);
 }
 
+#qr-text {
+    width: 240px;
+    padding: 4px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
 
 
 /* ======= CONFIGURACIÓN ======= */
@@ -149,7 +167,14 @@ h2 {
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     margin-top: 45px;
+}
+
+.config-container{
     padding: 25px;
+}
+
+.qr-container {
+    padding: 35px 25px;
 }
 
 .config-content {
@@ -196,7 +221,7 @@ h2 {
 }
 
 .config-content legend {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 /* ======= Dimensiones */

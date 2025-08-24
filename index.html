@@ -41,7 +41,7 @@
             <h2>Configuración</h2>
 
             <div class="config-content">
-                <!-- Dimensiones -->
+                                <!-- Dimensiones -->
                 <fieldset class="config-dimensions">
                     <legend>Tamaño</legend>
                     <div class="dimensions">
@@ -58,26 +58,21 @@
 
                 <!-- Colores -->
                 <fieldset class="config-colors">
-                    <legend>Colores</legend>
+                    <legend>Colore QR</legend>
                     <div class="colors">
                         <label><span class="colors-text">Fondo:</span> <span class="colors-color"><input type="color" id="colorLight" value="#ffffff"></span></label>
                         <label><span class="colors-text">Módulos:</span> <span class="colors-color"><input type="color" id="colorDark" value="#000000"></span></label>
                     </div>
                 </fieldset>
 
-                <!-- Logo de QR -->
-                <fieldset class="config-logo">
-                    <legend>Logo QR</legend>
-                    <div class="file-wrapper">
-                        <label class="custom-file-button">
-                            Seleccionar logo
-                            <input type="file" id="logo-file" accept="image/*">
-                        </label>
-
-                        <button type="button" id="clear-logo" class="custom-delete-button">Borrar</button>
+                <fieldset class="config-colors">
+                    <legend>Color fondo y texto</legend>
+                    <div class="colors">
+                        <label><span class="colors-text">Fondo:</span> <span class="colors-color"><input type="color" id="colorBackground" value="#759ecc"></span></label>
+                        <label><span class="colors-text">Texto:</span> <span class="colors-color"><input type="color" id="colorText" value="#000000"></span></label>
                     </div>
                 </fieldset>
-
+                
                 <!-- Estilo de los módulos -->
                 <fieldset class="config-module">
                     <legend>Módulo</legend>
@@ -102,6 +97,19 @@
                     <div class="modules">
                         <label><span class="module-text">Cuadrado:</span> <span class="module-type"><input type="radio" name="dot-pattern-type" value="square" checked></span></label>
                         <label><span class="module-text">Circular:</span> <span class="module-type"><input type="radio" name="dot-pattern-type" value="circle"></span></label>
+                    </div>
+                </fieldset>
+
+                <!-- Logo de QR -->
+                <fieldset class="config-logo">
+                    <legend>Logo QR</legend>
+                    <div class="file-wrapper">
+                        <label class="custom-file-button">
+                            Seleccionar logo
+                            <input type="file" id="logo-file" accept="image/*">
+                        </label>
+
+                        <button type="button" id="clear-logo" class="custom-delete-button">Borrar</button>
                     </div>
                 </fieldset>
             </div>

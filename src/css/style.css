@@ -120,10 +120,13 @@ h2 {
 
 /* ======= QR */
 #qrcode {
-
+    opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
 
+#qrcode.visible {
+    opacity: 1;
+}
 
 #qrcode:hover {
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));

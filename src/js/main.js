@@ -87,6 +87,13 @@ function showInputs() {
 
 // GENERADOR DE QR
 function generateQR() {
+    // creacion del div que va a contener el QR junto al botón para descargar
+    const qrContainer = document.querySelector(".qr-container")
+    qrContainer.innerHTML = `
+        <div id="qrcode"></div>
+        <button onclick="downloadQR()" class="button-download">Descargar QR</button>
+    `
+
     let content
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
 
@@ -312,11 +319,7 @@ document.querySelectorAll('input[name="module-type"]').forEach(radio => {
 
 // animación de transición
 function animateQR() {
-    const qrContainer = document.getElementById("qrcode")
-
-    // rsperar un tick del event loop antes de agregar la clase
     setTimeout(() => {
-        //qrContainer.classList.add("visible");
-        qrContainer.style.opacity = 1
-    }, 1000); // 50ms
+        document.getElementById("qrcode").style.opacity = 1
+    }, 50); // 50ms
 }

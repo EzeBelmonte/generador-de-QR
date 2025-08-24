@@ -190,6 +190,9 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
 
     // guardar texto para futuras actualizaciones
     qrContainer.dataset.qrText = text
+
+    // animación de transición
+    animateQR()
 }
 
 // CONFIGURACIÓN
@@ -203,10 +206,8 @@ function configQR() {
     const dot = document.querySelector('input[name="module-type"]:checked').value
 
     // cambio de tamaño
-    let size
-    if (sizeValue === "") {
-        size = 200
-    } else {
+    let size = 200
+    if (sizeValue) {
         size = Number(sizeValue)
         if (!isFinite(size) || size <= 130) {
             alert("Escribe un número válido y mayor que 130.")
@@ -225,6 +226,10 @@ function configQR() {
         bigDots = "extra-rounded"
     }
 
+    const logoFile = document.getElementById("logo-file").files[0]
+    let logoSrc = null
+    if (logoFile) logoSrc = URL.createObjectURL(logoFile)
+
     qrCode.update({
         data: text,
         width: size,
@@ -233,7 +238,11 @@ function configQR() {
         cornersSquareOptions: { color: colorDark, type: bigDots }, // redondea los cuadrados grandes
         cornersDotOptions: { color: colorDark, type: dots }, // el puntito central del patrón de esquina
         backgroundOptions: { color: colorLight },
+        image: logoSrc,
     })
+
+    // animación de transición
+    animateQR()
 }
 
 // DESCARGAR QR
@@ -253,10 +262,6 @@ const updateQR = () => {
     const colorLight = document.getElementById("colorLight").value
     const dot = document.querySelector('input[name="module-type"]:checked').value
 
-    const logoFile = document.getElementById("logo-file").files[0]
-    let logoSrc = null
-    if (logoFile) logoSrc = URL.createObjectURL(logoFile)
-
     // cambio de dot
     let dots, bigDots
     if (dot === "square") {
@@ -267,6 +272,10 @@ const updateQR = () => {
         bigDots = "extra-rounded"
     }
 
+    const logoFile = document.getElementById("logo-file").files[0]
+    let logoSrc = null
+    if (logoFile) logoSrc = URL.createObjectURL(logoFile)
+
     qrCode.update({
         data: text,
         width: size,
@@ -275,8 +284,11 @@ const updateQR = () => {
         cornersSquareOptions: { color: colorDark, type: bigDots },
         cornersDotOptions: { color: colorDark, type: dots },
         backgroundOptions: { color: colorLight },
-        image: logoSrc,
+        image: logoSrc
     })
+
+    // animación de transición
+    animateQR()
 }
 
 document.getElementById("size").addEventListener("input", updateQR)
@@ -297,3 +309,14 @@ document.querySelectorAll('input[name="module-type"]').forEach(radio => {
     radio.addEventListener("change", updateQR)
 })
 
+
+// animación de transición
+function animateQR() {
+    const qrContainer = document.getElementById("qrcode")
+
+    // rsperar un tick del event loop antes de agregar la clase
+    setTimeout(() => {
+        //qrContainer.classList.add("visible");
+        qrContainer.style.opacity = 1
+    }, 1000); // 50ms
+}

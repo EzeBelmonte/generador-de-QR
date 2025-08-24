@@ -34,106 +34,111 @@
                 </label>
             </div>
 
-            <button onclick="generateQR()" class="button-gen">Generar QR</button>
+            <button id="button-gen" class="button-gen">Generar QR</button>
         </div>
 
-        <!-- Contenedor donde se va a crear el QR -->
-        <div class="qr-container"></div>
+        <div id="fullscreen-container" class="fullscreen-container">
+            <!-- Cerrar el fullscreen-container -->
+            <button id="fullscreen-close" class="fullscreen-close">Cerrar</button>
 
-        <div class="config-container">
-            <h2>Configuración</h2>
+            <!-- Contenedor donde se va a crear el QR -->
+            <div class="qr-container"></div>
 
-            <div class="config-content">
-                <!-- ------- GRUPO: Otros ------- -->
-                <div class="config-group-container">
-                    <h3>General</h3>
+            <div class="config-container">
+                <h2>Configuración</h2>
 
-                    <div class="config-group-content">
-                        <!-- Dimensiones -->
-                        <fieldset class="config-custom-container">
-                            <legend>Tamaño</legend>
-                            <div class="config-custom-content mt-4">
-                                <div class="d-flex align-items-center">
-                                    <input type="text" id="size" placeholder="Actual: 200">
-                                    
-                                    <!-- Icono de ayuda -->
-                                    <span class="tooltip-wrapper ms-2">?
-                                        <span class="tooltiptext">
-                                            Para imprimir legible, se recomienda 400-600 px.
+                <div class="config-content">
+                    <!-- ------- GRUPO: Otros ------- -->
+                    <div class="config-group-container">
+                        <h3>General</h3>
+
+                        <div class="config-group-content">
+                            <!-- Dimensiones -->
+                            <fieldset class="config-custom-container">
+                                <legend>Tamaño</legend>
+                                <div class="config-custom-content mt-4">
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" id="size" placeholder="Actual: 200">
+                                        
+                                        <!-- Icono de ayuda -->
+                                        <span class="tooltip-wrapper ms-2">?
+                                            <span class="tooltiptext">
+                                                Para imprimir legible, se recomienda 400-600 px.
+                                            </span>
                                         </span>
-                                    </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
+                            </fieldset>
 
-                        <!-- Logo de QR -->
-                        <fieldset class="config-custom-container">
-                            <legend>Logo QR</legend>
-                            <div class="file-wrapper">
-                                <label class="custom-file-button">
-                                    Seleccionar logo
-                                    <input type="file" id="logo-file" accept="image/*">
-                                </label>
+                            <!-- Logo de QR -->
+                            <fieldset class="config-custom-container">
+                                <legend>Logo QR</legend>
+                                <div class="file-wrapper">
+                                    <label class="custom-file-button">
+                                        Seleccionar logo
+                                        <input type="file" id="logo-file" accept="image/*">
+                                    </label>
 
-                                <button type="button" id="clear-logo" class="custom-delete-button">Borrar</button>
-                            </div>
-                        </fieldset>
+                                    <button type="button" id="clear-logo" class="custom-delete-button">Borrar</button>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
-                </div>
 
-                <!-- ------- GRUPO: Colores ------- -->
-                <div class="config-group-container">
-                    <h3>Colores</h3>
-                    <div class="config-group-content">
-                        <!-- Colores -->
-                        <fieldset class="config-custom-container">
-                            <legend>Colore QR</legend>
-                            <div class="config-custom-content">
-                                <label><span class="config-custom-text">Fondo:</span> <span class="ms-4"><input type="color" id="colorLight" value="#ffffff"></span></label>
-                                <label><span class="config-custom-text">Módulos:</span> <span class="ms-4"><input type="color" id="colorDark" value="#000000"></span></label>
-                            </div>
-                        </fieldset>
+                    <!-- ------- GRUPO: Colores ------- -->
+                    <div class="config-group-container">
+                        <h3>Colores</h3>
+                        <div class="config-group-content">
+                            <!-- Colores -->
+                            <fieldset class="config-custom-container">
+                                <legend>Colore QR</legend>
+                                <div class="config-custom-content">
+                                    <label><span class="config-custom-text">Fondo:</span> <span class="ms-4"><input type="color" id="colorLight" value="#ffffff"></span></label>
+                                    <label><span class="config-custom-text">Módulos:</span> <span class="ms-4"><input type="color" id="colorDark" value="#000000"></span></label>
+                                </div>
+                            </fieldset>
 
-                        <fieldset class="config-custom-container">
-                            <legend>Color fondo y texto</legend>
-                            <div class="config-custom-content">
-                                <label><span class="config-custom-text">Fondo:</span> <span><input type="color" id="colorBackground" value="#759ecc"></span></label>
-                                <label><span class="config-custom-text">Texto:</span> <span><input type="color" id="colorText" value="#000000"></span></label>
-                            </div>
-                        </fieldset>
+                            <fieldset class="config-custom-container">
+                                <legend>Color fondo y texto</legend>
+                                <div class="config-custom-content">
+                                    <label><span class="config-custom-text">Fondo:</span> <span><input type="color" id="colorBackground" value="#759ecc"></span></label>
+                                    <label><span class="config-custom-text">Texto:</span> <span><input type="color" id="colorText" value="#000000"></span></label>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- ------- GRUPO: Módulos y Esquinas ------- -->
-                <div class="config-group-container">
-                    <h3>Módulos y Esquinas</h3>
-                    <div class="config-group-content">
-                        <!-- Estilo de los módulos -->
-                        <fieldset class="config-custom-container">
-                            <legend>Módulos</legend>
-                            <div class="config-custom-content">
-                                <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="module-type" value="square" checked></span></label>
-                                <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="module-type" value="circle"></span></label>
-                            </div>
-                        </fieldset>
+                    
+                    <!-- ------- GRUPO: Módulos y Esquinas ------- -->
+                    <div class="config-group-container">
+                        <h3>Módulos y Esquinas</h3>
+                        <div class="config-group-content">
+                            <!-- Estilo de los módulos -->
+                            <fieldset class="config-custom-container">
+                                <legend>Módulos</legend>
+                                <div class="config-custom-content">
+                                    <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="module-type" value="square" checked></span></label>
+                                    <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="module-type" value="circle"></span></label>
+                                </div>
+                            </fieldset>
 
-                        <!-- Estilo de los patrones de posición -->
-                        <fieldset class="config-custom-container">
-                            <legend>Esquinas</legend>
-                            <div class="config-custom-content">
-                                <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="square" checked></span></label>
-                                <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="circle"></span></label>
-                            </div>
-                        </fieldset>
+                            <!-- Estilo de los patrones de posición -->
+                            <fieldset class="config-custom-container">
+                                <legend>Esquinas</legend>
+                                <div class="config-custom-content">
+                                    <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="square" checked></span></label>
+                                    <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="circle"></span></label>
+                                </div>
+                            </fieldset>
 
-                        <!-- Estilo de los patrones de posición -->
-                        <fieldset class="config-custom-container">
-                            <legend>Mód. de Esquinas</legend>
-                            <div class="config-custom-content">
-                                <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="square" checked></span></label>
-                                <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="circle"></span></label>
-                            </div>
-                        </fieldset>
+                            <!-- Estilo de los patrones de posición -->
+                            <fieldset class="config-custom-container">
+                                <legend>Mód. de Esquinas</legend>
+                                <div class="config-custom-content">
+                                    <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="square" checked></span></label>
+                                    <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="circle"></span></label>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>

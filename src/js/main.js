@@ -137,9 +137,12 @@ function showInputs() {
     }
 }
 
-
+document.getElementById("button-gen").addEventListener("click", generateQR)
 // GENERADOR DE QR
 function generateQR() {
+    // mostramos el contenedor general del QR y configuración
+    document.getElementById("fullscreen-container").classList.add("active");
+
     // creacion del div que va a contener el QR junto al botón para descargar
     const qrContainer = document.querySelector(".qr-container")
     qrContainer.innerHTML = `
@@ -149,9 +152,10 @@ function generateQR() {
 
         <input type="text" id="qr-text" placeholder="Texto (Opcional)">
 
-        <button onclick="downloadQR()" class="button-download">Descargar QR</button>
+        <button id="button-download" class="button-download">Descargar QR</button>
     `
-
+    const downloadButton = document.getElementById("button-download")
+        downloadButton.addEventListener("click", downloadQR)
 
     // Crear p para mostrar el texto en tiempo real
     const qrContent = document.querySelector(".qr-content")
@@ -268,6 +272,12 @@ function generateQR() {
     document.querySelector(".button-download").style.display = "block"
     document.querySelector(".config-container").style.display = "flex"
 }
+
+// Botón que cierra el contenedor general del QR y configuración
+document.getElementById("fullscreen-close").addEventListener("click", () => {
+    document.getElementById("fullscreen-container").classList.remove("active");
+});
+
 
 // Crear QR
 function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff") {

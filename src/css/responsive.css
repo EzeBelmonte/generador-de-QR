@@ -15,12 +15,12 @@
         padding: 7px;
     }
 
-    .qr-select {
+    .qr-type-content {
         margin: 0 0 10px 0;
     }
 
     .config-container,
-    .qr-container {
+    .qr-type-container {
         width: 70%;
         padding: 7px;
     }
@@ -47,12 +47,12 @@
         padding: 7px;
     }
 
-    .qr-select {
+    .qr-type-content {
         margin: 0 0 10px 0;
     }
 
     .config-container,
-    .qr-container {
+    .qr-type-container {
         width: 100%;
         padding: 7px;
     }

@@ -163,18 +163,69 @@ h2 {
 }
 
 
-/* ======= CONFIGURACIÓN ======= */
-.config-container,
-.qr-container {
-    width: 45%;
-    background-color: rgb(223, 233, 241);
-    display: none;
-    flex-direction: column;
+/* ======= CONTENEDOR GENERAL DE QR Y CONFIGURACIÓN ======= */
+.fullscreen-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    gap: 20px;
+
+    /* transición */
+    opacity: 0;
+    pointer-events: none;       /* no permite clic cuando está invisible */
+    transition: opacity 0.3s ease;
+}
+
+/* clase que activa la visibilidad */
+.fullscreen-container.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fullscreen-close {
+    background-color: rgb(255, 16, 16);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 8px;
+}
+.fullscreen-close:hover {
+    background-color: rgb(184, 13, 13); 
+}
+
+
+/* ======= CONFIGURACIÓN ======= */
+.qr-container,
+.config-container {
+    width: 90%;
+    background-color: rgb(223, 233, 241);
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 30px 15px;
-    margin-top: 45px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-container {
+    margin: auto;
+}
+
+.config-container {
+    margin-left: auto;
+    /*justify-self: end;      /* pegado a la derecha */
+    max-height: 100vh;       /* que no se pase de la pantalla */
+    overflow-y: auto;       /* scroll vertical */
+    overflow-x: hidden;     
 }
 
 .config-content {

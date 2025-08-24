@@ -140,9 +140,6 @@ function showInputs() {
 document.getElementById("button-gen").addEventListener("click", generateQR)
 // GENERADOR DE QR
 function generateQR() {
-    // mostramos el contenedor general del QR y configuración
-    document.getElementById("fullscreen-container").classList.add("active");
-
     // creacion del div que va a contener el QR junto al botón para descargar
     const qrContainer = document.querySelector(".qr-container")
     qrContainer.innerHTML = `
@@ -152,10 +149,44 @@ function generateQR() {
 
         <input type="text" id="qr-text" placeholder="Texto (Opcional)">
 
-        <button id="button-download" class="button-download">Descargar QR</button>
+        
+            <button id="button-download" class="button-download">Descargar QR</button>
+            <button id="button-print" class="button-print">Imprimir QR</button>
+        
     `
+    // botón de descarga
     const downloadButton = document.getElementById("button-download")
         downloadButton.addEventListener("click", downloadQR)
+
+    // botón de impresión
+    const printButton = document.getElementById("button-print");
+    printButton.addEventListener("click", () => {
+        const printWindow = window.open('', '', 'width=400,height=400');
+const doc = printWindow.document;
+doc.head.innerHTML = `
+    <title>Imprimir QR</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .qr-content {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+        img { display: block; }
+    </style>
+`;
+doc.body.appendChild(document.querySelector(".qr-content").cloneNode(true));
+printWindow.focus();
+printWindow.print();
+printWindow.close();
+
+    });
 
     // Crear p para mostrar el texto en tiempo real
     const qrContent = document.querySelector(".qr-content")
@@ -273,32 +304,11 @@ function generateQR() {
     document.querySelector(".config-container").style.display = "flex"
 }
 
-// Botón que cierra el contenedor general del QR y configuración
-document.getElementById("fullscreen-close").addEventListener("click", () => {
-    document.getElementById("fullscreen-container").classList.remove("active")
-
-    // Resetear inputs/selects
-    document.getElementById("size").value = ""
-
-    document.getElementById("colorLight").value = "#ffffff"
-    document.getElementById("colorDark").value = "#000000"
-
-    document.getElementById("colorBackground").value = "#759ecc"
-    document.getElementById("colorText").value = "#000000"
-
-    document.querySelector('input[name="module-type"][value="square"]').checked = true
-    document.querySelector('input[name="pattern-type"][value="square"]').checked = true
-    document.querySelector('input[name="dot-pattern-type"][value="square"]').checked = true
-
-
-    // Limpiar el contenedor del QR
-    const qrContainer = document.querySelector(".qr-container")
-    qrContainer.innerHTML = ""
-})
-
-
 // Crear QR
 function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff") {
+    // mostramos el contenedor general del QR y configuración
+    document.getElementById("fullscreen-container").classList.add("active");
+
     const qrContainer = document.getElementById("qrcode")
     qrContainer.innerHTML = ""
 
@@ -341,6 +351,29 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
     // animación de transición
     animateQR()
 }
+
+// Botón que cierra el contenedor general del QR y configuración
+document.getElementById("fullscreen-close").addEventListener("click", () => {
+    document.getElementById("fullscreen-container").classList.remove("active")
+
+    // Resetear inputs/selects
+    document.getElementById("size").value = ""
+
+    document.getElementById("colorLight").value = "#ffffff"
+    document.getElementById("colorDark").value = "#000000"
+
+    document.getElementById("colorBackground").value = "#759ecc"
+    document.getElementById("colorText").value = "#000000"
+
+    document.querySelector('input[name="module-type"][value="square"]').checked = true
+    document.querySelector('input[name="pattern-type"][value="square"]').checked = true
+    document.querySelector('input[name="dot-pattern-type"][value="square"]').checked = true
+
+
+    // Limpiar el contenedor del QR
+    const qrContainer = document.querySelector(".qr-container")
+    qrContainer.innerHTML = ""
+})
 
 // CONFIGURACIÓN
 function configQR() {

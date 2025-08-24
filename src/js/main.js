@@ -2,7 +2,8 @@
 let qrCode // instancia global
 let size = 200 // tamaño por defecto del QR
 
-let qrContentBackgroundColor, qrContentTextColor
+let qrContentBackgroundColor = "#759ecc"
+let qrContentTextColor
 
 // Mostrar inputs al cambiar el tipo de QR
 document.querySelectorAll('input[name="qr-type"]').forEach(radio => {
@@ -27,12 +28,9 @@ function showInputs() {
     div.classList.add("qr-extra")
 
     if (qrSelectValue === "standarQR") {
-        const input = document.createElement("input")
-        input.type = "text"
-        input.id = "text-standar"
-        input.classList.add("qr-text")
-        input.placeholder = "Escribe un link o texto"
-        div.appendChild(input)
+        div.innerHTML = `
+            <input type="text" id="text-standar" class="qr-text" placeholder="Escribe un link o texto">
+        `
     } 
 
     if (qrSelectValue === "wifiQR") {
@@ -68,6 +66,54 @@ function showInputs() {
                 <input type="text" id="vcard-phone" placeholder="Teléfono">
             </div>
             `
+    }
+
+    if (qrSelectValue === "socialQR") {
+        div.innerHTML = `
+            <div class="social-qr">
+                <div class="social-opt-content">
+                    <label for="social-select">Generar QR para:</label>
+                    <select id="social-select">
+                        <option value="" selected disabled>Elegir</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="whatsapp">WhatsApp</option>
+                    </select>
+                </div>
+                        
+                <input type="text" id="social-input" class="qr-text" disabled>
+            </div>
+        `
+
+        // detectar cambio en el selector
+        const socialSelect = div.querySelector("#social-select")
+        const socialInput = div.querySelector("#social-input")
+
+        socialSelect.addEventListener("change", () => {
+            socialInput.disabled = false
+            socialInput.value = ""
+            if (socialSelect.value === "whatsapp") {
+                socialInput.placeholder = "Escribe tu número (con código de país sin el)"
+            } else {
+                socialInput.placeholder = "Escribe tu usuario"
+            }
+        })
+
+        socialInput.addEventListener("input", () => {
+            if (socialSelect.value === "whatsapp") {
+                // Validar que empiece con + y tenga solo números después
+                const regex = /^\+\d+$/
+                if (!regex.test(socialInput.value)) {
+                    socialInput.setCustomValidity("Ingresa un número válido con código de país, por ejemplo +54901123456789")
+                } else {
+                    socialInput.setCustomValidity("")
+                }
+            } else {
+                socialInput.setCustomValidity("");// limpiar validación para otras redes
+            }
+        })
+
     }
 
     qrSelect.appendChild(div)
@@ -186,6 +232,21 @@ function generateQR() {
             "FN:" + name + " " + lastname + "\n" +
             "TEL;TYPE=CELL:" + phone + "\n" +
             "END:VCARD"
+    }
+
+    if (qrSelectValue === "socialQR") {
+        const socialSelect = document.getElementById("social-select");
+        const selectedValue = socialSelect.value;
+
+        const input = document.getElementById("social-input").value.trim()
+
+        let option
+        if (selectedValue === "whatsapp") option = "https://wa.me/"
+        if (selectedValue === "linkedin") option = "https://www.linkedin.com/in/"
+        if (selectedValue === "instagram") option = "https://www.instagram.com/"
+        if (selectedValue === "facebook") option = "https://www.facebook.com/"
+
+        content = option+input
     }
     
     createQR(content)

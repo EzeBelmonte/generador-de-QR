@@ -118,6 +118,11 @@ h2 {
     width: 50%;
 }
 
+/* ======= SOCIAL QR */
+.social-opt-content {
+    margin: 4px 0;
+}
+
 /* ======= QR */
 .qr-content p {
     font-size: 20px;

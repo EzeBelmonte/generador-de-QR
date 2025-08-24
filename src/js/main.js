@@ -275,8 +275,26 @@ function generateQR() {
 
 // Botón que cierra el contenedor general del QR y configuración
 document.getElementById("fullscreen-close").addEventListener("click", () => {
-    document.getElementById("fullscreen-container").classList.remove("active");
-});
+    document.getElementById("fullscreen-container").classList.remove("active")
+
+    // Resetear inputs/selects
+    document.getElementById("size").value = ""
+
+    document.getElementById("colorLight").value = "#ffffff"
+    document.getElementById("colorDark").value = "#000000"
+
+    document.getElementById("colorBackground").value = "#759ecc"
+    document.getElementById("colorText").value = "#000000"
+
+    document.querySelector('input[name="module-type"][value="square"]').checked = true
+    document.querySelector('input[name="pattern-type"][value="square"]').checked = true
+    document.querySelector('input[name="dot-pattern-type"][value="square"]').checked = true
+
+
+    // Limpiar el contenedor del QR
+    const qrContainer = document.querySelector(".qr-container")
+    qrContainer.innerHTML = ""
+})
 
 
 // Crear QR

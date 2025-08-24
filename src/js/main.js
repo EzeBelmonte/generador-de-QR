@@ -1,5 +1,6 @@
 // VARIABLES GLOBALES
-let qrCode // instancia global
+let qrCode // instancia de QR
+let logoSrc = null // logo
 let size = 200 // tamaño por defecto del QR
 
 let qrContentBackgroundColor = "#759ecc"
@@ -241,10 +242,22 @@ function generateQR() {
         const input = document.getElementById("social-input").value.trim()
 
         let option
-        if (selectedValue === "whatsapp") option = "https://wa.me/"
-        if (selectedValue === "linkedin") option = "https://www.linkedin.com/in/"
-        if (selectedValue === "instagram") option = "https://www.instagram.com/"
-        if (selectedValue === "facebook") option = "https://www.facebook.com/"
+        if (selectedValue === "whatsapp") {
+            option = "https://wa.me/"
+            logoSrc = "src/img/whatsapp.png"
+        }
+        if (selectedValue === "linkedin") {
+            option = "https://www.linkedin.com/in/"
+            logoSrc = "src/img/linkedin.png"
+        }
+        if (selectedValue === "instagram") {
+            option = "https://www.instagram.com/"
+            logoSrc = "src/img/instagram.png"
+        }
+        if (selectedValue === "facebook") {
+            option = "https://www.facebook.com/"
+            logoSrc = "src/img/facebook.png"
+        }
 
         content = option+input
     }
@@ -263,7 +276,6 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
 
     // logo seleccionado (si existe)
     const logoFile = document.getElementById("logo-file").files[0]
-    let logoSrc = null
 
     if (logoFile) {
         document.getElementById("clear-logo").style.visibility = "visible"
@@ -334,7 +346,7 @@ function configQR() {
     dotPatterns = (dotPattern === "square") ? "square" : "dots"
 
     const logoFile = document.getElementById("logo-file").files[0]
-    let logoSrc = null
+    logoSrc = null
     if (logoFile) logoSrc = URL.createObjectURL(logoFile)
 
     qrCode.update({

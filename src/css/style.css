@@ -30,7 +30,8 @@ h2 {
 }
 
 .button-gen,
-.button-download {
+.button-download,
+.button-print {
     color: rgb(44, 44, 44);
     background-color: aliceblue;
     border: 1px solid rgb(0, 0, 0);
@@ -39,14 +40,15 @@ h2 {
     padding: 4px 8px;
 }
 .button-gen:hover,
-.button-download:hover {
+.button-download:hover,
+.button-print:hover {
     color: rgb(20, 20, 20);
     background-color: rgb(190, 212, 233);
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.button-download {
-    display: none;
+.button-download,
+.button-print {
     margin-top: 10px;
 }
 
@@ -166,6 +168,13 @@ h2 {
     margin-bottom: 30px;
 }
 
+/* ===== contenedor de botones de descarga e impresion */
+.qr-buttons-container {
+    display: flex;
+    gap: 20px;
+}
+
+
 
 /* ======= CONTENEDOR GENERAL DE QR Y CONFIGURACIÓN ======= */
 .fullscreen-container {
@@ -216,7 +225,7 @@ h2 {
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 30px 15px;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;

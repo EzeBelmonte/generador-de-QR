@@ -37,7 +37,7 @@ function showInputs() {
     if (qrSelectValue === "wifiQR") {
         div.innerHTML = `
             <input type="text" id="ssid" class="qr-wifi" placeholder="SSID">
-            <input type="text" id="wifiPass" class="qr-wifi" placeholder="Contraseña">
+            <input type="text" id="wifi-pass" class="qr-wifi" placeholder="Contraseña">
 
             <fieldset class="mb-3">
                 <legend class="mt-3">Tipo de seguridad</legend>
@@ -120,7 +120,7 @@ function showInputs() {
     qrSelect.appendChild(div)
 
     const radios = div.querySelectorAll('input[name="security"]')
-    const passInput = div.querySelector("#wifiPass")
+    const passInput = div.querySelector("#wifi-pass")
     if (radios.length > 0 && passInput) {
         radios.forEach(radio => {
             radio.addEventListener("change", () => {
@@ -144,7 +144,7 @@ function generateQR() {
     const qrContainer = document.querySelector(".qr-container")
     qrContainer.innerHTML = `
         <div class="qr-content">
-            <div id="qrcode"></div>
+            <div id="qr-code"></div>
         </div>
 
         <input type="text" id="qr-text" placeholder="Texto (Opcional)">
@@ -204,10 +204,10 @@ function generateQR() {
     if (qrSelectValue === "wifiQR") {
         // obtener valores
         let ssid = document.getElementById("ssid").value.trim()
-        let password = document.getElementById("wifiPass").value.trim()
+        let password = document.getElementById("wifi-pass").value.trim()
         let security = document.querySelector('input[name="security"]:checked').value
 
-        const passInput = document.getElementById("wifiPass")
+        const passInput = document.getElementById("wifi-pass")
         passInput.disabled = security === "nopass"
         if(security === "nopass") passInput.value = ""
 
@@ -276,7 +276,7 @@ function createQR(text, size = 200, colorDark = "#000000", colorLight = "#ffffff
     // mostramos el contenedor general del QR y configuración
     document.getElementById("fullscreen-container").classList.add("active");
 
-    const qrContainer = document.getElementById("qrcode")
+    const qrContainer = document.getElementById("qr-code")
     qrContainer.innerHTML = ""
 
     // logo seleccionado (si existe)
@@ -326,14 +326,14 @@ document.getElementById("fullscreen-close").addEventListener("click", () => {
     // Resetear inputs/selects
     document.getElementById("size").value = ""
 
-    document.getElementById("colorLight").value = "#ffffff"
-    document.getElementById("colorDark").value = "#000000"
+    document.getElementById("color-light").value = "#ffffff"
+    document.getElementById("color-dark").value = "#000000"
 
-    document.getElementById("patternColorExt").value = "#000000"
-    document.getElementById("patternColorInt").value = "#000000"
+    document.getElementById("pattern-color-ext").value = "#000000"
+    document.getElementById("pattern-color-int").value = "#000000"
 
-    document.getElementById("colorBackground").value = "#759ecc"
-    document.getElementById("colorText").value = "#000000"
+    document.getElementById("color-background").value = "#759ecc"
+    document.getElementById("color-text").value = "#000000"
 
     document.querySelector('input[name="module-type"][value="square"]').checked = true
     document.querySelector('input[name="pattern-type"][value="square"]').checked = true
@@ -431,16 +431,16 @@ function downloadPrint(event) {
 
 // ACTUALIZACION EN TIEMPO REAL
 const updateQR = () => {
-    const text = document.getElementById("qrcode").dataset.qrText
+    const text = document.getElementById("qr-code").dataset.qrText
     size = Number(document.getElementById("size").value) || 200
     //const sizeInput = document.getElementById("size")
 
-    const colorDark = document.getElementById("colorDark").value
-    const colorLight = document.getElementById("colorLight").value
-    const colorPatternExt = document.getElementById("patternColorExt").value
-    const colorPatternInt = document.getElementById("patternColorInt").value
-    const colorBackground = document.getElementById("colorBackground").value
-    const colorText = document.getElementById("colorText").value
+    const colorDark = document.getElementById("color-dark").value
+    const colorLight = document.getElementById("color-light").value
+    const colorPatternExt = document.getElementById("pattern-color-ext").value
+    const colorPatternInt = document.getElementById("pattern-color-int").value
+    const colorBackground = document.getElementById("color-background").value
+    const colorText = document.getElementById("color-text").value
     const dot = document.querySelector('input[name="module-type"]:checked').value
     const pattern = document.querySelector('input[name="pattern-type"]:checked').value
     const dotPattern = document.querySelector('input[name="dot-pattern-type"]:checked').value
@@ -476,12 +476,12 @@ const updateQR = () => {
 }
 
 document.getElementById("size").addEventListener("input", updateQR)
-document.getElementById("colorDark").addEventListener("input", updateQR)
-document.getElementById("colorLight").addEventListener("input", updateQR)
-document.getElementById("patternColorExt").addEventListener("input", updateQR)
-document.getElementById("patternColorInt").addEventListener("input", updateQR)
-document.getElementById("colorBackground").addEventListener("input", updateQR)
-document.getElementById("colorText").addEventListener("input", updateQR)
+document.getElementById("color-dark").addEventListener("input", updateQR)
+document.getElementById("color-light").addEventListener("input", updateQR)
+document.getElementById("pattern-color-ext").addEventListener("input", updateQR)
+document.getElementById("pattern-color-int").addEventListener("input", updateQR)
+document.getElementById("color-background").addEventListener("input", updateQR)
+document.getElementById("color-text").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)
 
 // borrar logo
@@ -512,7 +512,7 @@ document.querySelectorAll('input[name="dot-pattern-type"]').forEach(radio => {
 // animación de transición
 function animateQR() {
     setTimeout(() => {
-        document.getElementById("qrcode").style.opacity = 1
+        document.getElementById("qr-code").style.opacity = 1
     }, 50); // 50ms
 }
 
@@ -525,8 +525,8 @@ function updateQrContentStyle(hasText = false) {
     // div que modifica los colores del fondo y texto
     const configDisable = document.querySelector(".config-custom-disabled")
     // inputs de los colores de fondo y texto
-    const colorBackgroundInput = document.getElementById("colorBackground")
-    const colorTextInput = document.getElementById("colorText");
+    const colorBackgroundInput = document.getElementById("color-background")
+    const colorTextInput = document.getElementById("color-text");
 
     // si hay texto, se actualiza los estilos
     if (hasText) {

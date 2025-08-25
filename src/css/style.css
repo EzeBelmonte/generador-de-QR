@@ -128,7 +128,7 @@ h2 {
 }
 
 /* ======= QR */
-#qrcode,
+#qr-code,
 .qr-content {
     transition: 
         opacity 0.5s ease-in-out, /* para mostrar/ocultar */
@@ -136,11 +136,11 @@ h2 {
         filter 0.3s ease;         /* para hover */
 }
 
-#qrcode {
+#qr-code {
     opacity: 0;
 }
 
-#qrcode.visible {
+#qr-code.visible {
     opacity: 1;
 }
 
@@ -155,7 +155,7 @@ h2 {
     text-align: center;
 }
 
-#qrcode:hover,
+#qr-code:hover,
 .qr-content:hover {
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
     transform: scale(1.01);

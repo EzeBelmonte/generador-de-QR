@@ -1,34 +1,6 @@
 
 /* ===== Tablets y móviles grandes (≤ 768px) ===== */
 @media (max-width: 768px) {
-        body {
-        margin: 0 !important;
-        padding: 10px !important;
-    }
-
-    main {
-        text-align: center;
-    }
-
-    .container {
-        width: 70%;
-        padding: 7px;
-    }
-
-    .qr-type-content {
-        margin: 0 0 10px 0;
-    }
-
-    .config-container,
-    .qr-type-container {
-        width: 70%;
-        padding: 7px;
-    }
-
-    .tooltiptext {
-        left: 50%;
-        transform: translateX(-64%);
-    }
 }
 
 /* ===== Móviles pequeños (≤ 480px) ===== */
@@ -42,32 +14,72 @@
         text-align: center;
     }
 
-    .container {
-        width: 100%;
-        padding: 7px;
+    .fullscreen-container {
+        grid-template-columns: 1fr;
+        height: 100dvh;
+        gap: 0;
     }
 
-    .qr-type-content {
-        margin: 0 0 10px 0;
+    .fullscreen-close {
+        font-size: 1.7rem;
+        color: rgb(0, 0, 0);
+        top: 10px;
+        left: 20px;
+    }
+    .fullscreen-close:hover {
+        color: rgb(190, 212, 233);
     }
 
-    .config-container,
-    .qr-type-container {
-        width: 100%;
-        padding: 7px;
+    .qr-container {
+        height: 100dvh;
+    }
+    
+    .config-container {
+        position: absolute;
+        top: 94%;
+        left: 50%;
+        transform: translate(-50%);
+        padding-top: 5px;
+        align-items: flex-start;
+
+        /* Transición suave */
+        transition: top 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
+    }
+
+    .config-container.expanded {
+        top: 50%;
+        overflow: hidden; 
+    }
+
+    .config-container h2 {
+        position: absolute;
+        font-size: 15px;
+        align-self: center;
+        margin-bottom: 40px;
     }
 
     .config-content {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 40px;
     }
 
-    .tooltiptext {
-        left: 50%;
-        transform: translateX(-64%);
+    .config-content.expanded {
+        overflow-x: auto;
+        width: 100%;
     }
-}
 
-/* ===== Opcional: pantallas muy grandes (≥ 1440px) ===== */
-@media (min-width: 1440px) {
-    /* Ajustes para monitores grandes */
+    .config-group-container {
+        width: auto;
+        flex-direction: flex-start;
+    }
+
+    .config-group-container h3 {
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    .config-custom-container {
+        min-width: 170px;
+    }
 }

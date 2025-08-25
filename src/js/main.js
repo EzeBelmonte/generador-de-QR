@@ -556,3 +556,17 @@ function updateQrContentStyle(hasText = false) {
         qrContent.style.padding = "0"
     }
 }
+
+
+
+const configContainer = document.querySelector(".config-container");
+const configContent = document.querySelector(".config-content");
+
+if (window.innerWidth <= 480) {
+    const configTitle = document.getElementById("config-title");
+    // solo en móvil
+    configTitle.addEventListener("click", () => {
+        configContainer.classList.toggle("expanded");
+        configContent.classList.add("expanded");
+    });
+}

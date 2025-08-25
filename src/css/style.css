@@ -275,6 +275,7 @@ h2 {
 .config-custom-container {
     display: flex;
     flex-direction: column;
+    background-color: rgb(214, 227, 238);
     border: 1px solid rgba(0, 0, 0, 0.7);
     border-radius: 5px;
     padding: 10px;

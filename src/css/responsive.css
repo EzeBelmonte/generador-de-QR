@@ -1,17 +1,41 @@
+body {
+    margin: 0 !important;
+    padding: 10px !important;
+}
+
+main {
+    text-align: center;
+}
+
+/* ===== Tablets en horizontal o notebooks chicos (≤ 1024px) ===== */
+@media (max-width: 1024px) {
+    .config-container {
+        position: relative;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .config-content {
+        width: 100%;
+    }
+
+    .config-custom-container {
+        min-width: 170px;
+    }
+
+    .config-group-content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem; 
+    }
+}
 
 /* ===== Tablets y móviles grandes (≤ 768px) ===== */
 @media (max-width: 768px) {
-}
 
-/* ===== Móviles pequeños (≤ 480px) ===== */
-@media (max-width: 480px) {
-    body {
-        margin: 0 !important;
-        padding: 10px !important;
-    }
 
-    main {
-        text-align: center;
+    .qr-type-container {
+        width: 100%;
     }
 
     .fullscreen-container {
@@ -24,7 +48,88 @@
         font-size: 1.7rem;
         color: rgb(0, 0, 0);
         top: 10px;
-        left: 20px;
+        left: 36px;
+    }
+    .fullscreen-close:hover {
+        color: rgb(190, 212, 233);
+    }
+
+    .qr-container {
+        height: 100dvh;
+    }
+    
+    .config-container {
+        position: absolute;
+        top: 94%;
+        left: 50%;
+        transform: translate(-50%);
+        padding-top: 5px;
+        /* Transición suave */
+        transition: top 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
+    }
+
+    .config-container.expanded {
+        top: 50%;
+        overflow: hidden; 
+    }
+
+    .config-container h2 {
+        position: absolute;
+        font-size: 15px;
+        align-self: center;
+        margin-bottom: 40px;
+    }
+
+    .config-content {
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-left: 38px;
+        gap: 40px;
+    }
+
+    /* último fielset del último config-group-container */
+    .config-group-container:last-of-type .config-custom-container:last-of-type {
+         margin-right: 38px;
+    }
+
+
+    .config-content.expanded {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .config-group-container {
+        width: auto;
+        flex-direction: flex-start;
+    }
+
+    .config-group-container h3 {
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    .config-custom-container {
+        min-width: 170px;
+    }
+}
+
+/* ===== Móviles pequeños (≤ 480px) ===== */
+@media (max-width: 480px) {
+    .qr-type-container {
+        width: 100%;
+    }
+
+    .fullscreen-container {
+        grid-template-columns: 1fr;
+        height: 100dvh;
+        gap: 0;
+    }
+
+    .fullscreen-close {
+        font-size: 1.7rem;
+        color: rgb(0, 0, 0);
+        top: 10px;
+        left: 26px;
     }
     .fullscreen-close:hover {
         color: rgb(190, 212, 233);

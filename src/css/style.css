@@ -221,7 +221,7 @@ h2 {
 /* ======= CONFIGURACIÓN ======= */
 .qr-container,
 .config-container {
-    width: 90%;
+    width: 96%;
     background-color: rgb(223, 233, 241);
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;

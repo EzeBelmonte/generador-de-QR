@@ -92,10 +92,28 @@
                         <div class="config-group-content">
                             <!-- Colores -->
                             <fieldset class="config-custom-container">
-                                <legend>Fondo y módulos</legend>
+                                <legend>Fondo</legend>
                                 <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Fondo:</span> <span class="ms-4"><input type="color" id="color-light" value="#ffffff"></span></label>
-                                    <label><span class="config-custom-text">Módulos:</span> <span class="ms-4"><input type="color" id="color-dark" value="#000000"></span></label>
+                                    <label><span class="config-custom-text">Color 1:</span> <span class="ms-4"><input type="color" id="color-background-1" value="#ffffff"></span></label>
+                                    <label><span class="config-custom-text">Color 2:</span> <span class="ms-4"><input type="color" id="color-background-2" value="#ffffff" disabled></span></label>
+                                </div>
+
+                                <div class="config-custom-gradient">
+                                    <label class="w-100 d-flex"><span class="config-custom-text">Gradiente:</span> <span class="ms-4"><input id="color-background-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
+                                    <button id="color-background-reset" class="color-gradient-reset">Reiniciar color</button>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="config-custom-container">
+                                <legend>Módulos</legend>
+                                <div class="config-custom-content">
+                                    <label><span class="config-custom-text">Color 1:</span> <span class="ms-4"><input type="color" id="color-module-1" value="#000000"></span></label>
+                                    <label><span class="config-custom-text">Color 2:</span> <span class="ms-4"><input type="color" id="color-module-2" value="#000000" disabled></span></label>
+                                </div>
+
+                                <div class="config-custom-gradient">
+                                    <label class="w-100 d-flex"><span class="config-custom-text">Gradiente:</span> <span class="ms-4"><input id="color-module-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
+                                    <button id="color-module-reset" class="color-gradient-reset">Reiniciar color</button>
                                 </div>
                             </fieldset>
 
@@ -159,6 +177,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <!-- Librería QRCode.js -->
     <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
-    <script src="src/js/main.js"></script>
+    <script type="module" src="src/js/main.js"></script>
 </body>
 </html>

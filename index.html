@@ -14,24 +14,26 @@
 <body class="body">
     <h1>Generador de Códigos QR</h1>
 
-    <main class="main">
+    <main class="d-flex flex-column align-items-center">
         <div class="qr-type-container">
-            <div class="qr-type-content">
-                <label>
+            <div id="qr-type-content" class="mb-2">
+                <div class="d-flex gap-3">
+                <label class="text">
                     <input type="radio" name="qr-type" value="standarQR" checked> Links
                 </label>
 
-                <label>
+                <label class="text">
                     <input type="radio" name="qr-type" value="wifiQR"> Red Wi-Fi
                 </label>
 
-                <label>
+                <label class="text">
                     <input type="radio" name="qr-type" value="vcardQR"> Contacto
                 </label>
 
-                <label>
+                <label class="text">
                     <input type="radio" name="qr-type" value="socialQR"> Red social
                 </label>
+                </div>
             </div>
 
             <button id="button-gen" class="button-gen">Generar QR</button>
@@ -47,18 +49,18 @@
             <div class="config-container">
                 <h2 id="config-title">Configuración</h2>
 
-                <div class="config-content">
+                <div id="config-content" class="d-flex flex-column justify-content-center gap-5 mt-3">
                     <!-- ------- GRUPO: Otros ------- -->
-                    <div class="config-group-container">
+                    <div class="w-100 d-flex flex-column">
                         <h3>General</h3>
 
                         <div class="config-group-content">
                             <!-- Dimensiones -->
                             <fieldset class="config-custom-container">
-                                <legend>Tamaño</legend>
-                                <div class="config-custom-content mt-4">
+                                <legend class="config-custom-title">Tamaño</legend>
+                                <div class="d-flex flex-column align-items-center mt-4">
                                     <div class="d-flex align-items-center">
-                                        <input type="text" id="size" placeholder="Actual: 200">
+                                        <input type="text" id="size" class="w-100 mt-2" placeholder="Actual: 200">
                                         
                                         <!-- Icono de ayuda -->
                                         <span class="tooltip-wrapper ms-2">?
@@ -73,7 +75,7 @@
 
                             <!-- Logo de QR -->
                             <fieldset class="config-custom-container">
-                                <legend>Logo QR</legend>
+                                <legend class="config-custom-title">Logo QR</legend>
                                 <div class="file-wrapper">
                                     <label class="custom-file-button">
                                         Seleccionar
@@ -87,82 +89,82 @@
                     </div>
 
                     <!-- ------- GRUPO: Colores ------- -->
-                    <div class="config-group-container">
+                    <div class="w-100 d-flex flex-column">
                         <h3>Colores</h3>
                         <div class="config-group-content">
                             <!-- Colores -->
                             <fieldset class="config-custom-container">
-                                <legend>Fondo</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Color 1:</span> <span class="ms-4"><input type="color" id="color-background-1" value="#ffffff"></span></label>
-                                    <label><span class="config-custom-text">Color 2:</span> <span class="ms-4"><input type="color" id="color-background-2" value="#ffffff" disabled></span></label>
+                                <legend class="config-custom-title">Fondo</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-background-1" class="p-0" value="#ffffff"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-background-2" class="p-0" value="#ffffff" disabled></span></label>
                                 </div>
 
                                 <div class="config-custom-gradient">
-                                    <label class="w-100 d-flex"><span class="config-custom-text">Gradiente:</span> <span class="ms-4"><input id="color-background-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Gradiente:</span> <span class="ms-4"><input id="color-background-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
                                     <button id="color-background-reset" class="color-gradient-reset">Reiniciar color</button>
                                 </div>
                             </fieldset>
 
                             <fieldset class="config-custom-container">
-                                <legend>Módulos</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Color 1:</span> <span class="ms-4"><input type="color" id="color-module-1" value="#000000"></span></label>
-                                    <label><span class="config-custom-text">Color 2:</span> <span class="ms-4"><input type="color" id="color-module-2" value="#000000" disabled></span></label>
+                                <legend class="config-custom-title">Módulos</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-module-1" class="p-0" value="#000000"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-module-2" class="p-0" value="#000000" disabled></span></label>
                                 </div>
 
                                 <div class="config-custom-gradient">
-                                    <label class="w-100 d-flex"><span class="config-custom-text">Gradiente:</span> <span class="ms-4"><input id="color-module-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Gradiente:</span> <span class="ms-4"><input id="color-module-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
                                     <button id="color-module-reset" class="color-gradient-reset">Reiniciar color</button>
                                 </div>
                             </fieldset>
 
                             <fieldset class="config-custom-container">
-                                <legend>Esquinas</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Externo:</span> <span class="ms-4"><input type="color" id="pattern-color-ext" value="#000000"></span></label>
-                                    <label><span class="config-custom-text">Interno:</span> <span class="ms-4"><input type="color" id="pattern-color-int" value="#000000"></span></label>
+                                <legend class="config-custom-title">Esquinas</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Externo:</span> <span class="ms-4"><input type="color" id="pattern-color-ext" class="p-0" value="#000000"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Interno:</span> <span class="ms-4"><input type="color" id="pattern-color-int" class="p-0" value="#000000"></span></label>
                                 </div>
                             </fieldset>
 
                             <fieldset class="config-custom-container config-custom-disabled">
-                                <legend>Fondo y texto</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Fondo:</span> <span><input type="color" id="color-background" value="#759ecc" disabled></span></label>
-                                    <label><span class="config-custom-text">Texto:</span> <span><input type="color" id="color-text" value="#000000" disabled></span></label>
+                                <legend class="config-custom-title">Fondo y texto</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Fondo:</span> <span><input type="color" id="color-background" class="p-0" value="#759ecc" disabled></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Texto:</span> <span><input type="color" id="color-text" class="p-0" value="#000000" disabled></span></label>
                                 </div>
                             </fieldset>
                         </div>
                     </div>
                     
                     <!-- ------- GRUPO: Módulos y Esquinas ------- -->
-                    <div class="config-group-container">
+                    <div class="w-100 d-flex flex-column">
                         <h3>Módulos y Esquinas</h3>
                         <div class="config-group-content">
                             <!-- Estilo de los módulos -->
                             <fieldset class="config-custom-container">
-                                <legend>Módulos</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="module-type" value="square" checked></span></label>
-                                    <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="module-type" value="circle"></span></label>
+                                <legend class="config-custom-title">Módulos</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex text"><span class="me-auto text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="module-type" value="square" checked></span></label>
+                                    <label class="w-100 d-flex text"><span class="me-auto text">Circular:</span> <span class="ms-4"><input type="radio" name="module-type" value="circle"></span></label>
                                 </div>
                             </fieldset>
 
                             <!-- Estilo de los patrones de posición -->
                             <fieldset class="config-custom-container">
-                                <legend>Esquinas</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="square" checked></span></label>
-                                    <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="circle"></span></label>
+                                <legend class="config-custom-title">Esquinas</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="square" checked></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Circular:</span> <span class="ms-4"><input type="radio" name="pattern-type" value="circle"></span></label>
                                 </div>
                             </fieldset>
 
                             <!-- Estilo de los patrones de posición -->
                             <fieldset class="config-custom-container">
-                                <legend>Mód. de Esquinas</legend>
-                                <div class="config-custom-content">
-                                    <label><span class="config-custom-text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="square" checked></span></label>
-                                    <label><span class="config-custom-text">Circular:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="circle"></span></label>
+                                <legend class="config-custom-title">Mód. de Esquinas</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Cuadrado:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="square" checked></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Circular:</span> <span class="ms-4"><input type="radio" name="dot-pattern-type" value="circle"></span></label>
                                 </div>
                             </fieldset>
                         </div>

@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", showInputs)
 
 // muestra los inputs cuando se selecciona un tipo de QR
 function showInputs() {
-    const qrSelect = document.querySelector(".qr-type-content")
+    const qrSelect = document.getElementById("qr-type-content")
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
 
     // limpiar inputs previos si ya existen
@@ -26,27 +26,28 @@ function showInputs() {
 
     if (qrSelectValue === "standarQR") {
         div.innerHTML = `
-            <input type="text" id="text-standar" class="qr-text" placeholder="Escribe un link o texto">
+            <input type="text" id="text-standar" class="w-100" placeholder="Escribe un link o texto">
         `
     } 
 
     if (qrSelectValue === "wifiQR") {
         div.innerHTML = `
-            <input type="text" id="ssid" class="qr-wifi" placeholder="SSID">
-            <input type="text" id="wifi-pass" class="qr-wifi" placeholder="Contraseña">
-
+            <div class="d-flex gap-2">
+            <input type="text" id="ssid" class="w-50" placeholder="SSID">
+            <input type="text" id="wifi-pass" class="w-50" placeholder="Contraseña">
+            </div>
             <fieldset class="mb-3">
-                <legend class="mt-3">Tipo de seguridad</legend>
+                <legend class="mt-3 text">Tipo de seguridad</legend>
                 
-                <label>
+                <label class="text">
                     <input type="radio" name="security" value="WPA" checked> WPA/WPA2
                 </label>
                 
-                <label>
+                <label class="text">
                     <input type="radio" name="security" value="WEP"> WEP
                 </label>
                 
-                <label>
+                <label class="text">
                     <input type="radio" name="security" value="nopass"> Sin contraseña
                 </label>
             </fieldset>
@@ -55,21 +56,21 @@ function showInputs() {
 
     if (qrSelectValue === "vcardQR") {
         div.innerHTML = `
-            <div class="qr-vcard">
-                <div class="qr-vcard-fullname">
-                    <input type="text" id="vcard-name" placeholder="Nombre">
-                    <input type="text" id="vcard-lastname" placeholder="Apellido">
+            <div class="d-flex flex-column">
+                <div class="w-100 d-flex gap-2 mb-2">
+                    <input type="text" id="vcard-name" class="w-50" placeholder="Nombre">
+                    <input type="text" id="vcard-lastname" class="w-50" placeholder="Apellido">
                 </div>
-                <input type="text" id="vcard-phone" placeholder="Teléfono">
+                <input type="text" id="vcard-phone" class="w-100" placeholder="Teléfono">
             </div>
             `
     }
 
     if (qrSelectValue === "socialQR") {
         div.innerHTML = `
-            <div class="social-qr">
-                <div class="social-opt-content">
-                    <label for="social-select">Generar QR para:</label>
+            <div>
+                <div class="mt-2 mb-2">
+                    <label class="text" for="social-select">Generar QR para:</label>
                     <select id="social-select">
                         <option value="" selected disabled>Elegir</option>
                         <option value="facebook">Facebook</option>
@@ -79,7 +80,7 @@ function showInputs() {
                     </select>
                 </div>
                         
-                <input type="text" id="social-input" class="qr-text" disabled>
+                <input type="text" id="social-input" class="w-100" disabled>
             </div>
         `
 
@@ -143,9 +144,9 @@ function generateQR() {
             <div id="qr-code"></div>
         </div>
 
-        <input type="text" id="qr-text" placeholder="Texto (Opcional)">
+        <input type="text" id="qr-text" class="w-25 mt-4 mb-3" placeholder="Texto (Opcional)">
 
-        <div class="qr-buttons-container">
+        <div class="d-flex gap-4">
             <button id="button-download" class="button-utility" data-action="download">Descargar QR</button>
             <button id="button-print" class="button-utility" data-action="print">Imprimir QR</button>
             <button id="button-copy" class="button-utility" data-action="copy">Copiar QR</button>
@@ -271,7 +272,7 @@ function generateQR() {
 
 // agrega la funcionalidad de abrir y cerrar el menu cuando esta en resoluciones bajas
 const configContainer = document.querySelector(".config-container");
-const configContent = document.querySelector(".config-content");
+const configContent = document.getElementById("config-content");
 
 if (window.innerWidth <= 480) {
     const configTitle = document.getElementById("config-title");

@@ -3,20 +3,42 @@
     padding: 0;
 }
 
+/* MODO CLARO */
+:root {
+    --bg-body: rgb(204, 226, 235);
+
+    /* buttons */
+    --bg-button:  aliceblue;
+    --bg-button-hover: rgb(190, 212, 233);
+    --border-button: rgb(0, 0, 0);
+    --border-button-hover: rgba(0, 0, 0, 0.5);
+
+    /* containers */
+    --bg-container: rgb(223, 233, 241);
+    --border-container: rgba(0, 0, 0, 0.8);
+
+    /* contents */
+    --bg-content: rgb(231, 244, 255);
+    --border-content: rgba(0, 0, 0, 0.5);
+
+    /* small contents */
+    --bg-small-content: rgb(221, 235, 247);
+
+    /* texts */
+    --title-color-container:rgb(58, 59, 59); /* títulos de los containers */
+    --title-color-content: rgb(98, 163, 238); /* títulos de cada content */
+    --title-option: black; /* título de cada opción de configuración */
+    --text-color: black;
+}
+
 .body {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--bg-body);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 40px;
 }
 
-.main {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
 h1, h2 {
-    color: rgb(58, 59, 59);
+    color: var(--title-color-container);
     font-weight: 500;
 }
 
@@ -29,11 +51,30 @@ h2 {
     font-size: 1.8rem;
 }
 
+h3 {
+    font-size: 1.4rem;
+    color: var(--title-color-content);
+}
+
+
+input {
+    cursor: pointer;
+    padding: 4px;
+}
+
+input:disabled {
+    cursor: default;
+}
+
+.text {
+    color: var(--text-color);
+}
+
 .button-gen,
 .button-utility {
     color: rgb(44, 44, 44);
-    background-color: aliceblue;
-    border: 1px solid rgb(0, 0, 0);
+    background-color: var(--bg-button);
+    border: 1px solid var(--border-button);
     border-radius: 4px;
     font-weight: 500;
     padding: 4px 8px;
@@ -41,8 +82,8 @@ h2 {
 .button-gen:hover,
 .button-utility:hover {
     color: rgb(20, 20, 20);
-    background-color: rgb(190, 212, 233);
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: var(--bg-button-hover);
+    border: 1px solid var(--border-button-hover);
 }
 
 .button-utility {
@@ -60,68 +101,11 @@ h2 {
     display: flex;
     flex-direction: column;
     width: 45%;
-    background-color: rgb(223, 233, 241);
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: var(--bg-container);
+    border: 1px solid var(--border-container);
     border-radius: 5px;
     margin-top: 45px;
     padding: 25px;
-}
-
-.qr-type-content {
-    margin: 20px 0 10px 0;
-}
-
-.qr-type-content label {
-    margin-right: 15px;
-    margin-bottom: 2px;
-}
-
-/* ======= QR STANDAR */
-.qr-text {
-    width: 100%;
-    padding: 5px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-}
-
-/* ======= QR WIFI */
-.qr-wifi {
-    padding: 4px;
-    width: 49%;
-    box-sizing: border-box;
-}
-
-/* ======= QR VCARD */
-.qr-vcard {
-    display: flex;
-    flex-direction: column;
-}
-
-.qr-vcard input {
-    padding: 4px;
-}
-
-.qr-vcard-fullname {
-    width: 100%;
-    display: flex;
-    gap: 15px;
-    margin-bottom: 5px;
-}
-
-#vcard-name,
-#vcard-lastname,
-#vcard-phone {
-    width: 50%;
-}
-
-#vcard-phone {
-    width: 100%;
-}
-
-/* ======= SOCIAL QR */
-.social-opt-content {
-    margin: 4px 0;
 }
 
 /* ======= QR */
@@ -158,20 +142,6 @@ h2 {
     transform: scale(1.01);
 }
 
-#qr-text {
-    width: 240px;
-    padding: 4px;
-    margin-top: 25px;
-    margin-bottom: 30px;
-}
-
-/* ===== contenedor de botones de descarga e impresion */
-.qr-buttons-container {
-    display: flex;
-    gap: 20px;
-}
-
-
 
 /* ======= CONTENEDOR GENERAL DE QR Y CONFIGURACIÓN ======= */
 .fullscreen-container {
@@ -198,6 +168,7 @@ h2 {
     pointer-events: auto;
 }
 
+/* X para cerrar el div */
 .fullscreen-close {
     background-color: transparent;
     border: none;
@@ -219,8 +190,8 @@ h2 {
 .qr-container,
 .config-container {
     width: 96%;
-    background-color: rgb(223, 233, 241);
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: var(--bg-container);
+    border: 1px solid var(--border-container);
     border-radius: 5px;
     padding: 30px 15px;
     display: flex;
@@ -236,29 +207,9 @@ h2 {
 
 .config-container {
     margin-left: auto;
-    /*justify-self: end;      /* pegado a la derecha */
     max-height: 100vh;       /* que no se pase de la pantalla */
     overflow-y: auto;       /* scroll vertical */
     overflow-x: hidden;     
-}
-
-.config-content {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 50px;
-    margin-top: 10px;
-}
-
-.config-group-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.config-group-container h3 {
-    font-size: 1.4rem;
-    color: rgb(98, 163, 238);
 }
 
 .config-group-content {
@@ -272,8 +223,8 @@ h2 {
     width: 31%;
     display: flex;
     flex-direction: column;
-    background-color: rgb(214, 227, 238);
-    border: 1px solid rgba(0, 0, 0, 0.7);
+    background-color: var(--bg-container);
+    border: 1px solid var(--border-content);
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
@@ -284,55 +235,33 @@ h2 {
     transition: opacity 0.5s;
 }
 
-.config-custom-content {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.config-custom-container legend {
+.config-custom-title {
+    color: var(--title-option);
     font-size: 1.1rem;
     font-weight: 500;
 }
 
-.config-custom-content label {
-    width: 100%;
-    display: flex;
-}
-
-.config-custom-text {
-    margin-right: auto;
-}
-
-.config-custom-content input {
-    cursor: pointer;
-}
-
-.config-custom-content input:disabled {
-    cursor: default;
-}
-
 .config-custom-gradient {
-    background-color: rgb(191, 213, 231);
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: var(--bg-small-content);
+    border: 1px solid var(--border-content);
     border-radius: 5px;
     padding: 7px;
     margin-top: 20px;
 }
 
 .color-gradient-reset {
+    background-color: var(--bg-button);
+    border: 1px solid var(--border-button);
     padding: 0 6px;
     border-radius: 3px;
     margin-top: 5px;
 }
-
-/* ======= Dimensiones */
-#size {
-    width: 100px;
-    margin-top: 10px;
-    padding: 3px;
+.color-gradient-reset:hover {
+    background-color: var(--bg-button-hover);
+    border: 1px solid var(--border-button-hover);
 }
 
+/* ======= Dimensiones */
 .tooltip-wrapper {
     position: relative;
     display: flex;
@@ -378,14 +307,6 @@ h2 {
     visibility: visible;
 }
 
-/* ======= Agregar logo */
-#qr-logo {
-    margin-left: 5px;
-}
-
-.logo-upload {
-    display: none;
-}
 
 /* subir archivo personalizado  */
 .file-wrapper {
@@ -398,24 +319,24 @@ h2 {
 
 .custom-file-button,
 .custom-delete-button {
-    color: white;
     padding: 2px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-button);
     border-radius: 5px;
     display: inline-block;
     cursor: pointer;
 }
 
 .custom-file-button {
-    background-color: rgb(0, 123, 255);
+    background-color: var(--bg-button);
     margin-top: 14px;
 }
 .custom-file-button:hover {
-    background-color: rgb(16, 101, 192);
+    background-color: var(--bg-button-hover);
 }
 
 .custom-delete-button {
-    visibility: hidden;
+    color: white;
+    /*visibility: hidden;*/
     background-color: rgb(211, 5, 5);
 }
 .custom-delete-button:hover {

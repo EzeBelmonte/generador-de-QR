@@ -358,6 +358,7 @@ input:disabled {
 
 /* CÁMARA */
 .cam-button {
+    display: none;
     background-color: rgb(94, 128, 221);
     position: absolute;
     left: 0;
@@ -370,7 +371,7 @@ input:disabled {
     /* transición */
     opacity: 0;
     pointer-events: none;     
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
 }
 
 .cam-button {

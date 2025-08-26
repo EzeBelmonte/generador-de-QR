@@ -14,8 +14,6 @@ let textColor = "#000000"
 export function createQR(text, size = 200, colorModule1 = "#000000", colorBackground1 = "#ffffff") {
     // mostramos el contenedor general del QR y configuración
     document.getElementById("fullscreen-container").classList.add("active")
-    document.getElementById("cam-button").style.display = "block"
-    document.getElementById("cam-button").style.opacity = "1"
 
     const qrContainer = document.getElementById("qr-code")
     qrContainer.innerHTML = ""
@@ -129,8 +127,6 @@ const applyQRCodeUpdate = ({size, data, dotsOptions, cornersSquareOptions, corne
 // resetear configuración del QR
 export function resetQR() {
     document.getElementById("fullscreen-container").classList.remove("active")
-    document.getElementById("cam-button").style.opacity = "0"
-    document.getElementById("cam-button").style.display = "none"
 
     // Resetear inputs/selects
     document.getElementById("size").value = ""

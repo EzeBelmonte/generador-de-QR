@@ -282,12 +282,3 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
     
     createQR(content)
 }
-
-
-// boton para abrir la verificación de QR
-const camContainer = document.getElementById("cam-container");
-const camButton = document.getElementById("cam-button");
-
-camButton.addEventListener("click", () => {
-  camContainer.classList.toggle("active"); // abre/cierra
-});

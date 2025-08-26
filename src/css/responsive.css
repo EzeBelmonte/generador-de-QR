@@ -20,7 +20,7 @@
 
     /* X para cerrar el div */
     .fullscreen-close {
-        color: rgb(0, 0, 0);
+        top: 5px;
     }
 
     .config-custom-container {
@@ -92,7 +92,8 @@
 
     .fullscreen-close {
         top: 10px;
-        left: 26px;
+        left: 16px;
+        color: black;
     }
 
     .qr-container {

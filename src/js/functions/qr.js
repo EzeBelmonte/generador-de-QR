@@ -5,9 +5,11 @@ import { getDotType, getCornersSquareType, getCornersDotType } from "./qrTypeMod
 
 // 📌 Variables globales internas del módulo
 let logoSrc
-let qrCode = null;
-let qrContentBackgroundColor = "#759ecc";
-let qrContentTextColor = "#000000";
+let qrCode = null
+let backgroundTextColor1 = "#759ecc"
+let backgroundTextColor2 = "#759ecc";
+let backgroundTextColorAngle
+let textColor = "#000000"
 
 export function createQR(text, size = 200, colorModule1 = "#000000", colorBackground1 = "#ffffff") {
     // mostramos el contenedor general del QR y configuración
@@ -44,6 +46,9 @@ export function createQR(text, size = 200, colorModule1 = "#000000", colorBackgr
             crossOrigin: "anonymous",
             margin: 4,
             imageSize: 0.25 // 20% del QR
+        },
+        qrOptions: {
+            errorCorrectionLevel: "H" // usar "L", "M", "Q" o "H"
         }
     })
 
@@ -62,23 +67,27 @@ export const updateQR = () => {
     const size = Number(document.getElementById("size").value) || 200
 
     // fondo QR
-    let backgroundOptions = getBackgroundColor(gradientBackgroundCheckbox.checked)
+    const colorBackgroundAngle = document.getElementById("color-background-angle").value
+    let backgroundOptions = getBackgroundColor(gradientBackgroundCheckbox.checked, colorBackgroundAngle)
 
     // dots
+    const colorModuleAngle = document.getElementById("color-module-angle")
     const dotsOptions = {
-        ...getDotsColor(gradientModuleCheckbox.checked),
+        ...getDotsColor(gradientModuleCheckbox.checked, colorModuleAngle),
         type: getDotType()
     }
 
     // esquinas ext
+    const colorPatternExtAngle = document.getElementById("color-pattern-ext-angle")
     const cornersSquareOptions = {
-        ...getCornersSquareColor(gradientPatternExtCheckbox.checked),
+        ...getCornersSquareColor(gradientPatternExtCheckbox.checked, colorPatternExtAngle),
         type: getCornersSquareType()
     }
 
     // esquinas int
+    const colorPatternIntAngle = document.getElementById("color-pattern-int-angle")
     const cornersDotOptions = {
-        ...getCornersDotColor(gradientPatternIntCheckbox.checked),
+        ...getCornersDotColor(gradientPatternIntCheckbox.checked, colorPatternIntAngle),
         type: getCornersDotType()
     }
 
@@ -91,8 +100,10 @@ export const updateQR = () => {
 
 
     // actualización del fondo + texto
-    qrContentBackgroundColor = document.getElementById("color-background").value
-    qrContentTextColor = document.getElementById("color-text").value
+    backgroundTextColor1 = document.getElementById("color-background-text-1").value
+    backgroundTextColor2 = document.getElementById("color-background-text-2").value
+    backgroundTextColorAngle = document.getElementById("color-background-text-angle").value
+    textColor = document.getElementById("color-text").value
     updateQrContentStyle(!!document.querySelector(".qr-content p"))
 
     // animación de transición
@@ -122,17 +133,28 @@ export function resetQR() {
 
     document.getElementById("color-background-1").value = "#ffffff"
     document.getElementById("color-background-2").value = "#ffffff"
+    document.getElementById("color-background-gradient").checked = false
+    document.getElementById("color-background-angle").disabled = true
 
     document.getElementById("color-module-1").value = "#000000"
     document.getElementById("color-module-2").value = "#000000"
+    document.getElementById("color-module-gradient").checked = false
+    document.getElementById("color-module-angle").disabled = true
 
     document.getElementById("color-pattern-ext-1").value = "#000000"
     document.getElementById("color-pattern-ext-2").value = "#000000"
+    document.getElementById("color-pattern-ext-gradient").checked = false
+    document.getElementById("color-pattern-ext-angle").disabled = true
 
     document.getElementById("color-pattern-int-1").value = "#000000"
     document.getElementById("color-pattern-int-2").value = "#000000"
+    document.getElementById("color-pattern-int-gradient").checked = false
+    document.getElementById("color-pattern-int-angle").disabled = true
 
-    document.getElementById("color-background").value = "#759ecc"
+    document.getElementById("color-background-text-1").value = "#759ecc"
+    document.getElementById("color-background-text-2").value = "#759ecc"
+    document.getElementById("color-background-gradient").checked = false
+    document.getElementById("color-background-angle").disabled = true
     document.getElementById("color-text").value = "#000000"
 
     document.querySelector('input[name="module-type"][value="square"]').checked = true
@@ -152,34 +174,52 @@ export function updateQrContentStyle(hasText = false) {
     if (!qrContent) return
 
     // div que modifica los colores del fondo y texto
-    const configDisable = document.querySelector(".config-custom-disabled")
+    const configDisabled = document.querySelectorAll(".config-custom-disabled")
     // inputs de los colores de fondo y texto
-    const colorBackgroundInput = document.getElementById("color-background")
-    const colorTextInput = document.getElementById("color-text");
+    const colorBackgroundText1 = document.getElementById("color-background-text-1")
+    const colorBackgroundText2 = document.getElementById("color-background-text-2")
+    const backgroundTextColorAngle = document.getElementById("color-background-text-angle")
+    const colorText = document.getElementById("color-text")
+    // boton de resetear gradiente de fondo y texto
+    const buttonBackgroundTextReset =  document.getElementById("color-background-text-reset")
 
     // si hay texto, se actualiza los estilos
     if (hasText) {
-        qrContent.style.backgroundColor = qrContentBackgroundColor
+        buttonBackgroundTextReset.disabled = false // habilitar el boton de resetear 
+        gradientBackgroundTextCheckbox.disabled = false // habilitar el check de gradiente
+        backgroundTextColorAngle.disabled = false // hablitar el selector de ángulos
+        if (gradientBackgroundTextCheckbox.checked) {
+            colorBackgroundText2.disabled = false
+            qrContent.style.background = `linear-gradient(${backgroundTextColorAngle.value}, ${colorBackgroundText1.value}, ${colorBackgroundText2.value})`
+        } else {
+            colorBackgroundText2.disabled = true
+            backgroundTextColorAngle.disabled = true
+            qrContent.style.background = colorBackgroundText1.value
+        }
         qrContent.style.display = "flex"
         qrContent.style.flexDirection = "column"
         qrContent.style.width = (size + 26) + "px"
         qrContent.style.height = (size + 70) + "px"
         qrContent.style.padding = "13px 13px 0 13px"
 
-        configDisable.style.opacity = "1"
-        colorBackgroundInput.disabled = false
-        colorTextInput.disabled = false
+        configDisabled.forEach(fieldset => fieldset.style.opacity = "1") // habilitar todos los fieldsets deshabilitados
+        colorBackgroundText1.disabled = false // desactivamos el check para que no sea clickeable
+        colorText.disabled = false
 
         // aplicar color de texto al <p>
         const p = qrContent.querySelector("p")
-        if (p) { p.style.color = qrContentTextColor }
+        if (p) { p.style.color = textColor }
     } else {
         // sino, se resetea
-        configDisable.style.opacity = ".5"
-        colorBackgroundInput.disabled = true
-        colorTextInput.disabled = true
+        backgroundTextColorAngle.disabled = true
+        buttonBackgroundTextReset.disabled = true
+        gradientBackgroundTextCheckbox.disabled = true
+        configDisabled.forEach(fieldset => fieldset.style.opacity = ".5")
+        colorBackgroundText1.disabled = true
+        colorBackgroundText2.disabled = true
+        colorText.disabled = true
 
-        qrContent.style.backgroundColor = "transparent"
+        qrContent.style.background = "transparent"
         qrContent.style.width = size + "px"
         qrContent.style.height = size + "px"
         qrContent.style.padding = "0"
@@ -194,12 +234,24 @@ export function getQrCode() {
     return qrCode
 }
 
-export function getQrContentBackgroundColor() {
-    return qrContentBackgroundColor
+export function getGradientBackgroundTextCheckbox() {
+    return gradientBackgroundTextCheckbox
 }
 
-export function getQrContentTextColor() {
-    return qrContentTextColor
+export function getBackgroundTextColor1() {
+    return backgroundTextColor1
+}
+
+export function getBackgroundTextColor2() {
+    return backgroundTextColor2
+}
+
+export function getBackgroundTextColorAngle() {
+    return backgroundTextColorAngle
+}
+
+export function getTextColor() {
+    return textColor
 }
 
 // animación de transición
@@ -217,13 +269,19 @@ document.getElementById("fullscreen-close").addEventListener("click", resetQR)
 document.getElementById("size").addEventListener("input", updateQR)
 document.getElementById("color-background-1").addEventListener("input", updateQR)
 document.getElementById("color-background-2").addEventListener("input", updateQR)
+document.getElementById("color-background-angle").addEventListener("input", updateQR)
 document.getElementById("color-module-1").addEventListener("input", updateQR)
 document.getElementById("color-module-2").addEventListener("input", updateQR)
+document.getElementById("color-module-angle").addEventListener("input", updateQR)
 document.getElementById("color-pattern-ext-1").addEventListener("input", updateQR)
 document.getElementById("color-pattern-ext-2").addEventListener("input", updateQR)
+document.getElementById("color-pattern-ext-angle").addEventListener("input", updateQR)
 document.getElementById("color-pattern-int-1").addEventListener("input", updateQR)
 document.getElementById("color-pattern-int-2").addEventListener("input", updateQR)
-document.getElementById("color-background").addEventListener("input", updateQR)
+document.getElementById("color-pattern-int-angle").addEventListener("input", updateQR)
+document.getElementById("color-background-text-1").addEventListener("input", updateQR)
+document.getElementById("color-background-text-2").addEventListener("input", updateQR)
+document.getElementById("color-background-text-angle").addEventListener("input", updateQR)
 document.getElementById("color-text").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)
 
@@ -268,6 +326,11 @@ gradientPatternExtCheckbox.addEventListener("change", updateQR)
 const gradientPatternIntCheckbox = document.getElementById("color-pattern-int-gradient")
 gradientPatternIntCheckbox.addEventListener("change", updateQR)
 
+// activar o desactivar el gradiente del fondo del texto
+const gradientBackgroundTextCheckbox = document.getElementById("color-background-text-gradient")
+gradientBackgroundTextCheckbox.addEventListener("change", updateQR)
+
+
 // ======= BOTONES DE RESETEO
 // resetear el gradiente del fondo
 document.getElementById("color-background-reset").addEventListener("click", () => {
@@ -297,6 +360,14 @@ document.getElementById("color-pattern-ext-reset").addEventListener("click", () 
 document.getElementById("color-pattern-int-reset").addEventListener("click", () => {
     document.getElementById("color-pattern-int-1").value = "#000000"
     document.getElementById("color-pattern-int-2").value = "#000000"
+        
+    updateQR()
+})
+
+// resetear el gradiente del fondo del texto
+document.getElementById("color-background-text-reset").addEventListener("click", () => {
+    document.getElementById("color-background-text-1").value = "#759ecc"
+    document.getElementById("color-background-text-2").value = "#759ecc"
         
     updateQR()
 })

@@ -95,6 +95,12 @@ input:disabled {
     margin: auto;
 }
 
+button:disabled,
+input:disabled {
+    opacity: 0.5;      /* para que se vea inactivo */
+    pointer-events: none;  /* bloquea clicks y hover */
+    cursor: default;       /* cursor normal */
+}
 
 /* ======= INTRODUCCIÓN DE INPUT ======= */
 .qr-type-container {

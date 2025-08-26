@@ -77,7 +77,7 @@
 
                             <!-- Logo de QR -->
                             <fieldset class="config-custom-container">
-                                <legend class="config-custom-title">Logo QR</legend>
+                                <legend class="config-custom-title">Logo</legend>
                                 <div class="file-wrapper">
                                     <label class="custom-file-button">
                                         Seleccionar
@@ -97,10 +97,11 @@
                             <!-- Colores -->
                             <!-- fondo -->
                             <fieldset class="config-custom-container">
-                                <legend class="config-custom-title">Fondo</legend>
+                                <legend class="config-custom-title">Fondo QR</legend>
                                 <div class="d-flex flex-column align-items-center">
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-background-1" class="p-0" value="#ffffff"></span></label>
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-background-2" class="p-0" value="#ffffff" disabled></span></label>
+                                    <label class="w-100 d-flex align-items-center"><span class="me-auto text">Ángulo:</span> <span class="ms-4"><input type="number" id="color-background-angle" min="0" max="360" step="45" value="45" disabled></span></label>
                                 </div>
 
                                 <div class="config-custom-gradient">
@@ -115,6 +116,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-module-1" class="p-0" value="#000000"></span></label>
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-module-2" class="p-0" value="#000000" disabled></span></label>
+                                    <label class="w-100 d-flex align-items-center"><span class="me-auto text">Ángulo:</span> <span class="ms-4"><input type="number" id="color-module-angle" min="0" max="360" step="45" value="45" disabled></span></label>
                                 </div>
 
                                 <div class="config-custom-gradient">
@@ -129,6 +131,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-pattern-ext-1" class="p-0" value="#000000"></span></label>
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-pattern-ext-2" class="p-0" value="#000000" disabled></span></label>
+                                    <label class="w-100 d-flex align-items-center"><span class="me-auto text">Ángulo:</span> <span class="ms-4"><input type="number" id="color-pattern-ext-angle" min="0" max="360" step="45" value="45" disabled></span></label>
                                 </div>
 
                                 <div class="config-custom-gradient">
@@ -143,6 +146,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-pattern-int-1" class="p-0" value="#000000"></span></label>
                                     <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-pattern-int-2" class="p-0" value="#000000" disabled></span></label>
+                                    <label class="w-100 d-flex align-items-center"><span class="me-auto text">Ángulo:</span> <span class="ms-4"><input type="number" id="color-pattern-int-angle" min="0" max="360" step="45" value="45" disabled></span></label>
                                 </div>
 
                                 <div class="config-custom-gradient">
@@ -152,17 +156,32 @@
                             </fieldset>
 
                             <!-- fondo y texto cuando el usuario agrega texto al QR -->
+                            <!-- fondo-->
                             <fieldset class="config-custom-container config-custom-disabled">
-                                <legend class="config-custom-title">Fondo y texto</legend>
+                                <legend class="config-custom-title">Fondo</legend>
                                 <div class="d-flex flex-column align-items-center">
-                                    <label class="w-100 d-flex"><span class="me-auto text">Fondo:</span> <span><input type="color" id="color-background" class="p-0" value="#759ecc" disabled></span></label>
-                                    <label class="w-100 d-flex"><span class="me-auto text">Texto:</span> <span><input type="color" id="color-text" class="p-0" value="#000000" disabled></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Fondo 1:</span> <span><input type="color" id="color-background-text-1" class="p-0" value="#759ecc" disabled></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Fondo 2:</span> <span><input type="color" id="color-background-text-2" class="p-0" value="#759ecc" disabled></span></label>
+                                    <label class="w-100 d-flex align-items-center"><span class="me-auto text">Ángulo:</span> <span class="ms-4"><input type="number" id="color-background-text-angle" min="0" max="360" step="45" value="45" disabled></span></label>
+                                </div>
+
+                                <div class="config-custom-gradient">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Gradiente:</span> <span class="ms-4"><input id="color-background-text-gradient" type="checkbox" name="color-type" value="gradient" disabled></span></label>
+                                    <button id="color-background-text-reset" class="color-gradient-reset" disabled>Reiniciar color</button>
+                                </div>
+                            </fieldset>
+
+                            <!-- texto -->
+                            <fieldset class="config-custom-container config-custom-disabled">
+                                <legend class="config-custom-title">Texto</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Textp:</span> <span><input type="color" id="color-text" class="p-0" value="#000000" disabled></span></label>
                                 </div>
                             </fieldset>
                         </div>
                     </div>
                     
-                    <!-- ------- GRUPO: Módulos y Esquinas ------- -->
+                    <!-- ------- GRUPO: ESTILO ------- -->
                     <div class="w-100 d-flex flex-column">
                         <h3>Módulos y Esquinas</h3>
                         <div class="config-group-content">

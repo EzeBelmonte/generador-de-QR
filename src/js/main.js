@@ -1,5 +1,5 @@
 import { downloadPrint } from "./functions/utilities.js"
-import { createQR, updateQrContentStyle, getQrCode, getQrContentBackgroundColor, getQrContentTextColor } from "./functions/qr.js"
+import { createQR, updateQrContentStyle, getQrCode, getGradientBackgroundTextCheckbox, getBackgroundTextColor1, getBackgroundTextColor2, getBackgroundTextColorAngle, getTextColor } from "./functions/qr.js"
 import { setLogoSrc } from "./functions/qr.js"
 
 let logoSrc = null
@@ -153,9 +153,22 @@ function generateQR() {
         </div>
     `
     // botón de descarga e impresion
-    document.querySelectorAll("button[data-action]").forEach(btn => {
-        btn.addEventListener("click", (event) => downloadPrint(event, getQrCode(), getQrContentBackgroundColor(), getQrContentTextColor()))
+document.querySelectorAll("button[data-action]").forEach(btn => {
+    btn.addEventListener("click", (event) => {
+        downloadPrint(
+            event,
+            getQrCode(),
+            {
+                color1: getBackgroundTextColor1(),
+                color2: getBackgroundTextColor2(),
+                isGradient: getGradientBackgroundTextCheckbox().checked,
+                angle: getBackgroundTextColorAngle().value
+            },
+            getTextColor()
+        )
     })
+})
+
 
     // Crear p para mostrar el texto en tiempo real
     const qrContent = document.querySelector(".qr-content")

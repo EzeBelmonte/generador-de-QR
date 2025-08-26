@@ -1,44 +1,68 @@
-.body {
-    height: 100dvh;
-    margin: 0;
-    padding: 20px 10px 0 10px;
-    box-sizing: border-box;
-}
-main {
-    text-align: center;
-}
 
-/* ===== Tablets en horizontal o notebooks chicos (≤ 1024px) ===== */
-/*@media (max-width: 1024px) {
-
-}*/
-
-/* ===== Tablets y móviles grandes (≤ 768px) ===== */
-/*@media (max-width: 768px) {
-
-}*/
-
-/* ===== Móviles pequeños (≤ 480px) ===== */
-@media (max-width: 480px) {
-    .title-h1 {
-        font-size: 24px;
+/* ===== (≤ 1024px) ===== */
+@media (max-width: 1024px) {
+    .body {
+        height: 100dvh;
     }
 
-    .title-h2 {
-        font-size: 16px;
+    main {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 90%;
+        text-align: center;
     }
 
     .title-h3 {
-        font-size: 16px;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    /* X para cerrar el div */
+    .fullscreen-close {
+        color: rgb(0, 0, 0);
+    }
+
+    .config-custom-container {
+        width: 45%;
+    }
+
+    .config-group-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;         
+        gap: 1rem;     
+    }
+
+    .config-custom-container {
+        min-width: 170px;
+    }
+}
+
+
+/* ===== (≤ 768px) ===== */
+@media (max-width: 768px) {
+
+    .title-h1 {
+        font-size: 34px;
+    }
+
+    .title-h2 {
+        font-size: 18px;
+    }
+
+    .title-h3 {
+        font-size: 20px;
     }
 
     .text {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     input {
-        width: 50%;
-        font-size: 12px;
+        width: 100%;
+        font-size: 14px;
         padding: 2px;
     }
 
@@ -47,8 +71,13 @@ main {
         height: 20px;
     }
 
+    input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
     #social-select {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .qr-type-container {
@@ -71,7 +100,7 @@ main {
     }
 
     .button-utility {
-        font-size: 10px;
+        font-size: 14px;
     }
     
     .config-container,
@@ -124,15 +153,15 @@ main {
     }
 
     .config-custom-title {
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .config-custom-container {
-        min-width: 140px;
+        min-width: 160px;
     }
 
     .custom-file-button {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .config-custom-gradient {
@@ -143,6 +172,71 @@ main {
         font-size: 12px;
         margin-top: 2;
         padding: 4px;
+    }
+
+}
+
+
+/* ===== (≤ 480px) ===== */
+@media (max-width: 480px) {
+    main {
+        width: 100%;
+    }
+
+    .title-h1 {
+        font-size: 25px;
+    }
+
+    .title-h2 {
+        font-size: 16px;
+    }
+
+    .title-h3 {
+        font-size: 16px;
+    }
+
+    .text {
+        font-size: 12px;
+    }
+
+    input {
+        width: 50%;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    input[type="color"] {
+        width: 20px;
+        height: 20px;
+    }
+
+    input[type="checkbox"] {
+        width: 10px;
+        height: 10px;
+    }
+
+    #social-select {
+        font-size: 12px;
+    }
+
+    .button-gen {
+        font-size: 12px;
+    }
+
+    .button-utility {
+        font-size: 10px;
+    }
+
+    .config-custom-title {
+        font-size: 13px;
+    }
+
+    .config-custom-container {
+        min-width: 140px;
+    }
+
+    .custom-file-button {
+        font-size: 12px;
     }
 
 }

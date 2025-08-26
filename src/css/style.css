@@ -34,8 +34,8 @@
 .body {
     background-color: var(--bg-body);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 40px;
-    height: 100vh;
+    margin: 0;
+    padding: 20px 10px 0 10px;
     box-sizing: border-box;
 }
 
@@ -57,8 +57,8 @@
 .title-h3 {
     font-size: 1.4rem;
     color: var(--title-color-content);
+    text-align: center;
 }
-
 
 input {
     cursor: pointer;
@@ -67,6 +67,16 @@ input {
 
 input:disabled {
     cursor: default;
+}
+
+input[type="color"] {
+    width: 36px;
+    height: 22px;
+}
+
+input[type="number"] {
+    width: 54px;
+    height: 26px;
 }
 
 .text {
@@ -109,7 +119,7 @@ input:disabled {
 .qr-type-container {
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 80%;
     background-color: var(--bg-container);
     border: 1px solid var(--border-container);
     border-radius: 5px;
@@ -149,6 +159,11 @@ input:disabled {
 .qr-content:hover {
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
     transform: scale(1.01);
+}
+
+.qr-type-radio-container {
+    display: flex;
+    gap: 20px;
 }
 
 
@@ -198,11 +213,11 @@ input:disabled {
 /* ======= CONFIGURACIÓN ======= */
 .qr-container,
 .config-container {
-    width: 96%;
+    width: 98%;
     background-color: var(--bg-container);
     border: 1px solid var(--border-container);
     border-radius: 5px;
-    padding: 30px 15px;
+    padding: 30px 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -226,21 +241,22 @@ input:disabled {
     display: flex; 
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
+    gap: 30px;
     margin-top: 30px;
     padding: 0 10px;
 }
 
 .config-group-content {
-    display: flex;
-    align-items: center; /* ------------------------- */
-    justify-content: center;
-    flex-wrap: wrap;         
-    gap: 1rem;     
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;     
 }
 
+
 .config-custom-container {
-    width: 31%;
+    /*width: 31%;*/
+    width: 100%;
     min-height: 140px;
     flex-direction: column;
     background-color: var(--bg-container);

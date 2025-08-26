@@ -12,7 +12,7 @@
 
 </head>
 <body class="body">
-    <h1>Generador de Códigos QR</h1>
+    <h1 class="title-h1">Generador de Códigos QR</h1>
 
     <main class="d-flex flex-column align-items-center">
         <div class="qr-type-container">
@@ -23,7 +23,7 @@
                     </label>
 
                     <label class="text">
-                        <input type="radio" name="qr-type" value="wifiQR"> Red Wi-Fi
+                        <input type="radio" name="qr-type" value="wifiQR"> Wi-Fi
                     </label>
 
                     <label class="text">
@@ -31,7 +31,7 @@
                     </label>
 
                     <label class="text">
-                        <input type="radio" name="qr-type" value="socialQR"> Red social
+                        <input type="radio" name="qr-type" value="socialQR"> Social
                     </label>
                 </div>
 
@@ -48,13 +48,15 @@
             <!-- Contenedor donde se va a crear el QR -->
             <div class="qr-container"></div>
 
-            <div class="config-container">
-                <h2 id="config-title">Configuración</h2>
+            <div id="config-container" class="config-container">
+                <div id="config-title" class="config-title">
+                    <h2 class="title-h2">Configuración</h2>
+                </div>
 
-                <div id="config-content" class="d-flex flex-column justify-content-center gap-5 mt-3">
+                <div id="config-content" class="config-content">
                     <!-- ------- GRUPO: Otros ------- -->
-                    <div class="w-100 d-flex flex-column">
-                        <h3>General</h3>
+                    <div class="config-group-container">
+                        <h3 class="title-h3">General</h3>
 
                         <div class="config-group-content">
                             <!-- Dimensiones -->
@@ -92,7 +94,7 @@
 
                     <!-- ------- GRUPO: Colores ------- -->
                     <div class="w-100 d-flex flex-column">
-                        <h3>Colores</h3>
+                        <h3 class="title-h3">Colores</h3>
                         <div class="config-group-content">
                             <!-- Colores -->
                             <!-- fondo -->
@@ -183,7 +185,7 @@
                     
                     <!-- ------- GRUPO: ESTILO ------- -->
                     <div class="w-100 d-flex flex-column">
-                        <h3>Módulos y Esquinas</h3>
+                        <h3 class="title-h3">Módulos y Esquinas</h3>
                         <div class="config-group-content">
                             <!-- Estilo de los módulos -->
                             <fieldset class="config-custom-container">
@@ -232,8 +234,10 @@
     <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
     <!-- Librería lector de QR -->
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <!-- Tu JS principal -->
+    <!-- Principal -->
     <script type="module" src="src/js/main.js"></script>
+    <!-- Funcionalidades responsive -->
+    <script src="src/js/functions/responsive.js"></script>
     <!-- Script lector -->
     <script>
         function onScanSuccess(decodedText, decodedResult) {

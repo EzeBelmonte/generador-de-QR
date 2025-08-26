@@ -35,8 +35,8 @@ function showInputs() {
     if (qrSelectValue === "wifiQR") {
         input.innerHTML = `
             <div class="d-flex gap-2">
-            <input type="text" id="ssid" class="w-50" placeholder="SSID">
-            <input type="text" id="wifi-pass" class="w-50" placeholder="Contraseña">
+            <input type="text" id="ssid" class="w-100" placeholder="SSID">
+            <input type="text" id="wifi-pass" class="w-100" placeholder="Contraseña">
             </div>
             <fieldset class="mb-3">
                 <legend class="mt-3 text">Tipo de seguridad</legend>
@@ -60,8 +60,8 @@ function showInputs() {
         input.innerHTML = `
             <div class="d-flex flex-column">
                 <div class="w-100 d-flex gap-2 mb-2">
-                    <input type="text" id="vcard-name" class="w-50" placeholder="Nombre">
-                    <input type="text" id="vcard-lastname" class="w-50" placeholder="Apellido">
+                    <input type="text" id="vcard-name" class="w-100" placeholder="Nombre">
+                    <input type="text" id="vcard-lastname" class="w-100" placeholder="Apellido">
                 </div>
                 <input type="text" id="vcard-phone" class="w-100" placeholder="Teléfono">
             </div>
@@ -283,19 +283,6 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
     createQR(content)
 }
 
-
-// agrega la funcionalidad de abrir y cerrar el menu cuando esta en resoluciones bajas
-const configContainer = document.querySelector(".config-container");
-const configContent = document.getElementById("config-content");
-
-if (window.innerWidth <= 480) {
-    const configTitle = document.getElementById("config-title");
-    // solo en móvil
-    configTitle.addEventListener("click", () => {
-        configContainer.classList.toggle("expanded");
-        configContent.classList.add("expanded");
-    });
-}
 
 // boton para abrir la verificación de QR
 const camContainer = document.getElementById("cam-container");

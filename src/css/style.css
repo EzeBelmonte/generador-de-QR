@@ -36,23 +36,25 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 40px;
     height: 100vh;
+    box-sizing: border-box;
 }
 
-h1, h2 {
+.title-h1, 
+.title-h2 {
     color: var(--title-color-container);
     font-weight: 500;
 }
 
-h1 {
+.title-h1 {
     font-size: 2.2rem;
     text-align: center;
 }
 
-h2 {
+.title-h2 {
     font-size: 1.8rem;
 }
 
-h3 {
+.title-h3 {
     font-size: 1.4rem;
     color: var(--title-color-content);
 }
@@ -219,6 +221,16 @@ input:disabled {
     overflow-x: hidden;     
 }
 
+/* no se usa boostrap para poder usarlo en responsive */
+.config-content {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 0 10px;
+}
+
 .config-group-content {
     display: flex;
     align-items: center; /* ------------------------- */
@@ -367,6 +379,7 @@ input:disabled {
     border: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    z-index: 20;
 
     /* transición */
     opacity: 0;
@@ -384,26 +397,26 @@ input:disabled {
 }
 
 .cam-container {
-  position: fixed;
-  bottom: -100%;        /* arranca escondido */
-  left: 50%;            /* lo posiciono desde el centro */
-  transform: translateX(-50%); /* lo corro para centrarlo */
-  
-  width: 90%;           /* ancho relativo a la pantalla */
-  max-width: 400px;     /* límite máximo */
-  height: auto;
+    position: fixed;
+    bottom: -100%;        /* arranca escondido */
+    left: 50%;            /* lo posiciono desde el centro */
+    transform: translateX(-50%); /* lo corro para centrarlo */
+    
+    width: 90%;           /* ancho relativo a la pantalla */
+    max-width: 400px;     /* límite máximo */
+    height: auto;
 
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
 
-  padding: 15px;
-  transition: bottom 0.3s ease;
-  z-index: 9999;
+    padding: 15px;
+    transition: bottom 0.3s ease;
+    z-index: 10;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .cam-container.active {
   bottom: 10px; /* sube y queda separado un poquito del borde inferior */

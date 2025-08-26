@@ -35,6 +35,7 @@
     background-color: var(--bg-body);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 40px;
+    height: 100vh;
 }
 
 h1, h2 {
@@ -352,4 +353,69 @@ input:disabled {
 
 .custom-file-button input[type="file"] {
     display: none; /* ocultamos el input original */
+}
+
+
+/* CÁMARA */
+.cam-button {
+    background-color: rgb(94, 128, 221);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 4px;
+    border: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    /* transición */
+    opacity: 0;
+    pointer-events: none;     
+    transition: opacity 0.3s ease;
+}
+
+.cam-button {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.cam-button img {
+    width: 26px;
+}
+
+.cam-container {
+  position: fixed;
+  bottom: -100%;        /* arranca escondido */
+  left: 50%;            /* lo posiciono desde el centro */
+  transform: translateX(-50%); /* lo corro para centrarlo */
+  
+  width: 90%;           /* ancho relativo a la pantalla */
+  max-width: 400px;     /* límite máximo */
+  height: auto;
+
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
+
+  padding: 15px;
+  transition: bottom 0.3s ease;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cam-container.active {
+  bottom: 10px; /* sube y queda separado un poquito del borde inferior */
+}
+
+#reader {
+    margin: 0 auto;
+    display: block;
+    background-color: black;
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;  /* fuerza proporción cuadrada */
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;     /* recorta lo que sobresalga */
 }

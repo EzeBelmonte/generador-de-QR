@@ -220,6 +220,7 @@ input:disabled {
 
 .config-group-content {
     display: flex;
+    align-items: center; /* ------------------------- */
     justify-content: center;
     flex-wrap: wrap;         
     gap: 1rem;     
@@ -227,11 +228,12 @@ input:disabled {
 
 .config-custom-container {
     width: 31%;
-    display: flex;
+    min-height: 140px;
     flex-direction: column;
     background-color: var(--bg-container);
     border: 1px solid var(--border-content);
     border-radius: 5px;
+    margin-bottom: auto;
     padding: 10px;
     box-sizing: border-box;
 }
@@ -334,7 +336,6 @@ input:disabled {
 
 .custom-file-button {
     background-color: var(--bg-button);
-    margin-top: 14px;
 }
 .custom-file-button:hover {
     background-color: var(--bg-button-hover);

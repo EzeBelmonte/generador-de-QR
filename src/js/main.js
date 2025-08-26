@@ -162,7 +162,7 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
                 color1: getBackgroundTextColor1(),
                 color2: getBackgroundTextColor2(),
                 isGradient: getGradientBackgroundTextCheckbox().checked,
-                angle: getBackgroundTextColorAngle().value
+                angle: Number(getBackgroundTextColorAngle()) || 0
             },
             getTextColor()
         )

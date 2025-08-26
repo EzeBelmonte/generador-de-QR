@@ -190,7 +190,7 @@ export function updateQrContentStyle(hasText = false) {
         backgroundTextColorAngle.disabled = false // hablitar el selector de ángulos
         if (gradientBackgroundTextCheckbox.checked) {
             colorBackgroundText2.disabled = false
-            qrContent.style.background = `linear-gradient(${backgroundTextColorAngle.value}, ${colorBackgroundText1.value}, ${colorBackgroundText2.value})`
+            qrContent.style.background = `linear-gradient(${backgroundTextColorAngle.value}deg, ${colorBackgroundText1.value}, ${colorBackgroundText2.value})`
         } else {
             colorBackgroundText2.disabled = true
             backgroundTextColorAngle.disabled = true

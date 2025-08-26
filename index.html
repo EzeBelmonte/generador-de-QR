@@ -18,24 +18,26 @@
         <div class="qr-type-container">
             <div id="qr-type-content" class="mb-2">
                 <div class="d-flex gap-3">
-                <label class="text">
-                    <input type="radio" name="qr-type" value="standarQR" checked> Links
-                </label>
+                    <label class="text">
+                        <input type="radio" name="qr-type" value="standarQR" checked> Links
+                    </label>
 
-                <label class="text">
-                    <input type="radio" name="qr-type" value="wifiQR"> Red Wi-Fi
-                </label>
+                    <label class="text">
+                        <input type="radio" name="qr-type" value="wifiQR"> Red Wi-Fi
+                    </label>
 
-                <label class="text">
-                    <input type="radio" name="qr-type" value="vcardQR"> Contacto
-                </label>
+                    <label class="text">
+                        <input type="radio" name="qr-type" value="vcardQR"> Contacto
+                    </label>
 
-                <label class="text">
-                    <input type="radio" name="qr-type" value="socialQR"> Red social
-                </label>
+                    <label class="text">
+                        <input type="radio" name="qr-type" value="socialQR"> Red social
+                    </label>
                 </div>
-            </div>
 
+                
+            </div>
+            <!-- <div id="qr-extra-container"></div> -->
             <button id="button-gen" class="button-gen">Generar QR</button>
         </div>
 
@@ -93,6 +95,7 @@
                         <h3>Colores</h3>
                         <div class="config-group-content">
                             <!-- Colores -->
+                            <!-- fondo -->
                             <fieldset class="config-custom-container">
                                 <legend class="config-custom-title">Fondo</legend>
                                 <div class="d-flex flex-column align-items-center">
@@ -106,6 +109,7 @@
                                 </div>
                             </fieldset>
 
+                            <!-- módulo -->
                             <fieldset class="config-custom-container">
                                 <legend class="config-custom-title">Módulos</legend>
                                 <div class="d-flex flex-column align-items-center">
@@ -119,14 +123,35 @@
                                 </div>
                             </fieldset>
 
+                            <!-- esquina ext -->
                             <fieldset class="config-custom-container">
-                                <legend class="config-custom-title">Esquinas</legend>
+                                <legend class="config-custom-title">Esquinas marcos</legend>
                                 <div class="d-flex flex-column align-items-center">
-                                    <label class="w-100 d-flex"><span class="me-auto text">Externo:</span> <span class="ms-4"><input type="color" id="pattern-color-ext" class="p-0" value="#000000"></span></label>
-                                    <label class="w-100 d-flex"><span class="me-auto text">Interno:</span> <span class="ms-4"><input type="color" id="pattern-color-int" class="p-0" value="#000000"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-pattern-ext-1" class="p-0" value="#000000"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-pattern-ext-2" class="p-0" value="#000000" disabled></span></label>
+                                </div>
+
+                                <div class="config-custom-gradient">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Gradiente:</span> <span class="ms-4"><input id="color-pattern-ext-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
+                                    <button id="color-pattern-ext-reset" class="color-gradient-reset">Reiniciar color</button>
                                 </div>
                             </fieldset>
 
+                            <!-- esquina int-->
+                            <fieldset class="config-custom-container">
+                                <legend class="config-custom-title">Esquinas módulos</legend>
+                                <div class="d-flex flex-column align-items-center">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 1:</span> <span class="ms-4"><input type="color" id="color-pattern-int-1" class="p-0" value="#000000"></span></label>
+                                    <label class="w-100 d-flex"><span class="me-auto text">Color 2:</span> <span class="ms-4"><input type="color" id="color-pattern-int-2" class="p-0" value="#000000" disabled></span></label>
+                                </div>
+
+                                <div class="config-custom-gradient">
+                                    <label class="w-100 d-flex"><span class="me-auto text">Gradiente:</span> <span class="ms-4"><input id="color-pattern-int-gradient" type="checkbox" name="color-type" value="gradient"></span></label>
+                                    <button id="color-pattern-int-reset" class="color-gradient-reset">Reiniciar color</button>
+                                </div>
+                            </fieldset>
+
+                            <!-- fondo y texto cuando el usuario agrega texto al QR -->
                             <fieldset class="config-custom-container config-custom-disabled">
                                 <legend class="config-custom-title">Fondo y texto</legend>
                                 <div class="d-flex flex-column align-items-center">

@@ -7,8 +7,8 @@ export function getDotType() {
 
 // tipo de esquina
 export function getCornersSquareType() {
-        const pattern = document.querySelector('input[name="pattern-type"]:checked').value
-        return (pattern === "square") ? "square" : "extra-rounded"
+    const pattern = document.querySelector('input[name="pattern-type"]:checked').value
+    return (pattern === "square") ? "square" : "extra-rounded"
 }
 
 // tipo de dont interno de la esquina

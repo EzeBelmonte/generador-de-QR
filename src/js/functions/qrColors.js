@@ -53,11 +53,55 @@ export function getDotsColor (gradientModuleCheckbox) {
 }
 
 // color del marco de los módulos de las esquinas
-export function getCornersSquareColor() {
-    return { color: document.getElementById("pattern-color-ext").value }
+export function getCornersSquareColor(gradientPatternExtCheckbox) {
+
+    const colorPatternExt1 = document.getElementById("color-pattern-ext-1").value
+    const colorPatternExt2 = document.getElementById("color-pattern-ext-2").value
+
+    if (gradientPatternExtCheckbox) {
+        document.getElementById("color-pattern-ext-2").disabled = false
+        return {
+            gradient: {
+                type: "linear",   // o "radial"
+                rotation: 0,
+                colorStops: [
+                    { offset: 0, color: colorPatternExt1 },
+                    { offset: 1, color: colorPatternExt2 }
+                ]
+            }
+        }
+    } else {
+        document.getElementById("color-pattern-ext-2").disabled = true
+        return {
+            color: colorPatternExt1,
+            gradient: undefined // desabilitar el gradiente para que funcione le color plano
+        }
+    }
 }
 
-// color del dot las esquinas
-export function getCornersDotColor() {
-    return { color: document.getElementById("pattern-color-int").value}
+// color del marco de los módulos de las esquinas
+export function getCornersDotColor(gradientPatternIntCheckbox) {
+
+    const colorPatternInt1 = document.getElementById("color-pattern-int-1").value
+    const colorPatternInt2 = document.getElementById("color-pattern-int-2").value
+
+    if (gradientPatternIntCheckbox) {
+        document.getElementById("color-pattern-int-2").disabled = false
+        return {
+            gradient: {
+                type: "linear",   // o "radial"
+                rotation: 0,
+                colorStops: [
+                    { offset: 0, color: colorPatternInt1 },
+                    { offset: 1, color: colorPatternInt2 }
+                ]
+            }
+        }
+    } else {
+        document.getElementById("color-pattern-int-2").disabled = true
+        return {
+            color: colorPatternInt1,
+            gradient: undefined // desabilitar el gradiente para que funcione le color plano
+        }
+    }
 }

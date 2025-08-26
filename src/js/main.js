@@ -1,6 +1,7 @@
 import { downloadPrint } from "./functions/utilities.js"
 import { createQR, updateQrContentStyle, getQrCode, getQrContentBackgroundColor, getQrContentTextColor } from "./functions/qr.js"
 
+let logoSrc = ""
 
 // Mostrar inputs al cambiar el tipo de QR
 document.querySelectorAll('input[name="qr-type"]').forEach(radio => {
@@ -133,6 +134,8 @@ function showInputs() {
         })
     }
 }
+
+
 
 document.getElementById("button-gen").addEventListener("click", generateQR)
 // GENERADOR DE QR

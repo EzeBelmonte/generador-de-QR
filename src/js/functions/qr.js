@@ -70,14 +70,15 @@ export const updateQR = () => {
         type: getDotType()
     }
 
-    // esquinas
+    // esquinas ext
     const cornersSquareOptions = {
-        ...getCornersSquareColor(),
+        ...getCornersSquareColor(gradientPatternExtCheckbox.checked),
         type: getCornersSquareType()
     }
 
+    // esquinas int
     const cornersDotOptions = {
-        ...getCornersDotColor(),
+        ...getCornersDotColor(gradientPatternIntCheckbox.checked),
         type: getCornersDotType()
     }
 
@@ -211,8 +212,10 @@ document.getElementById("color-background-1").addEventListener("input", updateQR
 document.getElementById("color-background-2").addEventListener("input", updateQR)
 document.getElementById("color-module-1").addEventListener("input", updateQR)
 document.getElementById("color-module-2").addEventListener("input", updateQR)
-document.getElementById("pattern-color-ext").addEventListener("input", updateQR)
-document.getElementById("pattern-color-int").addEventListener("input", updateQR)
+document.getElementById("color-pattern-ext-1").addEventListener("input", updateQR)
+document.getElementById("color-pattern-ext-2").addEventListener("input", updateQR)
+document.getElementById("color-pattern-int-1").addEventListener("input", updateQR)
+document.getElementById("color-pattern-int-2").addEventListener("input", updateQR)
 document.getElementById("color-background").addEventListener("input", updateQR)
 document.getElementById("color-text").addEventListener("input", updateQR)
 document.getElementById("logo-file").addEventListener("change", updateQR)
@@ -240,13 +243,21 @@ document.querySelectorAll('input[name="dot-pattern-type"]').forEach(radio => {
     radio.addEventListener("change", updateQR)
 })
 
+// activar o desactivar el gradiente del fondo
+const gradientBackgroundCheckbox = document.getElementById("color-background-gradient")
+gradientBackgroundCheckbox.addEventListener("change", updateQR)
+
 // activar o desactivar el gradiente a los módulos
 const gradientModuleCheckbox = document.getElementById("color-module-gradient")
 gradientModuleCheckbox.addEventListener("change", updateQR)
 
-// activar o desactivar el gradiente del fondo
-const gradientBackgroundCheckbox = document.getElementById("color-background-gradient")
-gradientBackgroundCheckbox.addEventListener("change", updateQR)
+// activar o desactivar el gradiente a los parrents
+const gradientPatternExtCheckbox = document.getElementById("color-pattern-ext-gradient")
+gradientPatternExtCheckbox.addEventListener("change", updateQR)
+
+// activar o desactivar el gradiente a los dot de los parrents
+const gradientPatternIntCheckbox = document.getElementById("color-pattern-int-gradient")
+gradientPatternIntCheckbox.addEventListener("change", updateQR)
 
 // resetear el gradiente del módulo
 document.getElementById("color-module-reset").addEventListener("click", () => {

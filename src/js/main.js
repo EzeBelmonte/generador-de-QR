@@ -1,7 +1,8 @@
 import { downloadPrint } from "./functions/utilities.js"
 import { createQR, updateQrContentStyle, getQrCode, getQrContentBackgroundColor, getQrContentTextColor } from "./functions/qr.js"
+import { setLogoSrc } from "./functions/qr.js"
 
-let logoSrc = ""
+let logoSrc = null
 
 // Mostrar inputs al cambiar el tipo de QR
 document.querySelectorAll('input[name="qr-type"]').forEach(radio => {
@@ -14,25 +15,25 @@ window.addEventListener("DOMContentLoaded", showInputs)
 
 // muestra los inputs cuando se selecciona un tipo de QR
 function showInputs() {
-    const qrSelect = document.getElementById("qr-type-content")
+    // radio seleccionado
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
 
-    // limpiar inputs previos si ya existen
-    const oldInputs = document.querySelector(".qr-extra")
-    if (oldInputs) oldInputs.remove()
+    // contenedor del input
+    const input = document.getElementById("qr-type-input")
 
-    // contenedor para inputs extra
-    const div = document.createElement("div")
-    div.classList.add("qr-extra")
-
+    // limpiar el input si hay uno
+    if (input) {
+        input.innerHTML = ""
+    }
+    
     if (qrSelectValue === "standarQR") {
-        div.innerHTML = `
+        input.innerHTML = `
             <input type="text" id="text-standar" class="w-100" placeholder="Escribe un link o texto">
         `
     } 
 
     if (qrSelectValue === "wifiQR") {
-        div.innerHTML = `
+        input.innerHTML = `
             <div class="d-flex gap-2">
             <input type="text" id="ssid" class="w-50" placeholder="SSID">
             <input type="text" id="wifi-pass" class="w-50" placeholder="Contraseña">
@@ -56,7 +57,7 @@ function showInputs() {
     }
 
     if (qrSelectValue === "vcardQR") {
-        div.innerHTML = `
+        input.innerHTML = `
             <div class="d-flex flex-column">
                 <div class="w-100 d-flex gap-2 mb-2">
                     <input type="text" id="vcard-name" class="w-50" placeholder="Nombre">
@@ -68,7 +69,7 @@ function showInputs() {
     }
 
     if (qrSelectValue === "socialQR") {
-        div.innerHTML = `
+        input.innerHTML = `
             <div>
                 <div class="mt-2 mb-2">
                     <label class="text" for="social-select">Generar QR para:</label>
@@ -86,8 +87,8 @@ function showInputs() {
         `
 
         // detectar cambio en el selector
-        const socialSelect = div.querySelector("#social-select")
-        const socialInput = div.querySelector("#social-input")
+        const socialSelect = input.querySelector("#social-select")
+        const socialInput = input.querySelector("#social-input")
 
         socialSelect.addEventListener("change", () => {
             socialInput.disabled = false
@@ -115,10 +116,8 @@ function showInputs() {
 
     }
 
-    qrSelect.appendChild(div)
-
-    const radios = div.querySelectorAll('input[name="security"]')
-    const passInput = div.querySelector("#wifi-pass")
+    const radios = input.querySelectorAll('input[name="security"]')
+    const passInput = input.querySelector("#wifi-pass")
     if (radios.length > 0 && passInput) {
         radios.forEach(radio => {
             radio.addEventListener("change", () => {
@@ -134,8 +133,6 @@ function showInputs() {
         })
     }
 }
-
-
 
 document.getElementById("button-gen").addEventListener("click", generateQR)
 // GENERADOR DE QR
@@ -266,6 +263,7 @@ function generateQR() {
             logoSrc = "src/img/facebook.png"
         }
 
+        setLogoSrc(logoSrc)
         content = option+input
     }
     

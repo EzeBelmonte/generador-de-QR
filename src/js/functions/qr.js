@@ -4,6 +4,7 @@ import { getDotType, getCornersSquareType, getCornersDotType } from "./qrTypeMod
 //export let size = 200 // tamaño por defecto del QR
 
 // 📌 Variables globales internas del módulo
+let logoSrc
 let qrCode = null;
 let qrContentBackgroundColor = "#759ecc";
 let qrContentTextColor = "#000000";
@@ -17,7 +18,6 @@ export function createQR(text, size = 200, colorModule1 = "#000000", colorBackgr
 
     // logo seleccionado (si existe)
     const logoFile = document.getElementById("logo-file").files[0]
-    let logoSrc
 
     if (logoFile) {
         document.getElementById("clear-logo").style.visibility = "visible"
@@ -126,8 +126,11 @@ export function resetQR() {
     document.getElementById("color-module-1").value = "#000000"
     document.getElementById("color-module-2").value = "#000000"
 
-    document.getElementById("pattern-color-ext").value = "#000000"
-    document.getElementById("pattern-color-int").value = "#000000"
+    document.getElementById("color-pattern-ext-1").value = "#000000"
+    document.getElementById("color-pattern-ext-2").value = "#000000"
+
+    document.getElementById("color-pattern-int-1").value = "#000000"
+    document.getElementById("color-pattern-int-2").value = "#000000"
 
     document.getElementById("color-background").value = "#759ecc"
     document.getElementById("color-text").value = "#000000"
@@ -183,7 +186,11 @@ export function updateQrContentStyle(hasText = false) {
     }
 }
 
-export function getQrCode () {
+export function setLogoSrc(value) {
+    logoSrc = value
+}
+
+export function getQrCode() {
     return qrCode
 }
 
@@ -228,6 +235,7 @@ document.getElementById("clear-logo").addEventListener("click", () => {
     document.getElementById("clear-logo").style.visibility = "hidden"
 })
 
+// ======= ESTILO DE LOS PATTERN Y DOTS
 // actualización de los dots
 document.querySelectorAll('input[name="module-type"]').forEach(radio => {
     radio.addEventListener("change", updateQR)
@@ -243,6 +251,7 @@ document.querySelectorAll('input[name="dot-pattern-type"]').forEach(radio => {
     radio.addEventListener("change", updateQR)
 })
 
+// ======= COLOR DE LOS PATTERN Y DOTS
 // activar o desactivar el gradiente del fondo
 const gradientBackgroundCheckbox = document.getElementById("color-background-gradient")
 gradientBackgroundCheckbox.addEventListener("change", updateQR)
@@ -259,6 +268,15 @@ gradientPatternExtCheckbox.addEventListener("change", updateQR)
 const gradientPatternIntCheckbox = document.getElementById("color-pattern-int-gradient")
 gradientPatternIntCheckbox.addEventListener("change", updateQR)
 
+// ======= BOTONES DE RESETEO
+// resetear el gradiente del fondo
+document.getElementById("color-background-reset").addEventListener("click", () => {
+    document.getElementById("color-background-1").value = "#ffffff"
+    document.getElementById("color-background-2").value = "#ffffff"
+        
+    updateQR()
+})
+
 // resetear el gradiente del módulo
 document.getElementById("color-module-reset").addEventListener("click", () => {
     document.getElementById("color-module-1").value = "#000000"
@@ -267,10 +285,18 @@ document.getElementById("color-module-reset").addEventListener("click", () => {
     updateQR()
 })
 
-// resetear el gradiente del fondo
-document.getElementById("color-background-reset").addEventListener("click", () => {
-    document.getElementById("color-background-1").value = "#ffffff"
-    document.getElementById("color-background-2").value = "#ffffff"
+// resetear el gradiente de los patterns
+document.getElementById("color-pattern-ext-reset").addEventListener("click", () => {
+    document.getElementById("color-pattern-ext-1").value = "#000000"
+    document.getElementById("color-pattern-ext-2").value = "#000000"
+        
+    updateQR()
+})
+
+// resetear el gradiente de los dots de los patterns
+document.getElementById("color-pattern-int-reset").addEventListener("click", () => {
+    document.getElementById("color-pattern-int-1").value = "#000000"
+    document.getElementById("color-pattern-int-2").value = "#000000"
         
     updateQR()
 })

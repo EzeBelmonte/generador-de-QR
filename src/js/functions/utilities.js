@@ -41,7 +41,7 @@ export function downloadPrint(event, qrCode, qrContentBackgroundColor, qrContent
                     link.download = "qr-con-text.png"
                     link.href = canvas.toDataURL("image/png")
                     link.click()
-                } else {
+                } else if (action === "print") {
                     // abrir nueva pestaña y mandar a imprimir
                     const dataUrl = canvas.toDataURL("image/png")
                     const printWindow = window.open("", "_blank")
@@ -54,6 +54,14 @@ export function downloadPrint(event, qrCode, qrContentBackgroundColor, qrContent
                         </html>
                     `)
                     printWindow.document.close()
+                } else if (action === "copy") {
+                    // convertir el canvas a blob para que funcione el copiado al portapapeles
+                    canvas.toBlob(blob => {
+                        const item = new ClipboardItem({ "image/png": blob })
+                        navigator.clipboard.write([item])
+                            .then(() => alert("QR copiado al portapapeles!"))
+                            .catch(err => console.error("Error al copiar el QR:", err))
+                    }, "image/png")
                 }
             }
             img.src = URL.createObjectURL(blob)
@@ -62,8 +70,7 @@ export function downloadPrint(event, qrCode, qrContentBackgroundColor, qrContent
         // descarga QR origial
         if (action === "download") {
             qrCode.download({ name: "qr", extension: "png" })
-        } else {
-        // imprimir QR original
+        } else if (action === "print") { // imprimir QR original
             qrCode.getRawData("png").then(blob => {
                 const url = URL.createObjectURL(blob)
                 const printWindow = window.open("", "_blank")
@@ -76,6 +83,14 @@ export function downloadPrint(event, qrCode, qrContentBackgroundColor, qrContent
                     </html>
                 `)
                 printWindow.document.close()
+            })
+        } else if (action === "copy") { // copiar QR original
+            qrCode.getRawData("png").then(blob => {
+                const item = new ClipboardItem({ "image/png": blob }) // Crear un ClipboardItem con el blob
+                // Copiar al portapapeles
+                navigator.clipboard.write([item])
+                    .then(() => alert("QR copiado al portapapeles!"))
+                    .catch(err => console.error("Error al copiar el QR:", err))
             })
         }
     }

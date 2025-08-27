@@ -188,7 +188,7 @@ input:disabled {
 .qr-type-container {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 60%;
     background-color: var(--bg-container);
     border: 1px solid var(--border-container);
     border-radius: 5px;

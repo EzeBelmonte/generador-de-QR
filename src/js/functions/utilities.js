@@ -1,7 +1,5 @@
-// ======= variables globales =======
-//let isDarkMode = document.body.classList.contains('dark-mode') // inicializa con el estado actual
 
-// ======= descarga / impresión =======
+// ======= descarga / impresión / compartir =======
 export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
     if (!qrCode) {
         alert("Primero genera un QR.");

@@ -31,6 +31,12 @@ export function getPlatform(url) {
     const discordRegex = /^(https?:\/\/)?(www\.)?(discord\.gg|discord\.com|discordapp\.com)\//i;
     if (discordRegex.test(url)) return "discord"
 
+    const kickRegex = /^(https?:\/\/)?(www\.)?kick\.com\//
+    if (kickRegex.test(url)) return "kick"
+
+    const twitchRegex = /^(https?:\/\/)?(www\.)?twitch\.tv\//
+    if (twitchRegex.test(url)) return "twitch"
+
     // Si no coincide con ninguna
     return "other"
 }

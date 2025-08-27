@@ -225,7 +225,9 @@ function generateQR() {
             if (platform === "youtube") { logoSrc = "src/img/icons/qr/youtube.png" }
             if (platform === "tiktok") { logoSrc = "src/img/icons/qr/tiktok.png" }
             if (platform === "discord") { logoSrc = "src/img/icons/qr/discord.png" }
-
+            if (platform === "kick") { logoSrc = "src/img/icons/qr/kick.png" }
+            if (platform === "twitch") { logoSrc = "src/img/icons/qr/twitch.png" }
+            
             setLogoSrc(logoSrc)
         }
     }

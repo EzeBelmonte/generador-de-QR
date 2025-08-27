@@ -169,6 +169,15 @@ export function resetQR() {
     // Limpiar el contenedor del QR
     const qrContainer = document.querySelector(".qr-container")
     qrContainer.innerHTML = ""
+
+    // cerrar el menu de compartir
+    const menu = document.querySelector(".share-menu")
+    if (menu) {
+        menu.classList.add("hide") // dispara fadeOut
+        menu.addEventListener("animationend", () => {
+            menu.remove() // elimina después de la animación
+        }, { once: true })
+    }
 }
 
 // agrega fondo y texto si el usuario elige agregarle un texto

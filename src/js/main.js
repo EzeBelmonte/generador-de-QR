@@ -1,4 +1,4 @@
-import { downloadPrint } from "./functions/utilities.js"
+import { downloadPrint, changeShareIcon } from "./functions/utilities.js"
 import { createQR, updateQrContentStyle, getQrCode, getGradientBackgroundTextCheckbox, getBackgroundTextColor1, getBackgroundTextColor2, getBackgroundTextColorAngle, getTextColor } from "./functions/qr.js"
 import { setLogoSrc } from "./functions/qr.js"
 
@@ -155,21 +155,21 @@ function generateQR() {
         </div>
     `
     // botón de descarga e impresion
-document.querySelectorAll("button[data-action]").forEach(btn => {
-    btn.addEventListener("click", (event) => {
-        downloadPrint(
-            event,
-            getQrCode(),
-            {
-                color1: getBackgroundTextColor1(),
-                color2: getBackgroundTextColor2(),
-                isGradient: getGradientBackgroundTextCheckbox().checked,
-                angle: Number(getBackgroundTextColorAngle()) || 0
-            },
-            getTextColor()
-        )
+    document.querySelectorAll("button[data-action]").forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            downloadPrint(
+                event,
+                getQrCode(),
+                {
+                    color1: getBackgroundTextColor1(),
+                    color2: getBackgroundTextColor2(),
+                    isGradient: getGradientBackgroundTextCheckbox().checked,
+                    angle: Number(getBackgroundTextColorAngle()) || 0
+                },
+                getTextColor()
+            )
+        })
     })
-})
 
 
     // Crear p para mostrar el texto en tiempo real
@@ -299,3 +299,13 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
     
     createQR(content)
 }
+
+
+
+const observer = new MutationObserver(() => {
+ 
+    const menu = document.querySelector('.share-menu')
+    if (menu) { changeShareIcon(document.body.classList.contains('dark-mode')) }
+})
+
+observer.observe(document.body, { attributes: true, attributeFilter: ['class'] })

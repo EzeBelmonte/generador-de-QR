@@ -1,3 +1,6 @@
+// ======= variables globales =======
+//let isDarkMode = document.body.classList.contains('dark-mode') // inicializa con el estado actual
+
 // ======= descarga / impresión =======
 export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
     if (!qrCode) {
@@ -124,12 +127,16 @@ function uploadQrToCloudinary(canvas, callback) {
 
 
 function showShareMenu(url) {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+
+    console.log(isDarkMode)
     // eliminar menú previo si existe
-    const oldMenu = document.querySelector(".share-menu");
+    const oldMenu = document.querySelector(".share-menu")
     if (oldMenu) oldMenu.remove();
 
     const encodedUrl = encodeURIComponent(url);
 
+    // links de diferentes redes sociales/sitios
     const shareLinks = {
         whatsapp: `https://wa.me/?text=Escanea%20mi%20QR:%20${encodedUrl}`,
         facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
@@ -138,31 +145,38 @@ function showShareMenu(url) {
         email: `mailto:?subject=Mi%20QR&body=Escanea%20mi%20QR:%20${encodedUrl}`
     };
 
+    // depende del modo de la app (claro/oscuro) es el icono que se usa
+    const xIcon = isDarkMode ? "https://cdn.simpleicons.org/x/ffffff" : "https://cdn.simpleicons.org/x/000000"
+    const facebookIcon = isDarkMode ? "https://cdn.simpleicons.org/facebook/ffffff" : "https://cdn.simpleicons.org/facebook/000000"
+    const whatsappIcon = isDarkMode ? "https://cdn.simpleicons.org/whatsapp/ffffff" : "https://cdn.simpleicons.org/whatsapp/000000"
+    const telegramIcon = isDarkMode ? "https://cdn.simpleicons.org/telegram/ffffff" : "https://cdn.simpleicons.org/telegram/000000"
+    const gmailIcon = isDarkMode ? "https://cdn.simpleicons.org/gmail/ffffff" : "https://cdn.simpleicons.org/gmail/000000"
+
     let html = `
         <div class="share-menu">
             <div class="share-header">
-                <span>Compartir QR</span>
+                <span class="color-text-share">Compartir QR</span>
                 <button class="close-share">&times;</button>
             </div>
             <div class="share-icons">
-                <a href="${shareLinks.whatsapp}" target="_blank" title="WhatsApp">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" />
+                <a href="${shareLinks.twitter}" target="_blank" title="Twitter/X">
+                    <img src=${xIcon} />
                 </a>
                 <a href="${shareLinks.facebook}" target="_blank" title="Facebook">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" />
+                    <img src=${facebookIcon} />
                 </a>
-                <a href="${shareLinks.twitter}" target="_blank" title="Twitter/X">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" />
+                <a href="${shareLinks.whatsapp}" target="_blank" title="WhatsApp">
+                    <img src=${whatsappIcon} />
                 </a>
                 <a href="${shareLinks.telegram}" target="_blank" title="Telegram">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" />
+                    <img src=${telegramIcon} />
                 </a>
                 <a href="${shareLinks.email}" target="_blank" title="Email">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" />
+                    <img src=${gmailIcon} />
                 </a>
             </div>
         </div>
-    `;
+    `
 
     const container = document.createElement("div")
     container.innerHTML = html
@@ -175,6 +189,11 @@ function showShareMenu(url) {
         menu.addEventListener("animationend", () => {
             menu.remove() // elimina después de la animación
         }, { once: true })
-    });
+    })
 }
 
+
+export function changeShareIcon() {
+    const url = menu.dataset.url
+    showShareMenu(url)
+}

@@ -45,6 +45,13 @@
     /* fullscreen-close */
     --color-fullscreen-close: white;
     --color-fullscreen-close-hover: rgb(190, 212, 233);
+
+    /* share */
+    --bg-share:  aliceblue;
+    --shadow-share: rgba(0,0,0,0.25);
+    --color-share-title:  rgb(44, 44, 44);
+    --close-share: rgb(44, 44, 44);
+    --border-share: rgb(0, 0, 0);
 }
 
 /* ======= MODO OSCURO ======= */
@@ -85,6 +92,13 @@ body.dark-mode {
     --bg-select: rgb(51, 51, 51);
     --color-select: aliceblue;
     --border-select: rgba(240, 248, 255, 0.5);
+
+    /* share */
+    --bg-share:  rgb(36, 36, 36);
+    --shadow-share: rgba(240,248,255,0.25);
+    --color-share-title:  aliceblue;
+    --close-share: aliceblue;
+    --border-share: rgba(240, 248, 255, 0.3);
 }
 
 
@@ -570,10 +584,11 @@ body.dark-mode #icon-moon {
     position: fixed;
     bottom: 30px;
     left: 30px;
-    background: white;
+    background: var(--bg-share);
+    border: 1px solid var(--border-share);
     border-radius: 15px;
     padding: 15px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 20px var(--shadow-share);
     z-index: 9999;
     animation: fadeIn 0.3s ease-in-out;
     width: 260px;
@@ -588,10 +603,16 @@ body.dark-mode #icon-moon {
     font-size: 16px;
 }
 
+.color-text-share {
+    color: var(--color-share-title);
+}
+
 .close-share {
+    color: var(--close-share);
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 500;
     cursor: pointer;
     line-height: 1;
 }

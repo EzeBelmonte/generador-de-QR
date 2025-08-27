@@ -229,6 +229,13 @@ input:disabled {
     margin: auto;
 }
 
+.qr-container canvas,
+.qr-container img {
+  max-width: 350px;   /* o el tamaño fijo que quieras mostrar */
+  height: auto;   /* mantiene la proporción */
+  /*max-width: 100%;*/
+}
+
 .config-container {
     margin-left: auto;
     max-height: 100vh;       /* que no se pase de la pantalla */

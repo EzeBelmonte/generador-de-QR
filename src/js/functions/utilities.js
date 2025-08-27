@@ -15,13 +15,29 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
         img.onload = () => {
             // Crear canvas
             const canvas = document.createElement("canvas")
-            const margin = 26
+
+            let margin = Math.floor(img.width * 0.1)
+            // mínimo 20px, máximo 80px
+            margin = Math.max(20, Math.min(80, margin))
+            
             canvas.width = img.width + margin
-            canvas.height = img.height + 70 // espacio para el texto
+            canvas.height = img.height + margin
             const ctx = canvas.getContext("2d")
 
+            // dibujar texto debajo si hay
+            if (text) {
+                
+                canvas.height = img.height + 70 // espacio para el texto
+                
+                ctx.font = "20px Arial"
+                ctx.fillStyle = textColor
+                ctx.textAlign = "center"
+                ctx.fillText(text, canvas.width / 2, img.height + 47)
+            }
+
             // configurar color de fondo
-            if (text && backgroundOptions.isGradient) {
+            if (backgroundOptions.isGradient) {
+            
                 // convertir a radian
                 const angleRad = backgroundOptions.angle * Math.PI / 180
                 
@@ -43,14 +59,6 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
 
             // dibujar QR
             ctx.drawImage(img, margin / 2, margin / 2)
-
-            // dibujar texto debajo si hay
-            if (text) {
-                ctx.font = "20px Arial"
-                ctx.fillStyle = textColor
-                ctx.textAlign = "center"
-                ctx.fillText(text, canvas.width / 2, img.height + 47)
-            }
 
             // ejecutar acción
             if (action === "download") {

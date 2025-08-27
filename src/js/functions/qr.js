@@ -6,8 +6,8 @@ import { getDotType, getCornersSquareType, getCornersDotType } from "./qrTypeMod
 // 📌 Variables globales internas del módulo
 let logoSrc
 let qrCode = null
-let backgroundTextColor1 = "#759ecc"
-let backgroundTextColor2 = "#759ecc";
+let backgroundTextColor1 = "#ffffff"
+let backgroundTextColor2 = "#ffffff"
 let backgroundTextColorAngle
 let textColor = "#000000"
 
@@ -93,7 +93,7 @@ export const updateQR = () => {
 
     // logo
     const logoFile = document.getElementById("logo-file").files[0]
-    const logoSrc = (logoFile) ? URL.createObjectURL(logoFile) : null
+    if (logoFile) { logoSrc =  URL.createObjectURL(logoFile) }
 
     // actualización del QR
     applyQRCodeUpdate({size, data, dotsOptions, cornersSquareOptions, cornersDotOptions, backgroundOptions, logoSrc})
@@ -151,8 +151,8 @@ export function resetQR() {
     document.getElementById("color-pattern-int-gradient").checked = false
     document.getElementById("color-pattern-int-angle").disabled = true
 
-    document.getElementById("color-background-text-1").value = "#759ecc"
-    document.getElementById("color-background-text-2").value = "#759ecc"
+    document.getElementById("color-background-text-1").value = "#ffffff"
+    document.getElementById("color-background-text-2").value = "#ffffff"
     document.getElementById("color-background-gradient").checked = false
     document.getElementById("color-background-angle").disabled = true
     document.getElementById("color-text").value = "#000000"
@@ -161,6 +161,10 @@ export function resetQR() {
     document.querySelector('input[name="pattern-type"][value="square"]').checked = true
     document.querySelector('input[name="dot-pattern-type"][value="square"]').checked = true
 
+    logoSrc = null
+    const logoInput = document.getElementById("logo-file")
+    logoInput.value = ""
+    document.getElementById("clear-logo").style.visibility = "hidden"
 
     // Limpiar el contenedor del QR
     const qrContainer = document.querySelector(".qr-container")
@@ -366,8 +370,8 @@ document.getElementById("color-pattern-int-reset").addEventListener("click", () 
 
 // resetear el gradiente del fondo del texto
 document.getElementById("color-background-text-reset").addEventListener("click", () => {
-    document.getElementById("color-background-text-1").value = "#759ecc"
-    document.getElementById("color-background-text-2").value = "#759ecc"
+    document.getElementById("color-background-text-1").value = "#ffffff"
+    document.getElementById("color-background-text-2").value = "#ffffff"
         
     updateQR()
 })

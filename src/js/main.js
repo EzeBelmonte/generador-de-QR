@@ -26,9 +26,9 @@ function showInputs() {
         input.innerHTML = ""
     }
     
-    if (qrSelectValue === "standarQR") {
+    if (qrSelectValue === "link") {
         input.innerHTML = `
-            <input type="text" id="text-standar" class="w-100" placeholder="Escribe un link o texto">
+            <input type="text" id="link" class="w-100" placeholder="Escribe un link o texto">
         `
     } 
 
@@ -204,8 +204,8 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
     let content
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
 
-    if (qrSelectValue === "standarQR") {
-       content = document.getElementById("text-standar").value.trim()
+    if (qrSelectValue === "link") {
+       content = document.getElementById("link").value.trim()
         if (content === "") {
             alert("Escribe un texto o link primero.")
             return
@@ -243,6 +243,11 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
         const lastname = document.getElementById("vcard-lastname").value.trim()
         const phone = document.getElementById("vcard-phone").value.trim()
 
+        if (phone === "") {
+            alert("Escribe un teléfono (cod. Pais) (cod. Area) (Número).")
+            return
+        }
+
         content = 
             "BEGIN:VCARD\n" +
             "VERSION:3.0\n" +
@@ -257,6 +262,16 @@ document.querySelectorAll("button[data-action]").forEach(btn => {
         const selectedValue = socialSelect.value;
 
         const input = document.getElementById("social-input").value.trim()
+
+        if (selectedValue === "") {
+            alert("Selecciona una opción.")
+            return
+        }
+
+        if (input === "") {
+            alert("Escribe un nombre de usuario.")
+            return
+        }
 
         let option
         if (selectedValue === "whatsapp") {

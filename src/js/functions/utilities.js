@@ -116,7 +116,6 @@ function uploadQrToCloudinary(canvas, callback) {
             });
 
             const data = await res.json();
-            console.log("✅ QR subido a Cloudinary:", data.secure_url);
 
             if (callback) callback(data.secure_url);
         } catch (err) {
@@ -129,7 +128,6 @@ function uploadQrToCloudinary(canvas, callback) {
 function showShareMenu(url) {
     const isDarkMode = document.body.classList.contains('dark-mode');
 
-    console.log(isDarkMode)
     // eliminar menú previo si existe
     const oldMenu = document.querySelector(".share-menu")
     if (oldMenu) oldMenu.remove();

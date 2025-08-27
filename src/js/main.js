@@ -1,6 +1,7 @@
 import { downloadPrint, changeShareIcon } from "./functions/utilities.js"
 import { createQR, updateQrContentStyle, getQrCode, getGradientBackgroundTextCheckbox, getBackgroundTextColor1, getBackgroundTextColor2, getBackgroundTextColorAngle, getTextColor } from "./functions/qr.js"
 import { setLogoSrc } from "./functions/qr.js"
+import { getPlatform } from "./functions/regexLink.js"
 
 let logoSrc = null
 
@@ -211,6 +212,21 @@ function generateQR() {
         if (content === "") {
             alert("Escribe un texto o link primero.")
             return
+        }
+
+        const platform = getPlatform(content)
+
+        if (platform !== "other") {
+            
+            if (platform === "linkedin") { logoSrc = "src/img/icons/qr/linkedin.png" }
+            if (platform === "twitter") { logoSrc = "src/img/icons/qr/twitter.png" }
+            if (platform === "instagram") { logoSrc = "src/img/icons/qr/instagram.png" }
+            if (platform === "facebook") { logoSrc = "src/img/icons/qr/facebook.png" }
+            if (platform === "youtube") { logoSrc = "src/img/icons/qr/youtube.png" }
+            if (platform === "tiktok") { logoSrc = "src/img/icons/qr/tiktok.png" }
+            if (platform === "discord") { logoSrc = "src/img/icons/qr/discord.png" }
+
+            setLogoSrc(logoSrc)
         }
     }
 

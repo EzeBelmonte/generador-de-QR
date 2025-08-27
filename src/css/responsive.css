@@ -25,6 +25,7 @@
 
     .config-custom-container {
         width: 45%;
+        min-height: 130px;
     }
 
     .config-group-content {
@@ -94,6 +95,9 @@
         top: 10px;
         left: 16px;
         color: black;
+    }
+    body.dark-mode .fullscreen-close {
+        color: rgb(255, 255, 255);
     }
 
     .qr-container {

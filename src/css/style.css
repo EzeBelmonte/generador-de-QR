@@ -41,6 +41,10 @@
     --bg-select: aliceblue;
     --color-select: rgb(44, 44, 44);
     --border-select: rgb(44, 44, 44);
+
+    /* fullscreen-close */
+    --color-fullscreen-close: white;
+    --color-fullscreen-close-hover: rgb(190, 212, 233);
 }
 
 /* ======= MODO OSCURO ======= */
@@ -266,7 +270,7 @@ input:disabled {
     background-color: transparent;
     border: none;
     font-size: 1.7rem;
-    color: white;
+    color: var(--color-fullscreen-close);
     font-weight: 500;
     position: absolute;
     top: 10px;
@@ -275,7 +279,7 @@ input:disabled {
     z-index: 999;
 }
 .fullscreen-close:hover {
-    color: rgb(190, 212, 233);
+    color: var(--color-fullscreen-close-hover);
 }
 
 

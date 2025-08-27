@@ -1,4 +1,4 @@
-// descarga / impresión
+// ======= descarga / impresión =======
 export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
     if (!qrCode) {
         alert("Primero genera un QR.");
@@ -40,7 +40,6 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
             
                 // convertir a radian
                 const angleRad = backgroundOptions.angle * Math.PI / 180
-                
                 // calcular dirección del gradiente en el canvas
                 const x0 = canvas.width / 2 - Math.cos(angleRad) * canvas.width / 2
                 const y0 = canvas.height / 2 - Math.sin(angleRad) * canvas.height / 2
@@ -85,8 +84,97 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
                         .then(() => alert("QR copiado al portapapeles!"))
                         .catch(err => console.error("Error al copiar el QR:", err))
                 }, "image/png")
+            } else if (action ==="share") {
+                canvas.toBlob(blob => {
+                    // 👉 Plan B: subir a Cloudinary y mostrar menú estilo YouTube
+                    uploadQrToCloudinary(canvas, (url) => {
+                        showShareMenu(url)
+                    })
+                }, "image/png")
             }
         }
         img.src = URL.createObjectURL(blob)
     })
 }
+
+
+// ======= funciones para compartir =======
+function uploadQrToCloudinary(canvas, callback) {
+    canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append("file", blob);
+        formData.append("upload_preset", "qr_preset"); // el preset que creaste
+        formData.append("folder", "qr_codes"); // opcional, organiza en carpeta
+
+        try {
+            const res = await fetch("https://api.cloudinary.com/v1_1/dimgbra0z/image/upload", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+            console.log("✅ QR subido a Cloudinary:", data.secure_url);
+
+            if (callback) callback(data.secure_url);
+        } catch (err) {
+            console.error("❌ Error subiendo QR:", err);
+        }
+    }, "image/png");
+}
+
+
+function showShareMenu(url) {
+    // eliminar menú previo si existe
+    const oldMenu = document.querySelector(".share-menu");
+    if (oldMenu) oldMenu.remove();
+
+    const encodedUrl = encodeURIComponent(url);
+
+    const shareLinks = {
+        whatsapp: `https://wa.me/?text=Escanea%20mi%20QR:%20${encodedUrl}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+        twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=Escanea%20mi%20QR`,
+        telegram: `https://t.me/share/url?url=${encodedUrl}&text=Escanea%20mi%20QR`,
+        email: `mailto:?subject=Mi%20QR&body=Escanea%20mi%20QR:%20${encodedUrl}`
+    };
+
+    let html = `
+        <div class="share-menu">
+            <div class="share-header">
+                <span>Compartir QR</span>
+                <button class="close-share">&times;</button>
+            </div>
+            <div class="share-icons">
+                <a href="${shareLinks.whatsapp}" target="_blank" title="WhatsApp">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" />
+                </a>
+                <a href="${shareLinks.facebook}" target="_blank" title="Facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" />
+                </a>
+                <a href="${shareLinks.twitter}" target="_blank" title="Twitter/X">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" />
+                </a>
+                <a href="${shareLinks.telegram}" target="_blank" title="Telegram">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" />
+                </a>
+                <a href="${shareLinks.email}" target="_blank" title="Email">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" />
+                </a>
+            </div>
+        </div>
+    `;
+
+    const container = document.createElement("div")
+    container.innerHTML = html
+    const menu = container.firstElementChild
+    document.body.appendChild(menu)
+
+    // cierre con animación
+    menu.querySelector(".close-share").addEventListener("click", () => {
+        menu.classList.add("hide") // dispara fadeOut
+        menu.addEventListener("animationend", () => {
+            menu.remove() // elimina después de la animación
+        }, { once: true })
+    });
+}
+

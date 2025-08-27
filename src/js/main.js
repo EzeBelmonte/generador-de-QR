@@ -144,12 +144,14 @@ function generateQR() {
             <div id="qr-code"></div>
         </div>
 
-        <input type="text" id="qr-text" class="w-25 mt-4 mb-3" placeholder="Texto (Opcional)">
+        <input type="text" id="qr-text" class="w-50 mt-4 mb-3" placeholder="Texto (Opcional)">
 
-        <div class="d-flex gap-4">
-            <button id="button-download" class="button-utility" data-action="download">Descargar QR</button>
-            <button id="button-print" class="button-utility" data-action="print">Imprimir QR</button>
-            <button id="button-copy" class="button-utility" data-action="copy">Copiar QR</button>
+        <div class="buttons-utilities-container">
+            <button id="button-download" class="button-utility" data-action="download">Descargar</button>
+            <button id="button-print" class="button-utility" data-action="print">Imprimir</button>
+            <button id="button-copy" class="button-utility" data-action="copy">Copiar</button>
+            <button data-action="share" class="button-utility">Compartir</button>
+
         </div>
     `
     // botón de descarga e impresion

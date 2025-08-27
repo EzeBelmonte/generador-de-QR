@@ -157,6 +157,12 @@ select {
     color: var(--text-color);
 }
 
+
+.buttons-utilities-container {
+    display: flex;
+    gap: 25px;
+}
+
 .button-gen,
 .button-utility {
     color: var(--color-button);
@@ -520,6 +526,8 @@ input:disabled {
   bottom: 10px; /* sube y queda separado un poquito del borde inferior */
 }
 
+
+
 /* ======= BOTON DE MODO OSCURO ======= */
 #theme-toggle {
     border: none;
@@ -557,3 +565,64 @@ body.dark-mode #icon-moon {
 }
 
 
+/* ======= BOTON DE COMPARTIR ======= */
+.share-menu {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in-out;
+    width: 260px;
+}
+
+.share-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.close-share {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.share-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.share-icons a img {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.share-icons a img:hover {
+    transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.share-menu.hide {
+    animation: fadeOut 0.3s ease-in-out forwards;
+}

@@ -23,6 +23,14 @@
         top: 5px;
     }
 
+    .buttons-utilities-container {
+        gap: 14px;
+    }
+
+    .button-utility {
+        font-size: 14px;
+    }
+
     .config-custom-container {
         width: 45%;
         min-height: 130px;
@@ -102,6 +110,10 @@
 
     .qr-container {
         height: 100dvh;
+    }
+
+    .buttons-utilities-container {
+        gap: 25px;
     }
 
     .button-utility {
@@ -228,8 +240,12 @@
         font-size: 12px;
     }
 
+    .buttons-utilities-container {
+        gap: 10px;
+    }
+
     .button-utility {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .config-custom-title {

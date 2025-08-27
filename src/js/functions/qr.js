@@ -3,7 +3,7 @@ import { getDotType, getCornersSquareType, getCornersDotType } from "./qrTypeMod
 
 //export let size = 200 // tamaño por defecto del QR
 
-// 📌 Variables globales internas del módulo
+// variables globales internas del módulo
 let logoSrc
 let qrCode = null
 let backgroundTextColor1 = "#ffffff"
@@ -22,10 +22,10 @@ export function createQR(text, size = 200, colorModule1 = "#000000", colorBackgr
     const logoFile = document.getElementById("logo-file").files[0]
 
     if (logoFile) {
-        document.getElementById("clear-logo").style.visibility = "visible"
+        document.getElementById("clear-logo").style.display = "block"
         logoSrc = URL.createObjectURL(logoFile)
     } else {
-        document.getElementById("clear-logo").style.visibility = "hidden"
+        document.getElementById("clear-logo").style.display = "none"
     }
 
     // crear instancia de QRCodeStyling
@@ -93,7 +93,12 @@ export const updateQR = () => {
 
     // logo
     const logoFile = document.getElementById("logo-file").files[0]
-    if (logoFile) { logoSrc =  URL.createObjectURL(logoFile) }
+    if (logoFile) { 
+        document.getElementById("clear-logo").style.display = "block"
+        logoSrc =  URL.createObjectURL(logoFile)
+    } else {
+        document.getElementById("clear-logo").style.display = "none"
+    }
 
     // actualización del QR
     applyQRCodeUpdate({size, data, dotsOptions, cornersSquareOptions, cornersDotOptions, backgroundOptions, logoSrc})
@@ -164,7 +169,7 @@ export function resetQR() {
     logoSrc = null
     const logoInput = document.getElementById("logo-file")
     logoInput.value = ""
-    document.getElementById("clear-logo").style.visibility = "hidden"
+    document.getElementById("clear-logo").style.display = "none"
 
     // Limpiar el contenedor del QR
     const qrContainer = document.querySelector(".qr-container")
@@ -301,10 +306,14 @@ document.getElementById("logo-file").addEventListener("change", updateQR)
 // borrar logo
 document.getElementById("clear-logo").addEventListener("click", () => {
     const logoInput = document.getElementById("logo-file")
-    logoInput.value = ""      
+    if (logoSrc) {
+        logoInput.value = ""
+        logoSrc = null
+    }
     updateQR()                
-    document.getElementById("clear-logo").style.visibility = "hidden"
+    document.getElementById("clear-logo").style.display = "none"
 })
+
 
 // ======= ESTILO DE LOS PATTERN Y DOTS
 // actualización de los dots

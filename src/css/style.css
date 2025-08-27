@@ -3,13 +3,14 @@
     padding: 0;
 }
 
-/* MODO CLARO */
+/* ======= MODO CLARO ======= */
 :root {
     --bg-body: rgb(204, 226, 235);
 
     /* buttons */
     --bg-button:  aliceblue;
     --bg-button-hover: rgb(190, 212, 233);
+    --color-button: rgb(44, 44, 44);
     --border-button: rgb(0, 0, 0);
     --border-button-hover: rgba(0, 0, 0, 0.5);
 
@@ -29,7 +30,59 @@
     --title-color-content: rgb(98, 163, 238); /* títulos de cada content */
     --title-option: black; /* título de cada opción de configuración */
     --text-color: black;
+
+    /* inputs */
+    --bg-input: rgb(231, 244, 255);
+    --color-input: rgb(0, 0, 0);
+    --color-placeholder: rgba(0, 0, 0, 0.5);
+    --border-input: rgba(0, 0, 0, 0.5);
+
+    /* select */
+    --bg-select: aliceblue;
+    --color-select: rgb(44, 44, 44);
+    --border-select: rgb(44, 44, 44);
 }
+
+/* ======= MODO OSCURO ======= */
+body.dark-mode {
+    --bg-body: #121212;
+
+    /* buttons */
+    --bg-button: #1e1e1e;
+    --bg-button-hover: #2c2c2c;
+    --color-button: aliceblue;
+    --border-button: aliceblue;
+    --border-button-hover: #888;
+
+    /* containers */
+    --bg-container: rgb(26, 26, 26);
+    --border-container: rgb(51, 51, 51);
+
+    /* contents */
+    --bg-content: #222;
+    --border-content: #444;
+
+    /* small contents */
+    --bg-small-content: #2a2a2a;
+
+    /* texts */
+    --title-color-container: aliceblue;
+    --title-color-content: #6ea6ff;
+    --title-option: aliceblue;
+    --text-color: aliceblue;
+
+    /* inputs */
+    --bg-input: rgb(71, 71, 71);
+    --color-input: aliceblue;
+    --color-placeholder: rgba(240, 248, 255, 0.55);
+    --border-input: rgba(240, 248, 255, 0.5);
+
+    /* select */
+    --bg-select: rgb(51, 51, 51);
+    --color-select: aliceblue;
+    --border-select: rgba(240, 248, 255, 0.5);
+}
+
 
 .body {
     background-color: var(--bg-body);
@@ -61,8 +114,16 @@
 }
 
 input {
+    background-color: var(--bg-input);
+    color: var(--color-input);
     cursor: pointer;
     padding: 4px;
+    border: 1px solid var(--border-input);
+    border-radius: 4px;
+}
+
+input::placeholder {
+    color: var(--color-placeholder);
 }
 
 input:disabled {
@@ -79,13 +140,22 @@ input[type="number"] {
     height: 26px;
 }
 
+select {
+    background-color: var(--bg-select);
+    color: var(--color-select);
+    border: 1px solid var(--border-select);
+    border-radius: 4px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
 .text {
     color: var(--text-color);
 }
 
 .button-gen,
 .button-utility {
-    color: rgb(44, 44, 44);
+    color: var(--color-button);
     background-color: var(--bg-button);
     border: 1px solid var(--border-button);
     border-radius: 4px;
@@ -94,7 +164,6 @@ input[type="number"] {
 }
 .button-gen:hover,
 .button-utility:hover {
-    color: rgb(20, 20, 20);
     background-color: var(--bg-button-hover);
     border: 1px solid var(--border-button-hover);
 }
@@ -295,8 +364,9 @@ input:disabled {
 
 .color-gradient-reset {
     background-color: var(--bg-button);
+    color: var(--color-button);
     border: 1px solid var(--border-button);
-    padding: 0 6px;
+    padding: 2px 8px;
     border-radius: 3px;
     margin-top: 5px;
 }
@@ -363,6 +433,7 @@ input:disabled {
 
 .custom-file-button,
 .custom-delete-button {
+    color: var(--color-button);
     padding: 2px 8px;
     border: 1px solid var(--border-button);
     border-radius: 5px;
@@ -445,14 +516,40 @@ input:disabled {
   bottom: 10px; /* sube y queda separado un poquito del borde inferior */
 }
 
-#reader {
-    margin: 0 auto;
-    display: block;
-    background-color: black;
-    width: 100%;
-    max-width: 300px;
-    aspect-ratio: 1 / 1;  /* fuerza proporción cuadrada */
-    border: 2px solid #333;
-    border-radius: 10px;
-    overflow: hidden;     /* recorta lo que sobresalga */
+/* ======= BOTON DE MODO OSCURO ======= */
+#theme-toggle {
+    border: none;
+    z-index: 9999;
 }
+.icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    position: absolute; /* para que sol y luna se superpongan */
+    top: 14px;
+    right: 21px;
+}
+
+#icon-sun {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+#icon-moon {
+    color: aliceblue;
+    opacity: 0;
+    transform: rotate(90deg);
+}
+
+body.dark-mode #icon-sun {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+body.dark-mode #icon-moon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+

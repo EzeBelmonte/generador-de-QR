@@ -278,19 +278,19 @@ function generateQR() {
         let option
         if (selectedValue === "whatsapp") {
             option = "https://wa.me/"
-            logoSrc = "src/img/whatsapp.png"
+            logoSrc = "src/img/icons/qr/whatsapp.png"
         }
         if (selectedValue === "linkedin") {
             option = "https://www.linkedin.com/in/"
-            logoSrc = "src/img/linkedin.png"
+            logoSrc = "src/img/icons/qr/linkedin.png"
         }
         if (selectedValue === "instagram") {
             option = "https://www.instagram.com/"
-            logoSrc = "src/img/instagram.png"
+            logoSrc = "src/img/icons/qr/instagram.png"
         }
         if (selectedValue === "facebook") {
             option = "https://www.facebook.com/"
-            logoSrc = "src/img/facebook.png"
+            logoSrc = "src/img/icons/qr/facebook.png"
         }
 
         setLogoSrc(logoSrc)

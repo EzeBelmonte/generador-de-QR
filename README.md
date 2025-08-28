@@ -1,7 +1,7 @@
 
 # Generador de QR
-
-
+Generador de QR que permite compartir links, Wi-Fi, vCards y redes sociales. Permite personalizar colores, texto, fondo del texto, los cuadrados y las esquinas (se pueden cambiar a circulares) y el fondo del QR.
+Una vez generado, se puede descargar, imprimir, copiar para editar en otro programa o compartir en redes, e incluso obtener un iframe para usarlo en una web.
 
 
 ## Tecnologías utilizadas

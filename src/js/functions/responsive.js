@@ -13,7 +13,8 @@ function handleConfigTitle() {
             newTitle = document.createElement("div") 
             newTitle.id = "new-config-title" 
             newTitle.classList.add("new-config-title") 
-            newTitle.innerHTML = `<h2 class="title-h2">Configuración</h2>` 
+            newTitle.innerHTML = `<h2 class="title-h2 pointer">Configuración</h2>` 
+            document.querySelector(".title-h2").style.cursor = "pointer"
             fullscreen.insertBefore(newTitle, config) 
         }
 
@@ -28,6 +29,7 @@ function handleConfigTitle() {
     } else {
         // restaurar título original
         originalTitle.style.display = "block" 
+        document.querySelector(".title-h2").style.cursor = "dafault"
 
         // eliminar título dinámico si existe
         const newTitle = document.getElementById("new-config-title") 
@@ -36,9 +38,24 @@ function handleConfigTitle() {
         }
 
         // quitar clase expanded si estaba activa
-        config.classList.remove("expanded") 
+        config.classList.remove("expanded")
     }
 }
 
 window.addEventListener("resize", handleConfigTitle) 
 handleConfigTitle() 
+
+
+// movimiento con el mouse con el scroll cuando estoy con mouse y resolución <= 768
+const menu = document.getElementById("config-container")
+const mediaQuery = window.matchMedia("(max-width: 768px)")
+
+function handleWheel(e) {
+  if (mediaQuery.matches) { // solo si coincide con la media query
+    e.preventDefault()
+    menu.scrollLeft += e.deltaY
+  }
+}
+
+// agregar listener
+menu.addEventListener("wheel", handleWheel, { passive: false })

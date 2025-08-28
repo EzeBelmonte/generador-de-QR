@@ -123,11 +123,11 @@
     .config-container,
     .new-config-title {
         position: absolute;
-        top: 94%;
         left: 50%;
         transform: translate(-50%);
         padding: 0;
         align-items: flex-start;
+        cursor: pointer;
         
         /* Transición suave */
         transition: 
@@ -136,16 +136,25 @@
             max-height 0.3s ease;
     }
 
+    .config-container{
+        bottom: -234px;/*-44%;*/
+    }
     .new-config-title {
+        bottom: -2px;
         margin-top: 3px;
         z-index: 10;
     }
 
     .config-container.expanded,
     .new-config-title.expanded {
-        top: 48%;
         overflow-y: hidden;
         overflow-x: auto;  
+    }
+    .config-container.expanded {
+        bottom: 1px;
+    }
+    .new-config-title.expanded {
+        bottom: 234px;
     }
 
     .config-content {

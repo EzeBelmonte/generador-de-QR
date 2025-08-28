@@ -71,4 +71,13 @@ export function resetQR() {
             menu.remove() // elimina después de la animación
         }, { once: true })
     }
+
+    // cerrar, si existe, el div embed-modal
+    const embedModal = document.querySelector(".embed-modal")
+    if (embedModal) {
+            embedModal.classList.add("hide")
+            embedModal.addEventListener("animationed", () => {
+                embedModal.remove()
+            }, { once: true }) 
+    }
 }

@@ -1,7 +1,7 @@
 export function manageExportOptions(event, qrCode, backgroundOptions, textColor) {
     if (!qrCode) {
-        alert("Primero genera un QR.");
-        return;
+        alert("Primero genera un QR.") 
+        return 
     }
 
     // botón que se apretó
@@ -66,8 +66,8 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
                 printWindow.document.write(`
                     <html>
                         <head><title>Imprimir QR</title></head>
-                        <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;">
-                            <img src="${dataUrl}" onload="window.print();window.close()" />
+                        <body style="margin:0 display:flex align-items:center justify-content:center height:100vh ">
+                            <img src="${dataUrl}" onload="window.print() window.close()" />
                         </body>
                     </html>
                 `)
@@ -95,35 +95,35 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
 // ======= funciones para compartir =======
 function uploadQrToCloudinary(canvas, callback) {
     canvas.toBlob(async (blob) => {
-        const formData = new FormData();
-        formData.append("file", blob);
-        formData.append("upload_preset", "qr_preset"); // el preset que creaste
-        formData.append("folder", "qr_codes"); // opcional, organiza en carpeta
+        const formData = new FormData() 
+        formData.append("file", blob) 
+        formData.append("upload_preset", "qr_preset")  // el preset creado
+        formData.append("folder", "qr_codes")  // opcional, organiza en carpeta
 
         try {
             const res = await fetch("https://api.cloudinary.com/v1_1/dimgbra0z/image/upload", {
                 method: "POST",
                 body: formData
-            });
+            }) 
 
-            const data = await res.json();
+            const data = await res.json() 
 
-            if (callback) callback(data.secure_url);
+            if (callback) callback(data.secure_url) 
         } catch (err) {
-            console.error("❌ Error subiendo QR:", err);
+            console.error("❌ Error subiendo QR:", err) 
         }
-    }, "image/png");
+    }, "image/png") 
 }
 
 
 function showShareMenu(url) {
-    const isDarkMode = document.body.classList.contains('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode') 
 
     // eliminar menú previo si existe
     const oldMenu = document.querySelector(".share-menu")
-    if (oldMenu) oldMenu.remove();
+    if (oldMenu) oldMenu.remove() 
 
-    const encodedUrl = encodeURIComponent(url);
+    const encodedUrl = encodeURIComponent(url) 
 
     // links de diferentes redes sociales/sitios
     const shareLinks = {
@@ -132,7 +132,7 @@ function showShareMenu(url) {
         twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=Escanea%20mi%20QR`,
         telegram: `https://t.me/share/url?url=${encodedUrl}&text=Escanea%20mi%20QR`,
         email: `mailto:?subject=Mi%20QR&body=Escanea%20mi%20QR:%20${encodedUrl}`
-    };
+    } 
 
     // depende del modo de la app (claro/oscuro) es el icono que se usa
     const xIcon = isDarkMode ? "https://cdn.simpleicons.org/x/ffffff" : "https://cdn.simpleicons.org/x/000000"
@@ -140,12 +140,13 @@ function showShareMenu(url) {
     const whatsappIcon = isDarkMode ? "https://cdn.simpleicons.org/whatsapp/ffffff" : "https://cdn.simpleicons.org/whatsapp/000000"
     const telegramIcon = isDarkMode ? "https://cdn.simpleicons.org/telegram/ffffff" : "https://cdn.simpleicons.org/telegram/000000"
     const gmailIcon = isDarkMode ? "https://cdn.simpleicons.org/gmail/ffffff" : "https://cdn.simpleicons.org/gmail/000000"
+    const embedIcon = isDarkMode ? "https://cdn.simpleicons.org/playcanvas/ffffff" : "https://cdn.simpleicons.org/playcanvas/000000"  
 
     let html = `
         <div class="share-menu">
             <div class="share-header">
                 <span class="color-text-share">Compartir QR</span>
-                <button class="close-share">&times;</button>
+                <button class="close-share">&times </button>
             </div>
             <div class="share-icons">
                 <a href="${shareLinks.twitter}" target="_blank" title="Twitter/X">
@@ -163,6 +164,9 @@ function showShareMenu(url) {
                 <a href="${shareLinks.email}" target="_blank" title="Email">
                     <img src=${gmailIcon} />
                 </a>
+                <a href="#" title="Iframe" class="embed-btn">
+                    <img src=${embedIcon} />
+                </a>
             </div>
         </div>
     `
@@ -174,9 +178,65 @@ function showShareMenu(url) {
 
     // cierre con animación
     menu.querySelector(".close-share").addEventListener("click", () => {
+        // cerrar también la ventana embed si existe
+        const embedModal = document.querySelector(".embed-modal")
+        if (embedModal) {
+                embedModal.classList.add("hide")
+                embedModal.addEventListener("animationed", () => {
+                    embedModal.remove()
+                }, { once: true }) 
+        }
+
         menu.classList.add("hide") // dispara fadeOut
         menu.addEventListener("animationend", () => {
             menu.remove() // elimina después de la animación
         }, { once: true })
     })
+
+
+    // click en el botón embed
+    const embedBtn = menu.querySelector(".embed-btn") 
+    if (embedBtn) {
+        embedBtn.addEventListener("click", () => {
+            showEmbedCodes(url)
+        })
+    }
 }
+
+
+function showEmbedCodes(url) {
+    const oldModal = document.querySelector(".embed-modal")
+    if (oldModal) oldModal.remove() 
+
+    // códigos de embeber
+    const imgCode = `<img src="${url}" alt="QR Code" style="max-width:200px ">` 
+    const iframeCode = `<iframe src="${url}" width="200" height="200" style="border:none "></iframe>` 
+
+    const html = `
+        <div class="embed-modal">
+            <div class="embed-header">
+                <span>Código para embeber</span>
+                <button class="close-embed">&times </button>
+            </div>
+            <label>IMG:</label>
+            <textarea readonly>${imgCode}</textarea>
+            <label>IFRAME:</label>
+            <textarea readonly>${iframeCode}</textarea>
+        </div>
+    ` 
+
+    const container = document.createElement("div")
+    container.innerHTML = html
+    const modal = container.firstElementChild
+    document.body.appendChild(modal)
+
+    // cerrar modal
+    modal.querySelector(".close-embed").addEventListener("click", () => {
+        modal.classList.add("hide")  // activa el fadeOut
+        modal.addEventListener("animationend", () => {
+            modal.remove()   
+        }, { once: true })
+    })
+}
+
+

@@ -647,3 +647,44 @@ body.dark-mode #icon-moon {
 .share-menu.hide {
     animation: fadeOut 0.3s ease-in-out forwards;
 }
+
+/* ======= IFRAME AL COMPARTIR */
+.embed-modal {
+    position: fixed;
+    bottom: 20%;
+    left: 20px;
+    background: var(--bg-share);
+    color: var(--close-share);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-share);
+    width: 300px;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.embed-modal textarea {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 10px;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    resize: none;
+}
+.embed-modal .embed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.embed-modal .close-embed {
+    color: var(--close-share);
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.embed-modal.hide {
+    animation: fadeOut 0.3s ease-in-out forwards;
+}

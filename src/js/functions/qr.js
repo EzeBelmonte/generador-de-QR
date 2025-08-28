@@ -31,7 +31,7 @@ export function generateQR(content) {
                 {
                     color1: getBackgroundTextColor1(),
                     color2: getBackgroundTextColor2(),
-                    isGradient: getGradientBackgroundTextCheckbox().checked,
+                    isGradient: getGradientBackgroundTextCheckbox(),
                     angle: Number(getBackgroundTextColorAngle()) || 0
                 },
                 getTextColor()

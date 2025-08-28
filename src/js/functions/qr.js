@@ -1,5 +1,6 @@
 import { getBackgroundColor, getDotsColor, getCornersSquareColor, getCornersDotColor  } from "./qrColors.js"
 import { getDotType, getCornersSquareType, getCornersDotType } from "./qrTypeModCorners.js"
+import { manageExportOptions } from "./manageExportOptions.js"
 
 //export let size = 200 // tamaño por defecto del QR
 
@@ -10,6 +11,60 @@ let backgroundTextColor1 = "#ffffff"
 let backgroundTextColor2 = "#ffffff"
 let backgroundTextColorAngle
 let textColor = "#000000"
+
+
+export function generateQR(content) {
+    // botón de descarga e impresion
+    document.querySelectorAll("button[data-action]").forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            manageExportOptions(
+                event,
+                getQrCode(),
+                {
+                    color1: getBackgroundTextColor1(),
+                    color2: getBackgroundTextColor2(),
+                    isGradient: getGradientBackgroundTextCheckbox().checked,
+                    angle: Number(getBackgroundTextColorAngle()) || 0
+                },
+                getTextColor()
+            )
+        })
+    })
+
+
+    // Crear p para mostrar el texto en tiempo real
+    const qrContent = document.querySelector(".qr-content")
+    const qrTextInput = document.getElementById("qr-text")
+
+    let qrParagraph = null
+
+    qrTextInput.addEventListener("input", () => {
+        const text = qrTextInput.value.trim()
+
+        if (text === "") {
+            // eliminar <p> si existe
+            if (qrParagraph) {
+                qrParagraph.remove()
+                qrParagraph = null
+                // actializar el estilo del contenedor del QR + texto
+                updateQrContentStyle(false)
+            }
+        } else {
+            // crear etiqueta <p> si es que no existe y hay texto
+            if(!qrParagraph) {
+                qrParagraph = document.createElement("p")
+                qrContent.appendChild(qrParagraph)
+            }
+
+            // actualizar contenido del <p>
+            qrParagraph.textContent = text;
+            // actializar el estilo del contenedor del QR + texto
+            updateQrContentStyle(true)
+        }
+    })
+
+    createQR(content)
+}
 
 export function createQR(text, size = 200, colorModule1 = "#000000", colorBackground1 = "#ffffff") {
     // mostramos el contenedor general del QR y configuración
@@ -129,62 +184,6 @@ const applyQRCodeUpdate = ({size, data, dotsOptions, cornersSquareOptions, corne
 }
 
 
-// resetear configuración del QR
-export function resetQR() {
-    document.getElementById("fullscreen-container").classList.remove("active")
-
-    // Resetear inputs/selects
-    document.getElementById("size").value = ""
-
-    document.getElementById("color-background-1").value = "#ffffff"
-    document.getElementById("color-background-2").value = "#ffffff"
-    document.getElementById("color-background-gradient").checked = false
-    document.getElementById("color-background-angle").disabled = true
-
-    document.getElementById("color-module-1").value = "#000000"
-    document.getElementById("color-module-2").value = "#000000"
-    document.getElementById("color-module-gradient").checked = false
-    document.getElementById("color-module-angle").disabled = true
-
-    document.getElementById("color-pattern-ext-1").value = "#000000"
-    document.getElementById("color-pattern-ext-2").value = "#000000"
-    document.getElementById("color-pattern-ext-gradient").checked = false
-    document.getElementById("color-pattern-ext-angle").disabled = true
-
-    document.getElementById("color-pattern-int-1").value = "#000000"
-    document.getElementById("color-pattern-int-2").value = "#000000"
-    document.getElementById("color-pattern-int-gradient").checked = false
-    document.getElementById("color-pattern-int-angle").disabled = true
-
-    document.getElementById("color-background-text-1").value = "#ffffff"
-    document.getElementById("color-background-text-2").value = "#ffffff"
-    document.getElementById("color-background-gradient").checked = false
-    document.getElementById("color-background-angle").disabled = true
-    document.getElementById("color-text").value = "#000000"
-
-    document.querySelector('input[name="module-type"][value="square"]').checked = true
-    document.querySelector('input[name="pattern-type"][value="square"]').checked = true
-    document.querySelector('input[name="dot-pattern-type"][value="square"]').checked = true
-
-    logoSrc = null
-    const logoInput = document.getElementById("logo-file")
-    logoInput.value = ""
-    document.getElementById("clear-logo").style.display = "none"
-
-    // Limpiar el contenedor del QR
-    const qrContainer = document.querySelector(".qr-container")
-    qrContainer.innerHTML = ""
-
-    // cerrar el menu de compartir
-    const menu = document.querySelector(".share-menu")
-    if (menu) {
-        menu.classList.add("hide") // dispara fadeOut
-        menu.addEventListener("animationend", () => {
-            menu.remove() // elimina después de la animación
-        }, { once: true })
-    }
-}
-
 // agrega fondo y texto si el usuario elige agregarle un texto
 export function updateQrContentStyle(hasText = false) {
     // div que contiene el QR
@@ -282,8 +281,6 @@ function animateQR() {
 
 // ===============================================================================
 // escucha en tiempo real
-document.getElementById("fullscreen-close").addEventListener("click", resetQR)
-
 document.getElementById("size").addEventListener("input", updateQR)
 document.getElementById("color-background-1").addEventListener("input", updateQR)
 document.getElementById("color-background-2").addEventListener("input", updateQR)

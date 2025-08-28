@@ -1,6 +1,4 @@
-
-// ======= descarga / impresión / compartir =======
-export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
+export function manageExportOptions(event, qrCode, backgroundOptions, textColor) {
     if (!qrCode) {
         alert("Primero genera un QR.");
         return;
@@ -14,31 +12,20 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
     qrCode.getRawData("png").then(blob => {
         const img = new Image()
         img.onload = () => {
+            const ctxMargin = Math.floor(img.width * 0.1)
+            const margin = Math.max(20, Math.min(80, ctxMargin)) // mínimo 20px, máximo 80px
+
+            // si hay texto, sumamos espacio extra
+            const extraTextSpace = text ? 70 : 0
+
             // Crear canvas
             const canvas = document.createElement("canvas")
-
-            let margin = Math.floor(img.width * 0.1)
-            // mínimo 20px, máximo 80px
-            margin = Math.max(20, Math.min(80, margin))
-            
             canvas.width = img.width + margin
-            canvas.height = img.height + margin
+            canvas.height = img.height + margin + extraTextSpace
             const ctx = canvas.getContext("2d")
-
-            // dibujar texto debajo si hay
-            if (text) {
-                
-                canvas.height = img.height + 70 // espacio para el texto
-                
-                ctx.font = "20px Arial"
-                ctx.fillStyle = textColor
-                ctx.textAlign = "center"
-                ctx.fillText(text, canvas.width / 2, img.height + 47)
-            }
 
             // configurar color de fondo
             if (backgroundOptions.isGradient) {
-            
                 // convertir a radian
                 const angleRad = backgroundOptions.angle * Math.PI / 180
                 // calcular dirección del gradiente en el canvas
@@ -54,8 +41,15 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
             } else {
                 ctx.fillStyle = backgroundOptions.color1
             }
-
             ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+            // dibujar texto debajo si hay
+            if (text) {
+                ctx.font = "20px Arial"
+                ctx.fillStyle = textColor
+                ctx.textAlign = "center"
+                ctx.fillText(text, canvas.width / 2, img.height + margin / 2 + 47)
+            }
 
             // dibujar QR
             ctx.drawImage(img, margin / 2, margin / 2)
@@ -87,7 +81,6 @@ export function downloadPrint(event, qrCode, backgroundOptions, textColor) {
                 }, "image/png")
             } else if (action ==="share") {
                 canvas.toBlob(blob => {
-                    // 👉 Plan B: subir a Cloudinary y mostrar menú estilo YouTube
                     uploadQrToCloudinary(canvas, (url) => {
                         showShareMenu(url)
                     })
@@ -186,10 +179,4 @@ function showShareMenu(url) {
             menu.remove() // elimina después de la animación
         }, { once: true })
     })
-}
-
-
-export function changeShareIcon() {
-    const url = menu.dataset.url
-    showShareMenu(url)
 }

@@ -1,7 +1,8 @@
-import { downloadPrint, changeShareIcon } from "./functions/utilities.js"
-import { createQR, updateQrContentStyle, getQrCode, getGradientBackgroundTextCheckbox, getBackgroundTextColor1, getBackgroundTextColor2, getBackgroundTextColorAngle, getTextColor } from "./functions/qr.js"
+
+import { generateQR } from "./functions/qr.js"
 import { setLogoSrc } from "./functions/qr.js"
 import { getPlatform } from "./functions/regexLink.js"
+import { resetQR } from "./functions/resetConfig.js"
 
 let logoSrc = null
 
@@ -135,9 +136,10 @@ function showInputs() {
     }
 }
 
-document.getElementById("button-gen").addEventListener("click", generateQR)
+document.getElementById("button-gen").addEventListener("click", inputSelected)
+
 // GENERADOR DE QR
-function generateQR() {
+function inputSelected() {
     // creacion del div que va a contener el QR junto al botón para descargar
     const qrContainer = document.querySelector(".qr-container")
     qrContainer.innerHTML = `
@@ -155,54 +157,7 @@ function generateQR() {
 
         </div>
     `
-    // botón de descarga e impresion
-    document.querySelectorAll("button[data-action]").forEach(btn => {
-        btn.addEventListener("click", (event) => {
-            downloadPrint(
-                event,
-                getQrCode(),
-                {
-                    color1: getBackgroundTextColor1(),
-                    color2: getBackgroundTextColor2(),
-                    isGradient: getGradientBackgroundTextCheckbox().checked,
-                    angle: Number(getBackgroundTextColorAngle()) || 0
-                },
-                getTextColor()
-            )
-        })
-    })
-
-
-    // Crear p para mostrar el texto en tiempo real
-    const qrContent = document.querySelector(".qr-content")
-    const qrTextInput = document.getElementById("qr-text")
-
-    let qrParagraph = null
-
-    qrTextInput.addEventListener("input", () => {
-        const text = qrTextInput.value.trim()
-
-        if (text === "") {
-            // eliminar <p> si existe
-            if (qrParagraph) {
-                qrParagraph.remove()
-                qrParagraph = null
-                // actializar el estilo del contenedor del QR + texto
-                updateQrContentStyle(false)
-            }
-        } else {
-            // crear etiqueta <p> si es que no existe y hay texto
-            if(!qrParagraph) {
-                qrParagraph = document.createElement("p")
-                qrContent.appendChild(qrParagraph)
-            }
-
-            // actualizar contenido del <p>
-            qrParagraph.textContent = text;
-            // actializar el estilo del contenedor del QR + texto
-            updateQrContentStyle(true)
-        }
-    })
+   
 
     let content
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
@@ -315,15 +270,14 @@ function generateQR() {
         content = option+input
     }
     
-    createQR(content)
+    generateQR(content)
 }
 
 
+document.getElementById("fullscreen-close").addEventListener("click", resetQR)
 
 const observer = new MutationObserver(() => {
- 
     const menu = document.querySelector('.share-menu')
     if (menu) { changeShareIcon(document.body.classList.contains('dark-mode')) }
 })
-
 observer.observe(document.body, { attributes: true, attributeFilter: ['class'] })

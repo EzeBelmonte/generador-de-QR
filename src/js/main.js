@@ -1,4 +1,4 @@
-
+import "./functions/qrListeners.js"
 import { generateQR } from "./functions/qr.js"
 import { setLogoSrc } from "./functions/qr.js"
 import { getPlatform } from "./functions/regexLink.js"

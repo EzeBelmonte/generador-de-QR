@@ -1,7 +1,13 @@
-import { setLogoSrc } from "./qr.js"
+import { setLogoSrc, setGradientBackgroundCheckbox, setGradientModuleCheckbox, setGradientPatternExtCheckbox, setGradientPatternIntCheckbox } from "./qr.js"
+import { updateQrContentStyle } from "./updateStyle.js"
 
 export function resetQR() {
     document.getElementById("fullscreen-container").classList.remove("active")
+
+    setGradientBackgroundCheckbox(false)
+    setGradientModuleCheckbox(false)
+    setGradientPatternExtCheckbox(false)
+    setGradientPatternIntCheckbox(false)
 
     // Resetear inputs/selects
     document.getElementById("size").value = ""
@@ -40,6 +46,9 @@ export function resetQR() {
     document.getElementById("color-background-text-gradient").disabled = true
     document.getElementById("color-background-text-angle").disabled = true
     document.getElementById("color-background-text-reset").disabled = true
+
+    const currentSize = Number(document.getElementById("size").value) || 200
+    updateQrContentStyle(false, currentSize)
 
     document.querySelector('input[name="module-type"][value="square"]').checked = true
     document.querySelector('input[name="pattern-type"][value="square"]').checked = true

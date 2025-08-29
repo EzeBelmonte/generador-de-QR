@@ -330,7 +330,7 @@ input:disabled {
 
 .qr-container canvas,
 .qr-container img {
-  max-width: 350px; 
+  max-width: 340px; 
   height: auto;   /* mantiene la proporción */
 }
 

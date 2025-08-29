@@ -53,7 +53,6 @@ export function updateQrContentStyle(hasText = false, size = 300) {
         qrContent.style.height = `${(size + margin + extraTextSpace)}px`
         qrContent.style.padding = `${margin/2}px 0 0 0`
         qrContent.style.alignItems = "center" // centrar QR horizontalmente
-        //qrContent.style.justifyContent = "center"
 
         colorBackgroundText1.disabled = false
         colorText.disabled = false
@@ -63,8 +62,8 @@ export function updateQrContentStyle(hasText = false, size = 300) {
         if (p) {
             p.style.fontSize = `${size / 10}px`
             p.style.color = textColor
-            p.style.margin = `${(margin/2)}px`
-            //p.style.paddingTop = `${(margin/2)}px` // colocar debajo del QR
+            p.style.margin = "0 0 20px 0"
+            p.style.paddingTop = `${(margin /2)}px` // colocar debajo del QR
             p.style.textAlign = "center"
         }
     } else {

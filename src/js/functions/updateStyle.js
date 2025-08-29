@@ -1,12 +1,16 @@
 import { getTextColor } from "./qr.js"
 
-export function updateQrContentStyle(hasText = false, size = 200) {
-    const textColor = getTextColor()
-    
+export function updateQrContentStyle(hasText = false, size = 300) {
     // div que contiene el QR
     const qrContent = document.querySelector(".qr-content")
-    if (!qrContent) return
 
+    if (!qrContent || size > 800) return
+    
+    const parent = qrContent.parentElement
+    const maxWidth = parent.maxWidth
+    const maxHeight = parent.maxHeight
+
+    const textColor = getTextColor()
     const configDisabled = document.querySelectorAll(".config-custom-disabled")
 
     // inputs de los colores de fondo y texto
@@ -17,10 +21,13 @@ export function updateQrContentStyle(hasText = false, size = 200) {
     const colorText = document.getElementById("color-text")
     const buttonBackgroundTextReset =  document.getElementById("color-background-text-reset")
 
-    
+    size = Math.max(300, Math.min(350, size))
+
+    const ctxMargin = Math.floor(size / 10)
+    const margin = Math.max(20, Math.min(80, ctxMargin))
+
     // Calcular márgenes dinámicos
-    const margin = 20
-    const extraTextSpace = hasText ? 70 : 0
+    const extraTextSpace = hasText ? (size / 10 + 50) : 0
 
     // si hay texto, se actualiza los estilos
     if (hasText) {
@@ -35,7 +42,7 @@ export function updateQrContentStyle(hasText = false, size = 200) {
         if (gradientBackgroundTextCheckbox.checked) {
             colorBackgroundText2.disabled = false
             // Ajuste de ángulo para que coincida con canvas
-            const cssAngle = (parseFloat(backgroundTextColorAngle.value) - 90 + 360) % 360
+            const cssAngle = (parseFloat(backgroundTextColorAngle.value) + 90 + 360) % 360
             qrContent.style.background = `linear-gradient(${cssAngle}deg, ${colorBackgroundText1.value}, ${colorBackgroundText2.value})`
         } else {
             colorBackgroundText2.disabled = true
@@ -46,10 +53,11 @@ export function updateQrContentStyle(hasText = false, size = 200) {
         // Tamaño dinámico igual al canvas
         qrContent.style.display = "flex"
         qrContent.style.flexDirection = "column"
-        qrContent.style.width = (size + margin) + "px"
-        qrContent.style.height = (size + margin + extraTextSpace) + "px"
+        qrContent.style.width =  `${(size + margin)}px`
+        qrContent.style.height = `${(size + margin + extraTextSpace + 30)}px`
         qrContent.style.padding = `${margin/2}px 0 0 0`
         qrContent.style.alignItems = "center" // centrar QR horizontalmente
+        //qrContent.style.justifyContent = "center"
 
         colorBackgroundText1.disabled = false
         colorText.disabled = false
@@ -57,9 +65,10 @@ export function updateQrContentStyle(hasText = false, size = 200) {
         // Aplicar color de texto y posición
         const p = qrContent.querySelector("p")
         if (p) {
+            p.style.fontSize = `${size / 10}px`
             p.style.color = textColor
             p.style.margin = "0"
-            p.style.paddingTop = `${(margin/2) + 10}px` // colocar debajo del QR
+            p.style.paddingTop = `${(margin/2) + 5}px` // colocar debajo del QR
             p.style.textAlign = "center"
         }
     } else {

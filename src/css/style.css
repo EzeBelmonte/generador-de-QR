@@ -282,8 +282,11 @@ input:disabled {
 }
 
 .qr-content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 210px;
-    max-height: 400px;
     margin-bottom: 15px;
 }
 
@@ -309,6 +312,7 @@ input:disabled {
 .qr-container,
 .config-container {
     width: 98%;
+    max-height: 100vh;
     background-color: var(--bg-container);
     border: 1px solid var(--border-container);
     border-radius: 5px;

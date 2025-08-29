@@ -12,11 +12,11 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
     qrCode.getRawData("png").then(blob => {
         const img = new Image()
         img.onload = () => {
-            const ctxMargin = Math.floor(img.width * 0.1)
+            const ctxMargin = Math.floor(img.width / 10)
             const margin = Math.max(20, Math.min(80, ctxMargin)) // mínimo 20px, máximo 80px
 
             // si hay texto, sumamos espacio extra
-            const extraTextSpace = text ? 70 : 0
+            const extraTextSpace = text ? (img.width / 10 + 50) : 0
 
             // Crear canvas
             const canvas = document.createElement("canvas")
@@ -45,10 +45,10 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
 
             // dibujar texto debajo si hay
             if (text) {
-                ctx.font = "20px Arial"
+                ctx.font = `${img.width / 10}px Arial`//"20px Arial"
                 ctx.fillStyle = textColor
                 ctx.textAlign = "center"
-                ctx.fillText(text, canvas.width / 2, img.height + margin / 2 + 47)
+                ctx.fillText(text, canvas.width / 2, img.height + margin / 2 + (img.width / 10) + 27)
             }
 
             // dibujar QR

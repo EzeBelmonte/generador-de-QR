@@ -31,7 +31,7 @@ export function generateQR(content) {
                 {
                     color1: getBackgroundTextColor1(),
                     color2: getBackgroundTextColor2(),
-                    isGradient: getGradientBackgroundTextCheckbox(),
+                    isGradient: getGradientBackgroundTextCheckbox().checked,
                     angle: Number(getBackgroundTextColorAngle()) || 0
                 },
                 getTextColor()
@@ -48,7 +48,7 @@ export function generateQR(content) {
 
     qrTextInput.addEventListener("input", () => {
         const text = qrTextInput.value.trim()
-        const currentSize = Number(document.getElementById("size").value) || 200
+        const currentSize = Number(document.getElementById("size").value) || 300
 
         if (text === "") {
             if (qrParagraph) {
@@ -72,7 +72,7 @@ export function generateQR(content) {
     createQR(content)
 }
 
-export function createQR(text, size = 200, colorModule1 = "#000000", colorBackground1 = "#ffffff") {
+export function createQR(text, size = 300, colorModule1 = "#000000", colorBackground1 = "#ffffff") {
     // mostramos el contenedor general del QR y configuración
     document.getElementById("fullscreen-container").classList.add("active")
 
@@ -94,7 +94,7 @@ export function createQR(text, size = 200, colorModule1 = "#000000", colorBackgr
         width: size,
         height: size,
         data: text,
-        margin: 10, // margen alrededor
+        margin: 20, // margen alrededor
         dotsOptions: {
             color: colorModule1,
             type: "square"
@@ -125,7 +125,9 @@ export function createQR(text, size = 200, colorModule1 = "#000000", colorBackgr
 // ACTUALIZACION EN TIEMPO REAL
 export const updateQR = () => {
     const data = document.getElementById("qr-code").dataset.qrText
-    const size = Number(document.getElementById("size").value) || 200
+    const size = Number(document.getElementById("size").value) || 300
+
+    if (size > 800) return
 
     // fondo QR
     const colorBackgroundAngle = document.getElementById("color-background-angle").value

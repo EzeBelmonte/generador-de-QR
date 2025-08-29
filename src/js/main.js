@@ -11,11 +11,11 @@ document.querySelectorAll('input[name="qr-type"]').forEach(radio => {
     radio.addEventListener("change", showInputs)
 })
 
-// Mostrar los inputs correctos al cargar (ej: QR estándar por defecto)
+// Mostrar los inputs correctos al cargar
 window.addEventListener("DOMContentLoaded", showInputs)
 
 
-// muestra los inputs cuando se selecciona un tipo de QR
+// Muestra los inputs cuando se selecciona un tipo de QR
 function showInputs() {
     // radio seleccionado
     const qrSelectValue = document.querySelector('input[name="qr-type"]:checked').value
@@ -104,7 +104,7 @@ function showInputs() {
 
         socialInput.addEventListener("input", () => {
             if (socialSelect.value === "whatsapp") {
-                // Validar que empiece con + y tenga solo números después
+                // validar que empiece con + y tenga solo números después
                 const regex = /^\+\d+$/
                 if (!regex.test(socialInput.value)) {
                     socialInput.setCustomValidity("Ingresa un número válido con código de país, por ejemplo +54901123456789")
@@ -112,7 +112,7 @@ function showInputs() {
                     socialInput.setCustomValidity("")
                 }
             } else {
-                socialInput.setCustomValidity("");// limpiar validación para otras redes
+                socialInput.setCustomValidity(""); // limpiar validación para otras redes
             }
         })
 

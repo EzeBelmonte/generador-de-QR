@@ -26,9 +26,9 @@
     --bg-small-content: rgb(221, 235, 247);
 
     /* texts */
-    --title-color-container:rgb(58, 59, 59); /* títulos de los containers */
-    --title-color-content: rgb(98, 163, 238); /* títulos de cada content */
-    --title-option: black; /* título de cada opción de configuración */
+    --title-color-container:rgb(58, 59, 59); 
+    --title-color-content: rgb(98, 163, 238);
+    --title-option: black; 
     --text-color: black;
 
     /* inputs */
@@ -324,15 +324,14 @@ input:disabled {
 
 .qr-container canvas,
 .qr-container img {
-  max-width: 350px;   /* o el tamaño fijo que quieras mostrar */
+  max-width: 350px; 
   height: auto;   /* mantiene la proporción */
-  /*max-width: 100%;*/
 }
 
 .config-container {
     margin-left: auto;
-    max-height: 100vh;       /* que no se pase de la pantalla */
-    overflow-y: auto;       /* scroll vertical */
+    max-height: 100vh; 
+    overflow-y: auto;       
     overflow-x: hidden;     
 }
 
@@ -355,7 +354,6 @@ input:disabled {
 
 
 .config-custom-container {
-    /*width: 31%;*/
     width: 100%;
     min-height: 140px;
     flex-direction: column;
@@ -434,12 +432,12 @@ input:disabled {
     transform: translateX(-50%);
 
     opacity: 0;
-    visibility: hidden; /* oculto */
+    visibility: hidden;
     transition: opacity 0.3s;
     z-index: 10;
 }
 
-/* Mostrar tooltip al pasar el mouse sobre el ? */
+/* mostrar tooltip al pasar el mouse sobre el ? */
 .tooltip-wrapper:hover .tooltiptext {
     opacity: 1;
     visibility: visible;
@@ -450,7 +448,7 @@ input:disabled {
 .file-wrapper {
     display: flex;
     flex-direction: column; /* pone el span debajo */
-    align-items: center; /* opcional, alinea a la izquierda */
+    align-items: center;
     margin-top: 21px;
     gap: 5px;
 }
@@ -484,62 +482,6 @@ input:disabled {
 .custom-file-button input[type="file"] {
     display: none; /* ocultamos el input original */
 }
-
-
-/* CÁMARA */
-.cam-button {
-    display: none;
-    background-color: rgb(94, 128, 221);
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    padding: 4px;
-    border: none;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    z-index: 20;
-
-    /* transición */
-    opacity: 0;
-    pointer-events: none;     
-    transition: opacity 0.5s ease;
-}
-
-.cam-button {
-    opacity: 1;
-    pointer-events: auto
-}
-
-.cam-button img {
-    width: 26px;
-}
-
-.cam-container {
-    position: fixed;
-    bottom: -100%;        /* arranca escondido */
-    left: 50%;            /* lo posiciono desde el centro */
-    transform: translateX(-50%); /* lo corro para centrarlo */
-    
-    width: 90%;           /* ancho relativo a la pantalla */
-    max-width: 400px;     /* límite máximo */
-    height: auto;
-
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.25);
-
-    padding: 15px;
-    transition: bottom 0.3s ease;
-    z-index: 10;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.cam-container.active {
-  bottom: 10px; /* sube y queda separado un poquito del borde inferior */
-}
-
 
 
 /* ======= BOTON DE MODO OSCURO ======= */

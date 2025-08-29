@@ -46,7 +46,7 @@ window.addEventListener("resize", handleConfigTitle)
 handleConfigTitle() 
 
 
-// movimiento con el mouse con el scroll cuando estoy con mouse y resolución <= 768
+// Movimiento con el mouse con el scroll cuando estoy con mouse y resolución <= 768
 const menu = document.getElementById("config-container")
 const mediaQuery = window.matchMedia("(max-width: 768px)")
 
@@ -57,5 +57,5 @@ function handleWheel(e) {
   }
 }
 
-// agregar listener
+// Agregar listener
 menu.addEventListener("wheel", handleWheel, { passive: false })

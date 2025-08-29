@@ -18,7 +18,7 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
             // si hay texto, sumamos espacio extra
             const extraTextSpace = text ? (img.width / 10 + 50) : 0
 
-            // Crear canvas
+            // crear canvas
             const canvas = document.createElement("canvas")
             canvas.width = img.width + margin
             canvas.height = img.height + margin + extraTextSpace
@@ -43,9 +43,9 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
             }
             ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-            // dibujar texto debajo si hay
+            // dibujar texto debajo si es que existe
             if (text) {
-                ctx.font = `${img.width / 10}px Arial`//"20px Arial"
+                ctx.font = `${img.width / 10}px Arial` // 10% del tamaño del QR
                 ctx.fillStyle = textColor
                 ctx.textAlign = "center"
                 ctx.fillText(text, canvas.width / 2, img.height + margin / 2 + (img.width / 10) + 27)
@@ -92,7 +92,7 @@ export function manageExportOptions(event, qrCode, backgroundOptions, textColor)
 }
 
 
-// ======= funciones para compartir =======
+// ======= Funciones para compartir =======
 function uploadQrToCloudinary(canvas, callback) {
     canvas.toBlob(async (blob) => {
         const formData = new FormData() 

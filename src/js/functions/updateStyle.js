@@ -1,7 +1,7 @@
 import { getTextColor } from "./qr.js"
 
 export function updateQrContentStyle(hasText = false, size = 300) {
-    // div que contiene el QR
+    // Div que contiene el QR
     const qrContent = document.querySelector(".qr-content")
 
     if (!qrContent || size > 800) return
@@ -9,7 +9,7 @@ export function updateQrContentStyle(hasText = false, size = 300) {
     const textColor = getTextColor()
     const configDisabled = document.querySelectorAll(".config-custom-disabled")
 
-    // inputs de los colores de fondo y texto
+    // Inputs de los colores de fondo y texto
     const colorBackgroundText1 = document.getElementById("color-background-text-1")
     const colorBackgroundText2 = document.getElementById("color-background-text-2")
     const gradientBackgroundTextCheckbox = document.getElementById("color-background-text-gradient")
@@ -34,10 +34,10 @@ export function updateQrContentStyle(hasText = false, size = 300) {
         gradientBackgroundTextCheckbox.disabled = false
         backgroundTextColorAngle.disabled = false
 
-        // Gradiente
+        // gradiente
         if (gradientBackgroundTextCheckbox.checked) {
             colorBackgroundText2.disabled = false
-            // Ajuste de ángulo para que coincida con canvas
+            // ajuste de ángulo para que coincida con canvas
             const cssAngle = (parseFloat(backgroundTextColorAngle.value) + 90 + 360) % 360
             qrContent.style.background = `linear-gradient(${cssAngle}deg, ${colorBackgroundText1.value}, ${colorBackgroundText2.value})`
         } else {
@@ -46,7 +46,7 @@ export function updateQrContentStyle(hasText = false, size = 300) {
             qrContent.style.background = colorBackgroundText1.value
         }
 
-        // Tamaño dinámico igual al canvas
+        // tamaño dinámico igual al canvas
         qrContent.style.display = "flex"
         qrContent.style.flexDirection = "column"
         qrContent.style.width =  `${(size + margin)}px`
@@ -57,7 +57,7 @@ export function updateQrContentStyle(hasText = false, size = 300) {
         colorBackgroundText1.disabled = false
         colorText.disabled = false
 
-        // Aplicar color de texto y posición
+        // aplicar color de texto y posición
         const p = qrContent.querySelector("p")
         if (p) {
             p.style.fontSize = `${size / 10}px`

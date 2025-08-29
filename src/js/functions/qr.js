@@ -4,7 +4,7 @@ import { manageExportOptions } from "./manageExportOptions.js"
 import { updateQrContentStyle } from "./updateStyle.js"
 
 
-// variables globales internas del módulo
+// Variables globales internas del módulo
 let gradientBackgroundCheckbox = false
 let gradientModuleCheckbox = false
 let gradientPatternExtCheckbox = false
@@ -40,7 +40,7 @@ export function generateQR(content) {
     })
 
 
-    // Crear p para mostrar el texto en tiempo real
+    // crear <p> para mostrar el texto en tiempo real
     const qrContent = document.querySelector(".qr-content")
     const qrTextInput = document.getElementById("qr-text")
 
@@ -73,7 +73,7 @@ export function generateQR(content) {
 }
 
 export function createQR(text, size = 300, colorModule1 = "#000000", colorBackground1 = "#ffffff") {
-    // mostramos el contenedor general del QR y configuración
+    // mostrar el contenedor general del QR y configuración
     document.getElementById("fullscreen-container").classList.add("active")
 
     const qrContainer = document.getElementById("qr-code")
@@ -106,7 +106,7 @@ export function createQR(text, size = 300, colorModule1 = "#000000", colorBackgr
         imageOptions: {
             crossOrigin: "anonymous",
             margin: 4,
-            imageSize: 0.25 // 20% del QR
+            imageSize: 0.25
         },
         qrOptions: {
             errorCorrectionLevel: "H" // usar "L", "M", "Q" o "H"
@@ -122,7 +122,8 @@ export function createQR(text, size = 300, colorModule1 = "#000000", colorBackgr
     animateQR()
 }
 
-// ACTUALIZACION EN TIEMPO REAL
+
+// ACTUALIZACION DEL QR
 export const updateQR = () => {
     const data = document.getElementById("qr-code").dataset.qrText
     const size = Number(document.getElementById("size").value) || 300
@@ -241,7 +242,7 @@ export function getTextColor() {
     return textColor
 }
 
-// animación de transición
+// Animación de transición
 function animateQR() {
     setTimeout(() => {
         document.getElementById("qr-code").style.opacity = 1

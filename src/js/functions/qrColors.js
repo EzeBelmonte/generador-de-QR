@@ -9,7 +9,7 @@ export function getBackgroundColor(gradientBackgroundCheckbox) {
         document.getElementById("color-background-2").disabled = false
         angleInput.disabled = false
         
-        // generar 5 stops (se puede aumentar para más suavidad)
+        // generar 5 stops (aumentar para más suavidad)
         const stops = [];
         const n = 5; // número de stops intermedios
         for (let i = 0; i < n; i++) {
@@ -31,12 +31,12 @@ export function getBackgroundColor(gradientBackgroundCheckbox) {
         angleInput.disabled = true
         return {
             color: colorBackground1,
-            gradient: undefined // desabilitar el gradiente para que funcione le color plano
+            gradient: undefined // deshabilitar el gradiente para que funcione le color plano
         }
     }
 }
 
-// colore de los dots
+// Colores de los dots
 export function getDotsColor (gradientModuleCheckbox) {
     
     const colorModule1 = document.getElementById("color-module-1").value
@@ -47,7 +47,7 @@ export function getDotsColor (gradientModuleCheckbox) {
         document.getElementById("color-module-2").disabled = false
         angleInput.disabled = false
         
-        // generar 5 stops (se puede aumentar para más suavidad)
+        // generar 5 stops (aumentar para más suavidad)
         const stops = [];
         const n = 5; // número de stops intermedios
         for (let i = 0; i < n; i++) {
@@ -69,12 +69,12 @@ export function getDotsColor (gradientModuleCheckbox) {
         angleInput.disabled = true
         return {
             color: colorModule1,
-            gradient: undefined // desabilitar el gradiente para que funcione le color plano
+            gradient: undefined // deshabilitar el gradiente para que funcione le color plano
         }
     }
 }
 
-// color del marco de los módulos de las esquinas
+// Colores del marco de los módulos de las esquinas
 export function getCornersSquareColor(gradientPatternExtCheckbox) {
 
     const colorPatternExt1 = document.getElementById("color-pattern-ext-1").value
@@ -85,7 +85,7 @@ export function getCornersSquareColor(gradientPatternExtCheckbox) {
         document.getElementById("color-pattern-ext-2").disabled = false
         angleInput.disabled = false
         
-        // generar 5 stops (se puede aumentar para más suavidad)
+        // generar 5 stops (aumentar para más suavidad)
         const stops = [];
         const n = 5; // número de stops intermedios
         for (let i = 0; i < n; i++) {
@@ -107,12 +107,12 @@ export function getCornersSquareColor(gradientPatternExtCheckbox) {
         angleInput.disabled = true
         return {
             color: colorPatternExt1,
-            gradient: undefined // desabilitar el gradiente para que funcione le color plano
+            gradient: undefined // deshabilitar el gradiente para que funcione le color plano
         }
     }
 }
 
-// color del marco de los módulos de las esquinas
+// Color del marco de los módulos de las esquinas
 export function getCornersDotColor(gradientPatternIntCheckbox) {
 
     const colorPatternInt1 = document.getElementById("color-pattern-int-1").value
@@ -123,7 +123,7 @@ export function getCornersDotColor(gradientPatternIntCheckbox) {
         document.getElementById("color-pattern-int-2").disabled = false
         angleInput.disabled = false
         
-        // generar 5 stops (se puede aumentar para más suavidad)
+        // generar 5 stops (aumentar para más suavidad)
         const stops = [];
         const n = 5; // número de stops intermedios
         for (let i = 0; i < n; i++) {
@@ -145,13 +145,13 @@ export function getCornersDotColor(gradientPatternIntCheckbox) {
         angleInput.disabled = true
         return {
             color: colorPatternInt1,
-            gradient: undefined // desabilitar el gradiente para que funcione le color plano
+            gradient: undefined // deshabilitar el gradiente para que funcione le color plano
         }
     }
 }
 
 
-// función para interpolar colores en RGB
+// Función para interpolar colores en RGB
 function interpolateColor(color1, color2, factor) {
     const c1 = parseInt(color1.slice(1), 16);
     const c2 = parseInt(color2.slice(1), 16);

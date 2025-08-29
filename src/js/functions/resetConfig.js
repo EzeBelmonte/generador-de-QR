@@ -1,6 +1,7 @@
 import { setLogoSrc, setGradientBackgroundCheckbox, setGradientModuleCheckbox, setGradientPatternExtCheckbox, setGradientPatternIntCheckbox } from "./qr.js"
 import { updateQrContentStyle } from "./updateStyle.js"
 
+// Resetear configuración
 export function resetQR() {
     document.getElementById("fullscreen-container").classList.remove("active")
 
@@ -9,7 +10,6 @@ export function resetQR() {
     setGradientPatternExtCheckbox(false)
     setGradientPatternIntCheckbox(false)
 
-    // Resetear inputs/selects
     document.getElementById("size").value = ""
 
     document.getElementById("color-background-1").value = "#ffffff"

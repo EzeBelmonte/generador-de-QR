@@ -220,45 +220,6 @@ input:disabled {
     padding: 25px;
 }
 
-/* ======= QR */
-#qr-code,
-.qr-content {
-    transition: 
-        opacity 0.5s ease-in-out, /* para mostrar/ocultar */
-        transform 0.3s ease,      /* para hover */
-        filter 0.3s ease;         /* para hover */
-}
-
-#qr-code {
-    opacity: 0;
-}
-
-#qr-code.visible {
-    opacity: 1;
-}
-
-.qr-content {
-    min-height: 210px;
-    margin-bottom: 15px;
-}
-
-.qr-content p {
-    font-size: 20px;
-    font-family: Arial;
-    text-align: center;
-}
-
-#qr-code:hover,
-.qr-content:hover {
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-    transform: scale(1.01);
-}
-
-.qr-type-radio-container {
-    display: flex;
-    gap: 20px;
-}
-
 
 /* ======= CONTENEDOR GENERAL DE QR Y CONFIGURACIÓN ======= */
 .fullscreen-container {
@@ -300,6 +261,47 @@ input:disabled {
 }
 .fullscreen-close:hover {
     color: var(--color-fullscreen-close-hover);
+}
+
+
+/* ======= QR */
+#qr-code,
+.qr-content {
+    transition: 
+        opacity 0.5s ease-in-out, /* para mostrar/ocultar */
+        transform 0.3s ease,      /* para hover */
+        filter 0.3s ease;         /* para hover */
+}
+
+#qr-code {
+    opacity: 0;
+}
+
+#qr-code.visible {
+    opacity: 1;
+}
+
+.qr-content {
+    min-height: 210px;
+    max-height: 400px;
+    margin-bottom: 15px;
+}
+
+.qr-content p {
+    font-size: 20px;
+    font-family: Arial;
+    text-align: center;
+}
+
+#qr-code:hover,
+.qr-content:hover {
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    transform: scale(1.01);
+}
+
+.qr-type-radio-container {
+    display: flex;
+    gap: 20px;
 }
 
 

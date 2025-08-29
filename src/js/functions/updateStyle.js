@@ -19,8 +19,7 @@ export function updateQrContentStyle(hasText = false, size = 200) {
 
     
     // Calcular márgenes dinámicos
-    const ctxMargin = Math.floor(size * 0.1)
-    const margin = Math.max(20, Math.min(80, ctxMargin))
+    const margin = 20
     const extraTextSpace = hasText ? 70 : 0
 
     // si hay texto, se actualiza los estilos
